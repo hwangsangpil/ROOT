@@ -1,0 +1,78 @@
+﻿
+
+
+
+/*----제휴할인-----*/
+.dc_list{width:90%; padding-left:5%;}
+.dc_list h2{width:100%;font-size:120%;color: #432481; border-bottom:2px solid #432481; padding:4% 0 3% 0 ;}
+.dc_list ul{padding:4% 0 4% 5%;}
+.dc_list li{float:left;width:36%; margin-bottom:3%;}
+.dc_list li.right_146{padding:0 22% 0 0 ;}
+.dc_list dl{}
+.dc_list dt{text-align:center;padding:0 0 3% 0 ;}
+.dc_list dd{font-size:90%;color:#443135;font-weight:bold; line-height:150%;text-align:center;}
+
+
+
+.dc_guide { position:relative;width:86%;border:2px solid #432481; padding:4%; margin:4% 0 4% 2% ;}
+.dc_guide dl{width:100%;}
+.dc_guide dt{font-size:80%;color:#432481;font-weight:bold; line-height:110%;text-align:left; padding-bottom:2%;}
+.dc_guide dt.tit_ico{background:url(../images/icon_check.jpg) no-repeat 0 2%;background-size:30px 30px; padding:0 0 2% 12%;}
+.dc_guide dd{padding:2% 0 0 1%;}
+.dc_guide ul{ padding:0;}
+.dc_guide li{float:none;width:100%;font-weight: lighter;margin:0;font-size:65%;color:#433034;line-height:120%; letter-spacing:-1px;padding:1% 0 2% 2%;text-align:left;}
+.dc_guide li.dc_guide_txt{background:url(../images/select01-1.png) no-repeat 0 40%;background-size:4px 4px; letter-spacing:1px;}
+.dc_guide li.dc_guide_txt02{background:url(../images/select01-1.png) no-repeat 0 25%;background-size:4px 4px;}
+.dc_guide .btm_img{position:absolute;bottom:5%;left:77%;width:20%;}
+
+
+.dc_card {width:100%;}
+.dc_card dl{width:100%;}
+.dc_card dt{float:left;width:30%;text-align:center;padding:9% 0 9% 12%;}
+.dc_card dd{float:left;width:40%; padding-left:8%;}
+.dc_card dd.card_tit{font-size:135%;color:#432481;font-weight:bold; line-height:150%;text-align:left;padding-top:9%;}
+.dc_card dd.card_option{font-size:90%;color:#ef3a32;line-height:100%;text-align:left;padding-top:2%; paddin-bottom:2%}
+
+.dc_detail {width:90%; border-top:2px dashed #432481;padding:3% 0 4% 0; margin-left:5%;}
+.dc_detail ul{}
+.dc_detail ul.card_pdng{ padding:5% 0 5% 0;}
+.dc_detail ul.coupon_pdng{ padding:5% 0 5% 0;}
+.dc_detail li{float:none;width:90%;text-align:left;}
+.dc_detail li.dc_detail_txt{background:url(../images/select01-1.png) no-repeat 0 17%;background-size:6px 6px;font-size:80%;color:#432481;line-height:120%; padding:0 0 5% 5%; letter-spacing :0.3px;}
+.dc_detail li.dc_detail_txt02{background:url(../images/select01-1.png) no-repeat 0 10%;background-size:6px 6px;font-size:80%;color:#432481;line-height:120%; padding:0 0 5% 5%; letter-spacing :0.3px;}
+.dc_detail li.dc_detail_txt03{font-size:80%;color:#ef3a32;font-weight:bold;line-height:120%; padding:0 0 0 4%;}
+.dc_detail_txt03_underline{ text-decoration:underline;}
+
+
+.dc_ex {width:100%; height:100%;background:#432481; opacity:0.8;}
+.dc_ex dl{}
+.dc_ex dt{font-size:100%;color:#f9edd4;font-weight:bold;text-align:center;padding:10% 0 5% 0 ;}
+.dc_ex dd{padding:0;font-size:80%;color:#f9edd4;line-height:150%;text-align:center;padding:0 0 10% 0 ;}
+
+
+
+.coupon_h {width:100%;}
+.coupon_h dl{width:100%;}
+.coupon_h dt{float:left;width:40%;text-align:center;padding:7% 0 7% 7%;}
+.coupon_h dd{float:left;width:40%;font-size:110%;color:#432481;font-weight:bold; line-height:100%;text-align:left;padding:9% 0 0 5%;}
+
+
+.coupon_list{width:100%;}
+.coupon_list ul{}
+.coupon_list li{border-bottom:1px solid #e3d5b4;}
+/* .coupon_list li a{display:block;width:100%;font-size:140%;color:#433034;font-weight:400;line-height:400%; padding:0 0 1% 7%;text-align:left; padding-bottom:5px; padding-left:26px; padding-top:5px; font-size:20px;} */
+.coupon_list li a{display:block;width:100%;color:#433034;font-weight:bold; padding:0 0 1% 7%;text-align:left; padding-bottom:18px; padding-left:29px; padding-top:18px; font-size:20px;}
+.coupon_list li a:link, .coupon_list li a:visited {}
+.coupon_list li a:hover, .coupon_list li a:active {background:url(../images/bg01_on.png)repeat-x;}
+
+
+.terms_txt{width:90%; height:80%; margin:5% 0 10% 5%;}
+.terms_txt dl{width:100%;}
+.terms_txt dt{font-size:100%;color:#433034;font-weight:bold; line-height:180%;padding:5% 0 5% 0;}
+.terms_txt dd{font-size:75%;color:#433034;line-height:150%;padding:0 0 5% 0;}
+.terms_txt dd.dd_finish{font-size:75%;color:#433034;line-height:150%;padding:0 0 5% 0;}
+.terms_txt dd.txt_18{font-size:95%;line-height:160%;}
+
+
+
+

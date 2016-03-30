@@ -1,0 +1,104 @@
+﻿/* CSS Document */
+
+
+
+img, fieldset{border:0;}
+ul{list-style:none;}
+.left{float:left;}
+.right{float:right;}
+.clear{clear:both;padding:0;margin:0;}
+.display_none{display:none;}
+/***********************************************************************************
+									    기본베이직
+***********************************************************************************/
+
+
+
+.txt_red{color:#F00;}
+.txt_grn{color:#67b32a;}
+.txt_blu{color:#0c89f1;}
+.txt_org{color:#f68b1f;}
+.txt_ff{color:#fff;}
+.txt_00{color:#000;}
+.txt_66{color:#666;}
+.txt_88{color:#888;}
+
+
+.div_position_r{position:relative; width:100%;}
+.txt_justify{ text-align:justify;}
+
+* {margin:0;padding:0;}
+
+html{overflow-y:scroll;} 
+html,  applet, object, iframe,
+h1, h2, h3, h4, h5, h6,  blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,table, caption, tbody, tfoot, thead, tr, th, 
+time, mark, audio, video, dl, dt, dd, ol, ul, li,fieldset, form, label, legend, td,.wf-active body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family:Malgun Gothic, sans-serif;
+}
+
+body,span, p, div, span,{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: inherit;
+}
+	
+body {
+	scrollbar-face-color: #FFFFFF;
+	scrollbar-shadow-color: #ededed;
+	scrollbar-highlight-color: #ededed;
+	scrollbar-3dlight-color: #FFFFFF;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-track-color: #FFFFFF;
+	scrollbar-arrow-color: #d4d4d4;
+}
+
+
+/* common */
+a img{border:0;}
+a{text-decoration:none; color: inherit;}
+input{vertical-align:middle;}
+.input_type1{border:1px solid #d4d4d4; height:21px;}
+.input_style01{height:20px;border:1px solid #d5d5d5; padding:3px 0 0 5px;}
+.textarea_style01{border:1px solid #d5d5d5; padding:10px;}
+
+
+
+hr, legend {display:none;}
+legend {
+	position:absolute;
+	text-indent:-1000em;
+}
+img,fieldset{border:0 none;}
+ul,ol,li{list-style:none outside;}
+input,textarea{vertical-align:bottom;font-family:Malgun Gothic, sans-serif;}   
+img{vertical-align:middle;}
+
+.left {float:left;}
+.right {float:right;}
+
+
+/* 넘치는 글 막기 */
+.overflo {
+ overflow: hidden;
+ text-overflow:ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용.*/
+ white-space:nowrap; /*<TD>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
+}
+
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;} /* 마지막단에서 clearfix 추가*/
+* html .clearfix {height:1%;}
+.clearfix {display:block;}
+
+/* 아이폰 가로모드시 글자크기 커지는것 방지*/
+*{-webkit-text-size-adjust:none} 
