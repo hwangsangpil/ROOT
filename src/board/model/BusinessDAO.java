@@ -24,8 +24,8 @@ public class BusinessDAO {
 		}catch(ClassNotFoundException e) {
 			System.out.println("Class not found "+ e);
 		}
-		//conn = DriverManager.getConnection("jdbc:mysql://localhost/hwangsangpil","hwangsangpil","hwangsangpil91");
-		conn = DriverManager.getConnection("jdbc:mysql://hwangsangpil.cafe24.com/hwangsangpil","hwangsangpil","hwangsangpil91");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hwangsangpil","hwangsangpil","hwangsangpil91");
+		//conn = DriverManager.getConnection("jdbc:mysql://hwangsangpil.cafe24.com/hwangsangpil","hwangsangpil","hwangsangpil91");
 	}
 	public void closeConn() throws SQLException{
 		  conn.close();
@@ -165,21 +165,9 @@ public class BusinessDAO {
 		return list;
 	}
 	
-	public int insertBusinessAdd(String constName, String busiName, String busiOpening,
+	public int insertBusinessAdd(int constNum, String busiName, String busiOpening,
 			 String busiPrice, String busiPercent, String busiWay,
 			String busiArea) throws SQLException {
-		System.out.println("들어갔니이름:"+constName);
-		//int constNum=0;
-		/*String sql2="SELECT CONSTRUCTION_NUM FROM TB_CONSTRUCTION WHERE CONSTRUCTION_NAME='"+constName+"'";
-		pstmt=conn.prepareStatement(sql2);
-		rs=pstmt.executeQuery();
-		System.out.println("들어갔니이름:"+constName);
-		
-		if(rs.next())
-		{
-			constNum=rs.getInt("constNum");
-			System.out.println("들어갔니:"+constNum);
-		}*/
 		
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
@@ -189,7 +177,7 @@ public class BusinessDAO {
 		try {
 			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			
-			pstmt.setString(1, constName);
+			pstmt.setInt(1, constNum);
 			pstmt.setString(2, busiName);
 			pstmt.setString(3, busiOpening);
 			pstmt.setString(4, busiPrice);
@@ -214,15 +202,7 @@ public class BusinessDAO {
 			e.printStackTrace();
 		} finally {
 			closeAll(rs, pstmt);
-			/*if (rs != null){
-				rs.close();
-			}
-			if (pstmt != null){
-				pstmt.close();
-			}
-			if (conn != null){
-				conn.close();
-			}*/
+
 		}
 		return result;
 	}

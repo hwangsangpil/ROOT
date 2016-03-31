@@ -45,7 +45,7 @@
 		
 		MultipartRequest mul = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
 		
-		String constName = StringUtil.nchk(mul.getParameter("constName"),"");
+		int constNum = Integer.parseInt(StringUtil.nchk(mul.getParameter("constNum"),"0"));
 		String busiName = StringUtil.nchk(mul.getParameter("busiName"),"");
 		String busiOpening = StringUtil.nchk(mul.getParameter("bisiOpening"),"");
 		String busiPrice = StringUtil.nchk(mul.getParameter("busiPrice"),"");
@@ -63,8 +63,7 @@
 		String otbMenuListImg = "";
 		String otbMenuContentImg = "";
 		
-		result = dao.insertBusinessAdd(constName, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
-		System.out.println("결과:"+result);
+		result = dao.insertBusinessAdd(constNum, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
 		if(result>0){
 			 /* if(otbOptionMenuNamea!=null){
 				for(int i=0; i<otbOptionMenuNamea.length;i++){

@@ -23,8 +23,8 @@ public class ConstructionDAO {
 		}catch(ClassNotFoundException e) {
 			System.out.println("Class not found "+ e);
 		}
-		//conn = DriverManager.getConnection("jdbc:mysql://localhost/hwangsangpil","hwangsangpil","hwangsangpil91");
-		conn = DriverManager.getConnection("jdbc:mysql://hwangsangpil.cafe24.com/hwangsangpil","hwangsangpil","hwangsangpil91");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hwangsangpil","hwangsangpil","hwangsangpil91");
+		//conn = DriverManager.getConnection("jdbc:mysql://hwangsangpil.cafe24.com/hwangsangpil","hwangsangpil","hwangsangpil91");
 	}
 	public void closeConn() throws SQLException{
 		  conn.close();

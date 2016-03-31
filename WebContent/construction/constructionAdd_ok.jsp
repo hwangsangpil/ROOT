@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="vo.OtbMenuVO"%>
-<%@ page import="dao.OtbMenuDao"%>
+<%@ page import="board.model.BusinessDTO"%>
+<%@ page import="board.model.BusinessDAO"%>
 <%@ page import="util.StringUtil"%>
 <%@ page import="util.HashUtil" %>
 <%@ page import="util.Constant" %>
@@ -39,56 +39,33 @@
 	
 	int result = 0;
 	int optionResult =0;
-	OtbMenuDao dao = new OtbMenuDao();
+	//OtbMenuDao dao = new OtbMenuDao();
+	BusinessDAO dao = new BusinessDAO();
 	try{
 		
 		MultipartRequest mul = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
 		
-		int otbCateBig = Integer.parseInt(StringUtil.nchk(mul.getParameter("otbCateBig"), "0"));
-		String otbMenuName = StringUtil.nchk(mul.getParameter("otbMenuName"),"");
-		String otbMenuEName = StringUtil.nchk(mul.getParameter("otbMenuEName"),"");
-		String otbMenuBasicName = StringUtil.nchk(mul.getParameter("otbMenuBasicName"),"");
-		String otbMenuBasicEName = StringUtil.nchk(mul.getParameter("otbMenuBasicEName"),"");
-		String otbMenuCode = StringUtil.nchk(mul.getParameter("otbMenuCode"),"");
-		int otbMenuPrice = Integer.parseInt(StringUtil.nchk(mul.getParameter("otbMenuPrice"), "0"));
-		String otbMenuContent = StringUtil.nchk(mul.getParameter("otbMenuContent"),"");
-		int otbMenuNew = Integer.parseInt(StringUtil.nchk(mul.getParameter("otbMenuNew"), "0"));
-		String otbOptionMenuNamea[] = mul.getParameterValues("otbOptionMenuNamea");
-		String otbOptionMenuPricea[] = mul.getParameterValues("otbOptionMenuPricea");
-		String otbOptionMenuCode[] = mul.getParameterValues("otbOptionMenuCode");
-		int otbOptionPrice =0;
-		int rptMenuGubun = 0;
-		int rptMenuReslut = 0;
-		if(otbMenuName.equals("")){
+		int constNum = Integer.parseInt(StringUtil.nchk(mul.getParameter("constNum"),"0"));
+		String busiName = StringUtil.nchk(mul.getParameter("busiName"),"");
+		String busiOpening = StringUtil.nchk(mul.getParameter("bisiOpening"),"");
+		String busiPrice = StringUtil.nchk(mul.getParameter("busiPrice"),"");
+		String busiPercent = StringUtil.nchk(mul.getParameter("busiPercent"),"");
+		String busiWay = StringUtil.nchk(mul.getParameter("busiWay"),"");
+		String busiArea = StringUtil.nchk(mul.getParameter("busiArea"),"");
+		
+		/* if(otbMenuName.equals("")){
 			otbMenuName = otbMenuBasicName;
 		}
 		if(otbMenuEName.equals("")){
 			otbMenuEName = otbMenuBasicEName;
-		}
+		} */
+		
 		String otbMenuListImg = "";
 		String otbMenuContentImg = "";
 		
-		f = mul.getFile("otbMenuListImg"); 
-		if (f !=null){
-			otbMenuListImg = StringUtil.nchk(f.getName(), "");
-		}
-		
-		f = mul.getFile("otbMenuContentImg"); 
-		if (f !=null){
-			otbMenuContentImg = StringUtil.nchk(f.getName(), "");
-		}
-		//RPT_MENU 기초 테이블에 mcode 값이 있는지 파악
-		rptMenuGubun = dao.selectRptMenuSeq(otbMenuCode);
-		if(rptMenuGubun >0){
-			//mcode 값이 있을경우 업데이트
-			rptMenuReslut = dao.updateRptMenu(otbMenuCode, otbMenuName, otbMenuEName, otbMenuPrice);
-		}else{
-			//mcode 값이 없을경우
-			rptMenuReslut = dao.insertRptMenu(otbMenuCode, otbMenuName, otbMenuEName, otbMenuPrice);
-		}
-		result = dao.insertOtbMenu(otbMenuCode, otbCateBig, otbMenuName, otbMenuListImg, otbMenuContentImg, otbMenuContent, otbMenuNew, otbMenuEName);
+		result = dao.insertBusinessAdd(constNum, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
 		if(result>0){
-			if(otbOptionMenuNamea!=null){
+			 /* if(otbOptionMenuNamea!=null){
 				for(int i=0; i<otbOptionMenuNamea.length;i++){
 					otbOptionPrice = Integer.parseInt(otbOptionMenuPricea[i]);
 					rptMenuGubun = dao.selectRptMenuSeq(otbOptionMenuCode[i]);
@@ -99,30 +76,12 @@
 					}
 					optionResult = dao.insertOtbMenuOption(result, otbOptionMenuNamea[i],otbOptionPrice,otbOptionMenuCode[i]);
 				}
-			}else{
-				optionResult = dao.insertOtbMenuOption(result, otbMenuName,otbMenuPrice,otbMenuCode);
-			}
+			} */
 				
 			
 			
 		}
-		if(otbMenuListImg.length() != 0)
-		{
-			if(result > 0){
-				Image image = JimiUtils.getThumbnail(uploadPath + otbMenuListImg, 200 , 200 , Jimi.IN_MEMORY);
-        		Jimi.putImage(image, uploadThumbPath + otbMenuListImg);
-			}
-			
-		}
 		
-		if(otbMenuContentImg.length() != 0)
-		{
-			if(result > 0){
-				Image image = JimiUtils.getThumbnail(uploadPath + otbMenuContentImg, 200 , 200 , Jimi.IN_MEMORY);
-        		Jimi.putImage(image, uploadThumbPath + otbMenuContentImg);
-			}
-			
-		}
 		
 	}catch(IOException e){
 		e.printStackTrace();
@@ -136,14 +95,14 @@
 %>
 		<script language=javascript>
 			alert("등록되었습니다.");
-			location.href = "/menu/otb_menu_list.jsp";
+			location.href = "/business/businessList.jsp";
 		</script>
 <%
 	}else{
 %>
 		<script language=javascript>
 			alert("등록 실패했습니다."); 
-			location.href = "/menu/otb_menu_list.jsp"; 
+			location.href = "/business/businessList.jsp"; 
 		</script>
 <%
 	}

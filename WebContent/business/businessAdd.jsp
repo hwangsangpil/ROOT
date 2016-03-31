@@ -95,7 +95,7 @@ $(document).ready(function() {
 
 function checkForm() {
 	
-	if($( "#constName" ).val() == -1){
+	if($( "#constNum" ).val() == -1){
 		alert("공고명 카테고리를 선택해 주세요.");
 		return;
 	}
@@ -144,7 +144,7 @@ function checkForm() {
 	                                    <form action="/business/businessAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
 												<div class="form-group">
-													<select name="constName" id="constName" class="form-control">
+													<select name="constNum" id="constNum" class="form-control">
 														<%
 															for(int i = 0; i<list.size(); i++){
 																ConstructionDTO dto = new ConstructionDTO();
@@ -217,3 +217,4 @@ function checkForm() {
 	</div>
 </body>
 </html>
+

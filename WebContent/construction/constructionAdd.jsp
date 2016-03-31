@@ -4,10 +4,21 @@
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
 <%@page import="util.Constant"%>
+<%@page import="board.model.ConstructionDTO"%>
+<%@page import="board.model.ConstructionDAO"%>
+<%
+
+request.setCharacterEncoding("UTF-8");
+ConstructionDAO dao = new ConstructionDAO();
+ArrayList<ConstructionDTO> list = new ArrayList<ConstructionDTO>();
+
+list = dao.selectConstructionList();
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>OTB CMS-OTB 메뉴 관리</title>
+<title>업체등록</title>
 <%@ include file="/include/inc_header.jsp"%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -83,79 +94,17 @@ $(document).ready(function() {
 });
 
 function checkForm() {
-	var couponImg = document.getElementById("otbMenuListImg").value;
-	var couponImgDetail = document.getElementById("otbMenuContentImg").value;
 	
-	var idx = couponImg.lastIndexOf(".")+1;
-	var idx2 = couponImg.lastIndexOf("\\")+1;
-	var couponImgCheck = couponImg.substring(idx2, couponImg.length).toLowerCase();
-	
-	var detail = couponImgDetail.lastIndexOf(".")+1;
-	var detail2 = couponImgDetail.lastIndexOf("\\")+1;
-	var detailCheck = couponImgDetail.substring(detail2, couponImgDetail.length).toLowerCase();
-	
-	if (couponImg.length != 0) {
-		for(i=0; i<couponImgCheck.length; i++){
-			var chk = couponImgCheck.charCodeAt(i);
-			if(chk>128){
-				alert("리스트 노출 이미지 파일명이 한글입니다.")
-				return;
-			}
-		}
-	}
-	
-	if (couponImgDetail.length != 0) {
-		for(i=0; i<detailCheck.length; i++){
-			var chk = detailCheck.charCodeAt(i);
-			if(chk>128){
-				alert("상세 노출 이미지파일명이 한글입니다.")
-				return;
-			}
-		}
-	}
-	
-	if($( "#otbCateBig" ).val() == -1){
-		alert("대메뉴 카테고리를 선택해 주세요.");
+	if($( "#constNum" ).val() == -1){
+		alert("공고명 카테고리를 선택해 주세요.");
 		return;
 	}
-		
-	 if (Validator.isEmpty("#otbMenuBasicName", "찾기를 클릭하셔서 메뉴를 선택해 주세요.")) { return; }
 	
 	registForm.submit();
 }
 
-function fnc_search_basic_menu(){
-	$('#ifrMenu').attr("src","/menu/otb_basic_menu_list.jsp");
-	$( "#dialog" ).dialog({
-		dialogClass: "no-close",
-		autoOpen: true,
-		resizable: false,
-		height:800,
-		width:800,
-		modal: true,
-		buttons: {
-			"닫기": function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	});
-}
-function fnc_search_basic_optionmenu(){
-	$('#ifrMenuOption').attr("src","/menu/otb_basic_option_menu_list.jsp");
-	$( "#optiondialog" ).dialog({
-		dialogClass: "no-close",
-		autoOpen: true,
-		resizable: false,
-		height:800,
-		width:800,
-		modal: true,
-		buttons: {
-			"닫기": function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	});
-}
+
+
 </script>
 </head>
 <body>
@@ -171,14 +120,14 @@ function fnc_search_basic_optionmenu(){
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">공고등록</div>
+						<div class="page-title">업체등록</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
 						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
+						<li class="active"><a href="#">업체</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active">공고등록</li>
+						<li class="active">업체등록</li>
 					</ol>
 					<div class="clearfix"></div>
 				</div>
@@ -190,141 +139,67 @@ function fnc_search_basic_optionmenu(){
 							<!-- 등록폼 -->
 							<div class="col-lg-8">
 								<div class="panel panel-green">
-	                                <div class="panel-heading">공고등록</div>
+	                                <div class="panel-heading">업체등록</div>
 	                                <div class="panel-body pan">
-	                                    <form action="constructionAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
+	                                    <form action="/business/businessAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
 												<div class="form-group">
-													<select name="otbCateBig" id="otbCateBig" class="form-control">
+													<select name="constNum" id="constNum" class="form-control">
+														<%
+															for(int i = 0; i<list.size(); i++){
+																ConstructionDTO dto = new ConstructionDTO();
+																dto = list.get(i);
+															
+														%>
+														<option value="<%=dto.getConstNum()%>"><%=dto.getConstName() %></option>
+														<%} %>
 													</select>
 												</div>
-												<div class="row">
-													<div class="col-md-6">
-														<div class="form-group">
-															<div class="input-icon right">
-																<i class="fa fa-tag"></i> <input id="otbMenuName"
-																	name="otbMenuName" type="text" placeholder="메뉴명(한글명)"
-																	class="form-control" />
-															</div>
-														</div>
-													</div>
-													<div class="col-md-6">
-														<button type="button" onclick="fnc_search_basic_menu();" class="btn btn-primary">찾기</button>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbMenuEName" name="otbMenuEName"
-															type="text" placeholder="메뉴명(영문명)" class="form-control"/>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbMenuBasicName" name="otbMenuBasicName"
-															type="text" placeholder="한글메뉴명(기초테이블)" class="form-control" readonly />
-													</div>
-												</div>
 													<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbMenuBasicEName" name="otbMenuBasicEName"
-															type="text" placeholder="영문메뉴명(기초테이블)" class="form-control" readonly/>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbMenuCode" name="otbMenuCode"
-															type="text" placeholder="메뉴코드" class="form-control" readonly />
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbMenuPrice" name="otbMenuPrice"
-															type="text" placeholder="판매가" class="form-control" readonly/>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="input-icon right">
-														<i class="fa fa-tag"></i> <input id="otbOptionMenuName" name="otbOptionMenuName"
-															type="text" placeholder="옵션명" class="form-control"/>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-6">
-														<div class="form-group">
-															<div class="input-icon right">
-																<i class="fa fa-tag"></i> <input id="otbOptionMenuPrice"
-																	name="otbOptionMenuPrice" type="text" placeholder="옵션가격"
-																	class="form-control" />
-															</div>
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="busiName"
+																name="busiName" type="text" placeholder="업체명"
+																class="form-control" />
 														</div>
 													</div>
-													
-													<div class="col-md-6">
-														<button type="button" onclick="javascript:addInputBox();" class="btn btn-primary">등록</button>
-														<button type="button" onclick="fnc_search_basic_optionmenu();" class="btn btn-primary">찾기</button>
-													</div>
-													
-												</div>
-												<!-- <div class="row">
-													<div class="col-md-4">
-														<div class="form-group">
-															<div class="input-icon right">
-																<i class="fa fa-tag"></i> <input id="otbOptionMenuName"
-																	name="otbOptionMenuName" type="text" placeholder="옵션명"
-																	class="form-control" />
-															</div>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="bisiOpening" name="bisiOpening"
+															type="text" placeholder="개찰일" class="form-control"/>
 														</div>
 													</div>
-													
-													<div class="col-md-4">
-														<div class="form-group">
-															<div class="input-icon right">
-																<input id="otbOptionMenuPrice"
-																	name="otbOptionMenuPrice" type="text" placeholder="옵션가격(숫자만 입력)"
-																	class="form-control" />
-															</div>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="busiPercent" name="busiPercent"
+															type="text" placeholder="업체사정률" class="form-control"/>
 														</div>
 													</div>
-													
-													<div class="col-md-4">
-														<button type="button" onclick="javascript:addInputBox();" class="btn btn-primary">등록</button>
-														<button type="button" onclick="fnc_search_basic_optionmenu();" class="btn btn-primary">찾기</button>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="busiPrice" name="busiPrice"
+															type="text" placeholder="예가변동폭" class="form-control"/>
+														</div>
 													</div>
-													
-												</div> -->
-												<br/>
-												<div id="addedFormDiv">
-												<label style="color:red">등록된 옵션</label>
-												</div>
-												<br/>
-												<div class="form-group">
-													<label for="inputAttachImg" class="control-label">
-														파일첨부(리스트노출)</label>
-													<input id="otbMenuListImg" name="otbMenuListImg" type="file" />
-												</div>
-												<div class="form-group">
-													<label for="inputAttachImg" class="control-label">
-														파일첨부(상세노출)</label>
-													<input id="otbMenuContentImg" name="otbMenuContentImg" type="file" />
-												</div>
-												<div class="form-group">
-													<label for="inputMessage" class="control-label">
-														내용</label>
-													<textarea id="otbMenuContent" name="otbMenuContent" rows="5" class="form-control"></textarea>
-												</div>
-												<div class="form-group mbn">
-													<div class="checkbox">
-														<label> <input id="otbMenuNew" name="otbMenuNew" type="checkbox" value="1"/>&nbsp;
-															신메뉴 등록
-														</label>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="busiWay" name="busiWay"
+															type="text" placeholder="계약방법" class="form-control"/>
+														</div>
 													</div>
-												</div>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="busiArea" name="busiArea"
+															type="text" placeholder="지역제한" class="form-control"/>
+														</div>
+													</div>
+												
 											</div>
-											<div class="form-actions text-right pal">
+												<div class="form-actions text-right pal">
 												<button type="button" onclick="checkForm();" class="btn btn-primary">등록</button>
-											</div>
-										</form>
-	                                </div>
+												</div>
+												</form>
+									</div>
+									
 	                            </div>	
 	                        </div>
 							<!-- 여기까지 등록 폼 -->	
@@ -340,15 +215,6 @@ function fnc_search_basic_optionmenu(){
 			<!--END PAGE WRAPPER-->
 		</div>
 	</div>
-	<div id="dialog" title="메뉴선택">
-		<div id="ifrTable">
-			<iframe name="ifrMenu" id="ifrMenu" width="100%" height="650px" style="border-width: 0px;" scrolling="no"></iframe>
-		</div>
-	</div>
-	<div id="optiondialog" title="옵션메뉴선택">
-		<div id="ifrTable">
-			<iframe name="ifrMenuOption" id="ifrMenuOption" width="100%" height="650px" style="border-width: 0px;" scrolling="no"></iframe>
-		</div>
-	</div>
 </body>
 </html>
+
