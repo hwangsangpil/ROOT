@@ -18,7 +18,7 @@ list = dao.selectConstructionList();
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>업체등록</title>
+<title>공고등록</title>
 <%@ include file="/include/inc_header.jsp"%>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
 function checkForm() {
 	
-	if($( "#constNum" ).val() == -1){
+	if($( "#constName" ).val() == -1){
 		alert("공고명 카테고리를 선택해 주세요.");
 		return;
 	}
@@ -120,14 +120,14 @@ function checkForm() {
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">업체등록</div>
+						<div class="page-title">공고등록</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
 						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active"><a href="#">업체</a>&nbsp;&nbsp;<i
+						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active">업체등록</li>
+						<li class="active">공고등록</li>
 					</ol>
 					<div class="clearfix"></div>
 				</div>
@@ -139,60 +139,61 @@ function checkForm() {
 							<!-- 등록폼 -->
 							<div class="col-lg-8">
 								<div class="panel panel-green">
-	                                <div class="panel-heading">업체등록</div>
+	                                <div class="panel-heading">공고등록</div>
 	                                <div class="panel-body pan">
-	                                    <form action="/business/businessAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
+	                                    <form action="/construction/constructionAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
-												<div class="form-group">
-													<select name="constNum" id="constNum" class="form-control">
-														<%
-															for(int i = 0; i<list.size(); i++){
-																ConstructionDTO dto = new ConstructionDTO();
-																dto = list.get(i);
-															
-														%>
-														<option value="<%=dto.getConstNum()%>"><%=dto.getConstName() %></option>
-														<%} %>
-													</select>
-												</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiName"
-																name="busiName" type="text" placeholder="업체명"
+															<i class="fa fa-tag"></i> <input id="constName"
+																name="constName" type="text" placeholder="공고명"
 																class="form-control" />
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="bisiOpening" name="bisiOpening"
-															type="text" placeholder="개찰일" class="form-control"/>
+															<i class="fa fa-tag"></i> <input id="constWay"
+																name="constWay" type="text" placeholder="계약방법"
+																class="form-control" />
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiPercent" name="busiPercent"
-															type="text" placeholder="업체사정률" class="form-control"/>
+															<i class="fa fa-tag"></i> <input id="constArea" name="constArea"
+															type="text" placeholder="지역제한" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiPrice" name="busiPrice"
+															<i class="fa fa-tag"></i> <input id="constPrice" name="constPrice"
 															type="text" placeholder="예가변동폭" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiWay" name="busiWay"
-															type="text" placeholder="계약방법" class="form-control"/>
+															<i class="fa fa-tag"></i> <input id="constLower" name="constLower"
+															type="text" placeholder="투찰하한율" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiArea" name="busiArea"
-															type="text" placeholder="지역제한" class="form-control"/>
+															<i class="fa fa-tag"></i> <input id="constOpening" name="constOpening"
+															type="text" placeholder="개찰일" class="form-control"/>
 														</div>
 													</div>
-												
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="constInstitution" name="constInstitution"
+															type="text" placeholder="공고기관" class="form-control"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="input-icon right">
+															<i class="fa fa-tag"></i> <input id="constPercent" name="constPercent"
+															type="text" placeholder="사정률" class="form-control"/>
+														</div>
+													</div>
+													
 											</div>
 												<div class="form-actions text-right pal">
 												<button type="button" onclick="checkForm();" class="btn btn-primary">등록</button>

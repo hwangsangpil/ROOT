@@ -204,4 +204,47 @@ public class ConstructionDAO {
 		return list;
 	}
 	
+	public int insertConstructionAdd(String constName, String constWay, String constArea,
+			 String constPrice, String constLower, String constOpening,
+			String constInstitution, String constPercent) throws SQLException {
+		
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("INSERT INTO TB_CONSTRUCTION(CONSTRUCTION_NAME, CONSTRUCTION_WAY, CONSTRUCTION_AREA, CONSTRUCTION_PRICE, CONSTRUCTION_LOWER, CONSTRUCTION_OPENING, CONSTRUCTION_INSTITUTION			\n");
+		sql.append("	, CONSTRUCTION_PERCENT, CRT_DATE)										\n");
+		sql.append("	   VALUES(?, ?, ?, ?, ?, ?, ?,?, now()) 					\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			
+			pstmt.setString(1, constName);
+			pstmt.setString(2, constWay);
+			pstmt.setString(3, constArea);
+			pstmt.setString(4, constPrice);
+			pstmt.setString(5, constLower);
+			pstmt.setString(6, constOpening);
+			pstmt.setString(7, constInstitution);
+			pstmt.setString(8, constPercent);
+			
+			result = pstmt.executeUpdate();
+			
+			if (result > 0) {
+				result = -1;
+				try {
+					rs = pstmt.getGeneratedKeys();
+					if (rs.next())
+						result = rs.getInt(1);
+				} catch (SQLException e) {
+					result = -1;
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+
+		}
+		return result;
+	}
+	
 }

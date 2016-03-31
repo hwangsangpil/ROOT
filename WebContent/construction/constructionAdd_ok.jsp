@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="board.model.BusinessDTO"%>
-<%@ page import="board.model.BusinessDAO"%>
+<%@ page import="board.model.ConstructionDTO"%>
+<%@ page import="board.model.ConstructionDAO"%>
 <%@ page import="util.StringUtil"%>
 <%@ page import="util.HashUtil" %>
 <%@ page import="util.Constant" %>
@@ -39,19 +39,20 @@
 	
 	int result = 0;
 	int optionResult =0;
-	//OtbMenuDao dao = new OtbMenuDao();
-	BusinessDAO dao = new BusinessDAO();
+	
+	ConstructionDAO dao = new ConstructionDAO();
 	try{
 		
 		MultipartRequest mul = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
 		
-		int constNum = Integer.parseInt(StringUtil.nchk(mul.getParameter("constNum"),"0"));
-		String busiName = StringUtil.nchk(mul.getParameter("busiName"),"");
-		String busiOpening = StringUtil.nchk(mul.getParameter("bisiOpening"),"");
-		String busiPrice = StringUtil.nchk(mul.getParameter("busiPrice"),"");
-		String busiPercent = StringUtil.nchk(mul.getParameter("busiPercent"),"");
-		String busiWay = StringUtil.nchk(mul.getParameter("busiWay"),"");
-		String busiArea = StringUtil.nchk(mul.getParameter("busiArea"),"");
+		String constName = StringUtil.nchk(mul.getParameter("constName"),"");
+		String constWay = StringUtil.nchk(mul.getParameter("constWay"),"");
+		String constArea = StringUtil.nchk(mul.getParameter("constArea"),"");
+		String constPrice = StringUtil.nchk(mul.getParameter("constPrice"),"");
+		String constLower = StringUtil.nchk(mul.getParameter("constLower"),"");
+		String constOpening = StringUtil.nchk(mul.getParameter("constOpening"),"");
+		String constInstitution = StringUtil.nchk(mul.getParameter("constInstitution"),"");
+		String constPercent = StringUtil.nchk(mul.getParameter("constPercent"),"");
 		
 		/* if(otbMenuName.equals("")){
 			otbMenuName = otbMenuBasicName;
@@ -63,7 +64,7 @@
 		String otbMenuListImg = "";
 		String otbMenuContentImg = "";
 		
-		result = dao.insertBusinessAdd(constNum, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
+		result = dao.insertConstructionAdd(constName, constWay, constArea, constPrice, constLower, constOpening, constInstitution, constPercent);
 		if(result>0){
 			 /* if(otbOptionMenuNamea!=null){
 				for(int i=0; i<otbOptionMenuNamea.length;i++){
@@ -95,14 +96,14 @@
 %>
 		<script language=javascript>
 			alert("등록되었습니다.");
-			location.href = "/business/businessList.jsp";
+			location.href = "/construction/constructionList.jsp";
 		</script>
 <%
 	}else{
 %>
 		<script language=javascript>
 			alert("등록 실패했습니다."); 
-			location.href = "/business/businessList.jsp"; 
+			location.href = "/construction/constructionList.jsp"; 
 		</script>
 <%
 	}

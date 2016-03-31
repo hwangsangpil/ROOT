@@ -21,7 +21,7 @@
 				
 			<li id="menu_member"><a href="/construction/constructionAdd.jsp"><i
 					class="fa fa-file-o fa-fw">
-				</i><span class="menu-title">공고입력</span></a></li>
+				</i><span class="menu-title">공고등록</span></a></li>
 			
 			<li id="menu_member"><a href="/business/businessList.jsp"><i
 					class="fa fa-file-o fa-fw">
