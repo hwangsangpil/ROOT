@@ -23,6 +23,9 @@ list = dao.selectConstructionList();
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#constName").focus();
+});
 var count = 1;
 var addCount;
 var addedFormDiv;
@@ -95,15 +98,19 @@ $(document).ready(function() {
 
 function checkForm() {
 	
-	if($( "#constName" ).val() == -1){
-		alert("공고명 카테고리를 선택해 주세요.");
-		return;
-	}
+	if (Validator.isEmpty("#constName", "공고명을 입력해주세요.")) { return; }
 	
 	registForm.submit();
 }
 
-
+function hitEnterKey(e){
+	  if(e.keyCode == 13){
+		  checkForm();
+	  }else{
+		  e.keyCode == 0;
+	 	  return;
+	  }
+	} 
 
 </script>
 </head>
@@ -147,50 +154,50 @@ function checkForm() {
 														<div class="input-icon right">
 															<i class="fa fa-pencil"></i> <input id="constName"
 																name="constName" type="text" placeholder="공고명"
-																class="form-control" />
+																class="form-control" tabindex="1" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-balance-scale"></i> <input id="constWay"
 																name="constWay" type="text" placeholder="계약방법"
-																class="form-control" />
+																class="form-control" tabindex="2" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-map-marker"></i> <input id="constArea" name="constArea"
-															type="text" placeholder="지역제한" class="form-control"/>
+															type="text" placeholder="지역제한" class="form-control" tabindex="3" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-bar-chart"></i> <input id="constPrice" name="constPrice"
-															type="text" placeholder="예가변동폭" class="form-control"/>
+															type="text" placeholder="예가변동폭" class="form-control" tabindex="4" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-line-chart"></i> <input id="constLower" name="constLower"
-															type="text" placeholder="투찰하한율" class="form-control"/>
+															type="text" placeholder="투찰하한율" class="form-control" tabindex="5" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-calendar"></i> <input id="constOpening" name="constOpening"
-															type="text" placeholder="개찰일" class="form-control"/>
+															type="text" placeholder="개찰일" class="form-control" tabindex="6" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-university"></i> <input id="constInstitution" name="constInstitution"
-															type="text" placeholder="공고기관" class="form-control"/>
+															type="text" placeholder="공고기관" class="form-control" tabindex="7" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-percent"></i> <input id="constPercent" name="constPercent"
-															type="text" placeholder="사정률" class="form-control"/>
+															type="text" placeholder="사정률" class="form-control" tabindex="8" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													

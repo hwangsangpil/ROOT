@@ -6,6 +6,7 @@
 <%@ page import="util.CookieBox"%>
 <%@ page import="util.HashUtil" %>
 <%@ page import="java.util.*" %>
+
 <%
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");

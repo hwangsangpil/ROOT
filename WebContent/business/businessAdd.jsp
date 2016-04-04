@@ -23,6 +23,9 @@ list = dao.selectConstructionList();
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#constNum").focus();
+});
 var count = 1;
 var addCount;
 var addedFormDiv;
@@ -92,18 +95,29 @@ $(document).ready(function() {
 	    }
 	});
 });
-
 function checkForm() {
+var busiName = document.getElementById("busiName").value;
 	
 	if($( "#constNum" ).val() == -1){
 		alert("공고명 카테고리를 선택해 주세요.");
 		return;
 	}
-	
+	if( busiName.length == 0 ) {
+		alert("업체명을 입력해주세요.");
+		document.getElementById("busiName").focus();
+		return;
+	}
 	registForm.submit();
 }
 
-
+function hitEnterKey(e){
+	  if(e.keyCode == 13){
+		  checkForm();
+	  }else{
+		  e.keyCode == 0;
+	 	  return;
+	  }
+	} 
 
 </script>
 </head>
@@ -144,7 +158,8 @@ function checkForm() {
 	                                    <form action="/business/businessAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
 												<div class="form-group">
-													<select name="constNum" id="constNum" class="form-control" >
+													<select name="constNum" id="constNum" class="form-control" tabindex="1" onKeypress="hitEnterKey(event)">
+														<option value="-1">공고 선택</option>
 														<%
 															for(int i = 0; i<list.size(); i++){
 																ConstructionDTO dto = new ConstructionDTO();
@@ -159,37 +174,37 @@ function checkForm() {
 														<div class="input-icon right">
 															<i class="fa fa-pencil"></i> <input id="busiName"
 																name="busiName" type="text" placeholder="업체명"
-																class="form-control" />
+																class="form-control" tabindex="2" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-calendar"></i> <input id="bisiOpening" name="bisiOpening"
-															type="text" placeholder="개찰일" class="form-control"/>
+															type="text" placeholder="개찰일" class="form-control" tabindex="3" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-percent"></i> <input id="busiPercent" name="busiPercent"
-															type="text" placeholder="업체사정률" class="form-control"/>
+															type="text" placeholder="업체사정률" class="form-control" tabindex="4" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-bar-chart"></i> <input id="busiPrice" name="busiPrice"
-															type="text" placeholder="예가변동폭" class="form-control"/>
+															type="text" placeholder="예가변동폭" class="form-control" tabindex="5" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-balance-scale"></i> <input id="busiWay" name="busiWay"
-															type="text" placeholder="계약방법" class="form-control"/>
+															type="text" placeholder="계약방법" class="form-control" tabindex="6" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
 															<i class="fa fa-map-marker"></i> <input id="busiArea" name="busiArea"
-															type="text" placeholder="지역제한" class="form-control"/>
+															type="text" placeholder="지역제한" class="form-control" tabindex="7" onKeypress="hitEnterKey(event)"/>
 														</div>
 													</div>
 												

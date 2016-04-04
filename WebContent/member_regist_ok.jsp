@@ -15,24 +15,21 @@
 	String memberName = StringUtil.nchk(request.getParameter("name"),"");
 	String memberPhone = StringUtil.nchk(request.getParameter("phone"),"");
 	String memberEmail = StringUtil.nchk(request.getParameter("email"),"");
-	
+	String branchCode = URLDecoder.decode(StringUtil.nchk(request.getParameter("branchCode"), "000"),"UTF-8");
+	int memberRole = Integer.parseInt(StringUtil.nchk(request.getParameter("role"),""));
+	/* 
 	System.out.println("memberId = "+ memberId);
 	System.out.println("memberPwd = "+ memberPwd);
 	System.out.println("memberName = "+ memberName);
 	System.out.println("memberPhone = "+ memberPhone);
 	System.out.println("memberEmail = "+ memberEmail);
-	
+	 */
 	int result = 0;
 	int optionResult =0;
 	AdminDao dao = new AdminDao();
 	
-	result = dao.insertMemberRegist(memberId, memberPwd, memberName, memberPhone, memberEmail);
-	if(result>0){
-		 
-	}
-		
-		
-	
+	result = dao.insertAdmin(memberId, HashUtil.encryptPassword(memberId,memberPwd), memberName, memberPhone, memberEmail, memberRole,branchCode);
+
 	if(result > 0){ 
 %>
 		<script language=javascript>

@@ -26,7 +26,7 @@
 		
 		function hitEnterKey(e){
 		  if(e.keyCode == 13){
-			  checkForm();
+			  signInForm();
 		  }else{
 			  e.keyCode == 0;
 		 	  return;
@@ -35,7 +35,7 @@
 	
 	</script>
 </head>
-<body style="background: url('images/bg/bg.png') 100% 100% fixed; margin-top: 22%;">
+<body style="background: url('images/bg/bg.png') 100% 100% fixed;">
     <div class="page-form">
         <div class="panel panel-blue">
             <div class="panel-body pan">
@@ -59,7 +59,7 @@
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-user"></i>
-                                <input type="text" id="id" name="id" placeholder="" class="form-control" tabindex="1" /></div>
+                                <input type="text" id="id" name="id" placeholder="" class="form-control" tabindex="1" onKeypress="hitEnterKey(event)"/></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,7 +78,7 @@
                                     &nbsp;
                                 </div>
                                 <div class="col-lg-9">
-                                        <button type="button" class="btn btn-default" onclick="signUpForm();" tabindex="3">
+                                    <button type="button" class="btn btn-default" onclick="signUpForm();" tabindex="4">
                                         Sign up</button>
                                     <button type="button" class="btn btn-default" onclick="signInForm();" tabindex="3">
                                         Sign In</button>

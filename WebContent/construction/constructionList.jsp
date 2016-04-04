@@ -21,7 +21,7 @@ dao.closeConn();
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>공고조회</title>
+<title>공고관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 	function pageLink(arg) {
@@ -58,12 +58,12 @@ dao.closeConn();
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">공고 관리</div>
+						<div class="page-title">공고관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="../first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active"><a href="#">공사</a>&nbsp;&nbsp;<i
+						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active">공고관리</li>
 					</ol>
@@ -80,7 +80,7 @@ dao.closeConn();
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="panel panel-yellow">
-												<div class="panel-heading">공사 목록</div>
+												<div class="panel-heading">공고관리</div>
 												<div class="mbl"></div>
 												<div class="col-lg-8">&nbsp;</div>
 												<div class="col-lg-4">
