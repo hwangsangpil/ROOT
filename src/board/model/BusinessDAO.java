@@ -207,5 +207,36 @@ public class BusinessDAO {
 		return result;
 	}
 	
+	/*
+	 * 비지니스 삭제
+	 */
+	public int deleteBusiness(int no) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_BUSINESS														\n");
+		sql.append("SET 														\n");
+		sql.append("	DEL_YN = 'Y' 												\n");
+		sql.append("WHERE BUSINESS_NUM = ?													\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, no);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+			/*if (rs != null){
+				rs.close();
+			}
+			if (pstmt != null){
+				pstmt.close();
+			}
+			if (conn != null){
+				conn.close();
+			}*/
+		}
+		return result;
+	}
 	
 }

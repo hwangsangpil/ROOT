@@ -16,23 +16,20 @@
 			<!-- 메뉴카테고리 관리 -->
 			<!-- 1차메뉴 -->
 			<li id="menu_member"><a href="/construction/constructionList.jsp"><i
-					class="fa fa-file-o fa-fw">
+					class="fa fa-list-ul">
 				</i><span class="menu-title">공고관리</span></a></li>
 				
 			<li id="menu_member"><a href="/construction/constructionAdd.jsp"><i
-					class="fa fa-file-o fa-fw">
+					class="fa fa-pencil-square-o">
 				</i><span class="menu-title">공고등록</span></a></li>
 			
 			<li id="menu_member"><a href="/business/businessList.jsp"><i
-					class="fa fa-file-o fa-fw">
+					class="fa fa-list-ul">
 				</i><span class="menu-title">업체관리</span></a></li>	
 				
 			<li id="menu_member"><a href="/business/businessAdd.jsp"><i
-					class="fa fa-file-o fa-fw">
+					class="fa fa-pencil-square-o">
 				</i><span class="menu-title">업체등록</span></a></li>	
-			
-			
-			
 			
 			<!-- 여기서 부터 UI 참조할수 있는 URL (추후 삭제예정) -->
 			<!-- 실제 메뉴와 구분하기 위한 공란 -->

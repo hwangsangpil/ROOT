@@ -144,7 +144,7 @@ function checkForm() {
 	                                    <form action="/business/businessAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
 												<div class="form-group">
-													<select name="constNum" id="constNum" class="form-control">
+													<select name="constNum" id="constNum" class="form-control" >
 														<%
 															for(int i = 0; i<list.size(); i++){
 																ConstructionDTO dto = new ConstructionDTO();
@@ -157,38 +157,38 @@ function checkForm() {
 												</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiName"
+															<i class="fa fa-pencil"></i> <input id="busiName"
 																name="busiName" type="text" placeholder="업체명"
 																class="form-control" />
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="bisiOpening" name="bisiOpening"
+															<i class="fa fa-calendar"></i> <input id="bisiOpening" name="bisiOpening"
 															type="text" placeholder="개찰일" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiPercent" name="busiPercent"
+															<i class="fa fa-percent"></i> <input id="busiPercent" name="busiPercent"
 															type="text" placeholder="업체사정률" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiPrice" name="busiPrice"
+															<i class="fa fa-bar-chart"></i> <input id="busiPrice" name="busiPrice"
 															type="text" placeholder="예가변동폭" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiWay" name="busiWay"
+															<i class="fa fa-balance-scale"></i> <input id="busiWay" name="busiWay"
 															type="text" placeholder="계약방법" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="busiArea" name="busiArea"
+															<i class="fa fa-map-marker"></i> <input id="busiArea" name="busiArea"
 															type="text" placeholder="지역제한" class="form-control"/>
 														</div>
 													</div>

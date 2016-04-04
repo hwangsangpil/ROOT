@@ -381,6 +381,7 @@ public class AdminDao {
 			pstmt.setString(2, adminPw);
 
 			rs = pstmt.executeQuery();
+			System.out.println(sql.toString());
 			if (rs.next()) {
 				vo.setSeqNo(rs.getInt("SEQ_NO"));
 				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
@@ -444,4 +445,49 @@ public class AdminDao {
 
 		return vo;
 	}
+	
+	/*
+	 *  멤버 회원가입
+	 */
+	public int insertMemberRegist(String memberId, String memberPwd, String memberName, String memberPhone, String memberEmail) throws SQLException {
+		
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("INSERT INTO																\n");
+		sql.append("		TB_ADMIN														\n");
+		sql.append("(ADMIN_ID, ADMIN_PW, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CRT_DATE)	\n");
+		sql.append("VALUES																	\n");
+		sql.append("(?, ?, ?, ?, ?, NOW())													\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberPwd);
+			pstmt.setString(3, memberName);
+			pstmt.setString(4, memberPhone);
+			pstmt.setString(5, memberEmail);
+			
+			result = pstmt.executeUpdate();
+			System.out.println(sql.toString());
+			if (result > 0) {
+				result = -1;
+				try {
+					rs = pstmt.getGeneratedKeys();
+					if (rs.next())
+						result = rs.getInt(1);
+				} catch (SQLException e) {
+					result = -1;
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+
+		}
+		return result;
+	}
+	
 }

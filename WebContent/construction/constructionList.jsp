@@ -107,6 +107,8 @@ dao.closeConn();
 																<td style="text-align:center; width: 5%">공고기관</td>
 																<td style="text-align:center; width: 5%">사정률</td>
 																<td style="text-align:center; width: 5%">입력날짜</td>
+																<td style="text-align:center; width: 5%">수정</td>
+																<td style="text-align:center; width: 5%">삭제</td>
 															</tr>
 														</thead>
 														<tbody>
@@ -126,6 +128,8 @@ dao.closeConn();
 																	<td><%=vo.getConstInstitution()%></td>
 																	<td><%=vo.getConstPercent()%></td>
 																	<td><%=vo.getCrtDate()%></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">삭제</button></td>
 																</tr>
 																
 																<%

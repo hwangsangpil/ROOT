@@ -43,6 +43,16 @@ dao.closeConn();
 	function memberView(no){
 		location.href = "member_view.jsp?no=" + no + "&pageno="+<%=pageno%>;
 	}
+	
+	function businessDel(no){
+		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			location.href = "busuness_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+		}else{
+			return;
+		}
+	}
+	
+	
 </script>
 </head>
 <body>
@@ -105,6 +115,8 @@ dao.closeConn();
 																<td style="text-align:center; width: 5%">계약방법</td>
 																<td style="text-align:center; width: 5%">지역제한</td>
 																<td style="text-align:center; width: 5%">입력날짜</td>
+																<td style="text-align:center; width: 5%">수정</td>
+																<td style="text-align:center; width: 5%">삭제</td>
 															</tr>
 														</thead>
 														<tbody>
@@ -122,6 +134,8 @@ dao.closeConn();
 																	<td><%=vo.getBusiWay()%></td>
 																	<td><%=vo.getBusiArea()%></td>
 																	<td><%=vo.getCrtDate()%></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
 																</tr>
 																
 																<%

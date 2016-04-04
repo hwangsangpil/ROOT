@@ -145,51 +145,51 @@ function checkForm() {
 	                                    	<div class="form-body pal">
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constName"
+															<i class="fa fa-pencil"></i> <input id="constName"
 																name="constName" type="text" placeholder="공고명"
 																class="form-control" />
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constWay"
+															<i class="fa fa-balance-scale"></i> <input id="constWay"
 																name="constWay" type="text" placeholder="계약방법"
 																class="form-control" />
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constArea" name="constArea"
+															<i class="fa fa-map-marker"></i> <input id="constArea" name="constArea"
 															type="text" placeholder="지역제한" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constPrice" name="constPrice"
+															<i class="fa fa-bar-chart"></i> <input id="constPrice" name="constPrice"
 															type="text" placeholder="예가변동폭" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constLower" name="constLower"
+															<i class="fa fa-line-chart"></i> <input id="constLower" name="constLower"
 															type="text" placeholder="투찰하한율" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constOpening" name="constOpening"
+															<i class="fa fa-calendar"></i> <input id="constOpening" name="constOpening"
 															type="text" placeholder="개찰일" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constInstitution" name="constInstitution"
+															<i class="fa fa-university"></i> <input id="constInstitution" name="constInstitution"
 															type="text" placeholder="공고기관" class="form-control"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="input-icon right">
-															<i class="fa fa-tag"></i> <input id="constPercent" name="constPercent"
+															<i class="fa fa-percent"></i> <input id="constPercent" name="constPercent"
 															type="text" placeholder="사정률" class="form-control"/>
 														</div>
 													</div>
