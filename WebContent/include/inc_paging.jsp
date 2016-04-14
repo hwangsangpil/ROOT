@@ -74,7 +74,7 @@
 	/**
 	* com.rush.comm.PageUtil class 객체 사용 시작페이지와 마감페이지를 가져온다 
 	*/
-	
+	//									10		 10			 1				3
 	PageUtil pageUtil = new PageUtil(pageSize, blockPage, currentPage, totalRecord);	
 	pageUtil.pageViewProcess();
 	startViewPage		= pageUtil.getStartViewPage(); 

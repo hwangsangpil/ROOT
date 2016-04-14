@@ -13,7 +13,7 @@ public class PageUtil
         startViewPage = 0;
         endViewPage = 0;
     }
-
+	//							10		 10			 1				3
     public PageUtil(int rowCount, int pageGroup, int pageNo, int totalRecord)
     {
         this.rowCount = 20;

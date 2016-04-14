@@ -3,6 +3,7 @@ package board.model;
 public class BusinessDTO {
 	private int busiNum;
 	private int constNum;
+	private String constName;
 	private String busiName;
 	private String busiOpening;
 	private String busiPercent;
@@ -10,6 +11,7 @@ public class BusinessDTO {
 	private String busiWay;
 	private String busiArea;
 	private String crtDate;
+	private String udtDate;
 	
 	public int getBusiNum() {
 		return busiNum;
@@ -22,6 +24,12 @@ public class BusinessDTO {
 	}
 	public void setConstNum(int constNum) {
 		this.constNum = constNum;
+	}
+	public String getConstName() {
+		return constName;
+	}
+	public void setConstName(String constName) {
+		this.constName = constName;
 	}
 	public String getBusiName() {
 		return busiName;
@@ -65,7 +73,12 @@ public class BusinessDTO {
 	public void setCrtDate(String crtDate) {
 		this.crtDate = crtDate;
 	}
-	
+	public String getUdtDate() {
+		return udtDate;
+	}
+	public void setUdtDate(String udtDate) {
+		this.udtDate = udtDate;
+	}
 	
 	
 	

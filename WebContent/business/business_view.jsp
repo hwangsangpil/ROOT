@@ -1,50 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="board.model.ConstructionDTO"%>
-<%@page import="board.model.ConstructionDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <%@page import="java.util.ArrayList"%>
+<%@page import="board.model.BusinessDTO"%>
+<%@page import="board.model.BusinessDAO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
 <%
 request.setCharacterEncoding("UTF-8");
-/* 
+
+/* int no2 = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "22"));
 int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
-System.out.println("Con default pageno2:   "+pageno2);
- */
+System.out.println("view default pageno2:   "+pageno2);
+System.out.println("view default no2:   "+no2); */
+
+int no = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "1"));
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-/* System.out.println("Con defaultpageno:   "+pageno);
-System.out.println("Con defaultsearchKeyword:  "+searchKeyword); */
-ConstructionDAO dao = new ConstructionDAO();
+/* 
+System.out.println("View default pageno:   "+pageno);
+System.out.println("View default searchKeyword:  "+searchKeyword);
+ */
+BusinessDAO dao = new BusinessDAO();
 
 String[] checked=request.getParameterValues("check");
-int totalcnt = dao.cntTotalMember(searchKeyword, checked);
-/* System.out.println("Con totalcnt:  "+totalcnt); */
-ArrayList<ConstructionDTO> list = dao.selectConstructionList(searchKeyword, pageno, totalcnt, checked);
+
+int totalcnt = dao.viewCntTotalMember(searchKeyword, no, checked);
+System.out.println("View totalcnt:     "+totalcnt);
+ArrayList<BusinessDTO> list = dao.businessView(no, pageno, searchKeyword, totalcnt, checked);
 dao.closeConn();
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>공고관리</title>
+<title>OTB CMS-설정</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
-	function pageLink(arg) {
-		document.frm.pageno.value = arg;
-		document.frm.submit();
-	}
+function pageLink(arg) {
+	document.frm.pageno.value = arg;
+	document.frm.submit();
+}
+
+function fnc_search(){
+	var searchKeyword = document.getElementById("searchKeyword").value;
 	
-	function fnc_search(){
-		var searchKeyword = document.getElementById("searchKeyword").value;
-		/* if( searchKeyword.length == 0 ) {
-			alert("검색어를 입력해주세요.");
-			document.getElementById("searchKeyword").focus();
-			return;
-		} */
-		document.frm.submit();
+	/* if( searchKeyword.length == 0 ) {
+		alert("검색어를 입력해주세요.");
+		document.getElementById("searchKeyword").focus();
+		return;
 	}
-	function businessView(no){
-		location.href = "../business/business_view.jsp?no=" + no + "&pageno="+<%=pageno%>;
+	  */
+	document.frm.submit();
+}
+
+function businessDel(no){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		location.href = "busuness_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+	}else{
+		return;
 	}
+}
+
+
+
 </script>
 </head>
 <body>
@@ -60,21 +79,22 @@ dao.closeConn();
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">공고관리</div>
+						<div class="page-title">업체관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
 						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
+						<li class="active"><a href="#">업체</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active">공고관리</li>
+						<li class="active">업체관리</li>
 					</ol>
 					<div class="clearfix"></div>
 				</div>
 				<!--END TITLE & BREADCRUMB PAGE-->
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
-					<form name="frm" action="/construction/constructionList.jsp" method="post">
+					<form name="frm" action="/business/business_view.jsp"+<%=pageno%>; method="post">
+						<input type="hidden" name="no" value="<%=no%>">
 						<input type="hidden" name="pageno" value="<%=pageno%>">
 						<div id="tab-general">
 							<div class="row mbl">
@@ -82,7 +102,7 @@ dao.closeConn();
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="panel panel-yellow">
-												<div class="panel-heading">공고관리</div>
+												<div class="panel-heading">업체관리</div>
 												<div class="mbl"></div>
 												<div class="col-lg-8">&nbsp;</div>
 												<div class="col-lg-4">
@@ -95,27 +115,25 @@ dao.closeConn();
 												</div>
 												<div class="col-lg-12">&nbsp;</div>
 												<div class="col-lg-12">&nbsp;</div>
-												<div class="panel-body" style="overflow: auto;">
+												<div class="panel-body" style="overflow:auto;">
 													<table class="table table-hover">
 														<thead>
 															<tr>
 																<th style="text-align:center; width: 5%">NO</th>
 																<td style="text-align:center; width: 5%">공고명<input type="checkbox" id="check" name="check" value="1" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">계약방법<input type="checkbox" id="check" name="check" value="2"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">지역제한<input type="checkbox" id="check" name="check" value="3"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">예가변동폭<input type="checkbox" id="check" name="check" value="4"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">투찰하한율<input type="checkbox" id="check" name="check" value="5"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">개찰일<input type="checkbox" id="check" name="check" value="6"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">공고기관<input type="checkbox" id="check" name="check" value="7"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 5%">사정률<input type="checkbox" id="check" name="check" value="8"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){ %>checked<%}}}%>/></td>
+																<td style="text-align:center; width: 5%">업체명<input type="checkbox" id="check" name="check" value="2" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></td>
+																<td style="text-align:center; width: 5%">개찰일<input type="checkbox" id="check" name="check" value="3" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></td>
+																<td style="text-align:center; width: 5%">예가변동폭<input type="checkbox" id="check" name="check" value="4" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></td>
+																<td style="text-align:center; width: 5%">사정률<input type="checkbox" id="check" name="check" value="5" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%> /></td>
+																<td style="text-align:center; width: 5%">계약방법<input type="checkbox" id="check" name="check" value="6" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%> /></td>
+																<td style="text-align:center; width: 5%">지역제한<input type="checkbox" id="check" name="check" value="7" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%> /></td>
 																<td style="text-align:center; width: 5%">입력날짜</td>
 																<td style="text-align:center; width: 5%">수정날짜</td>
 																<td style="text-align:center; width: 5%">수정</td>
@@ -126,22 +144,21 @@ dao.closeConn();
 															<%
 															if (list.size() > 0) {
 																for (int i=0; i<list.size(); i++) {
-																	ConstructionDTO vo = list.get(i);
+																	BusinessDTO vo = list.get(i);
 																	%>
-																<tr onclick="javascript:businessView(<%=vo.getConstNum() %>);" style="cursor: pointer;">
-																	<td style="text-align:center"><%=vo.getConstNum() %></td>
-																	<td><%=vo.getConstName() %></td>
-																	<td><%=vo.getConstWay()%></td>
-																	<td><%=vo.getConstArea()%></td>
-																	<td><%=vo.getConstPrice()%></td>
-																	<td><%=vo.getConstLower()%></td>
-																	<td><%=vo.getConstOpening()%></td>
-																	<td><%=vo.getConstInstitution()%></td>
-																	<td><%=vo.getConstPercent()%></td>
+																<tr style="cursor: pointer;">
+																	<td style="text-align:center"><%=vo.getBusiNum()%></td>
+																	<td><%=vo.getConstName()%></td>
+																	<td><%=vo.getBusiName()%></td>
+																	<td><%=vo.getBusiOpening()%></td>
+																	<td><%=vo.getBusiPrice()%></td>
+																	<td><%=vo.getBusiPercent()%></td>
+																	<td><%=vo.getBusiWay()%></td>
+																	<td><%=vo.getBusiArea()%></td>
 																	<td><%=vo.getCrtDate()%></td>
 																	<td><%=vo.getUdtDate()%></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">삭제</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
 																</tr>
 																
 																<%

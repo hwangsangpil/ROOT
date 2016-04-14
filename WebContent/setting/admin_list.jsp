@@ -9,13 +9,21 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
+/* int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
+System.out.println("Admin default pageno2:   "+pageno2) */;
+
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-
+/* 
+System.out.println("Admin defaultpageno:   "+pageno);
+System.out.println("Admin defaultsearchKeyword:  "+searchKeyword);
+ */
 AdminDao dao = new AdminDao();
-int totalcnt = dao.cntTotalAdmin();
-
-ArrayList<AdminVO> list = dao.selectAdminList(searchKeyword, pageno);
+ 
+ String[] checked=request.getParameterValues("check");
+int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
+/* System.out.println("Admin totalcnt:  "+totalcnt); */
+ArrayList<AdminVO> list = dao.selectAdminList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();	
 %>
 <!DOCTYPE html>
@@ -36,11 +44,11 @@ dao.closeConn();
 	function fnc_search(){
 		var searchKeyword = document.getElementById("searchKeyword").value;
 		
-		if( searchKeyword.length == 0 ) {
+		/* if( searchKeyword.length == 0 ) {
 			alert("검색어를 입력해주세요.");
 			document.getElementById("searchKeyword").focus();
 			return;
-		}
+		} */
 		 
 		document.frm.submit();
 	}
@@ -80,7 +88,7 @@ dao.closeConn();
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
 					<form name="frm" action="/setting/admin_list.jsp" method="post">
-						<input type="hidden" name="pageno" value="1">
+						<input type="hidden" name="pageno" value="<%=pageno%>">
 						<div id="tab-general">
 							<div class="row mbl">
 								<div class="col-lg-12">
@@ -91,7 +99,11 @@ dao.closeConn();
 												<div class="mbl"></div>
 												<div class="col-lg-8">&nbsp;</div>
 												<div class="col-lg-4">
-													<div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input type="text" id="searchKeyword" name="searchKeyword" placeholder="이름/아이디/이메일/폰번호" class="form-control"/><span class="input-group-btn"><button type="button" class="btn btn-default" onclick="javascript:fnc_search()">검색</button></span></div>
+													<div class="input-group">
+													<span class="input-group-addon">
+													<i class="fa fa-search"></i></span>
+													<input type="text" id="searchKeyword" name="searchKeyword" placeholder="이름/아이디/이메일/폰번호" class="form-control" value="<%=searchKeyword%>"/>
+													<span class="input-group-btn"><button type="button" class="btn btn-default" onclick="javascript:fnc_search()">검색</button></span></div>
 												</div>
 												<div class="col-lg-12">&nbsp;</div>
 												<div class="col-lg-12">&nbsp;</div>
@@ -100,10 +112,14 @@ dao.closeConn();
 														<thead>
 															<tr>
 																<th style="text-align:center">NO</th>
-																<th>관리자 이름</th>
-																<th>아이디</th>
-																<th>이메일</th>
-																<th>폰번호</th>
+																<th>관리자 이름<input type="checkbox" id="check" name="check" value="1" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></th>
+																<th>아이디<input type="checkbox" id="check" name="check" value="2" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></th>
+																<th>이메일<input type="checkbox" id="check" name="check" value="3" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></th>
+																<th>폰번호<input type="checkbox" id="check" name="check" value="4" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></th>
 																<th>생성일</th>
 															</tr>
 														</thead>

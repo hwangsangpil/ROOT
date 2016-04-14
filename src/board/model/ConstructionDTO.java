@@ -11,6 +11,7 @@ public class ConstructionDTO {
 	private String constInstitution;
 	private String constPercent;
 	private String crtDate;
+	private String udtDate;
 	
 	public int getConstNum() {
 		return constNum;
@@ -71,6 +72,12 @@ public class ConstructionDTO {
 	}
 	public void setCrtDate(String crtDate) {
 		this.crtDate = crtDate;
+	}
+	public String getUdtDate() {
+		return udtDate;
+	}
+	public void setUdtDate(String udtDate) {
+		this.udtDate = udtDate;
 	}
 	
 	

@@ -18,7 +18,6 @@
 	
 	String memseq = String.valueOf(vo.getSeqNo());
 	dao.closeConn();
-	System.out.println("vo.getSeqNo() = "+vo.getSeqNo());
 	if( vo.getSeqNo() == 0) {
 %>
 	<script language="javascript">
