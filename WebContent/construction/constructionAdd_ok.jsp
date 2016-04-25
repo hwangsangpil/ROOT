@@ -95,14 +95,14 @@
 	if(result > 0){ 
 %>
 		<script language=javascript>
-			alert("등록되었습니다.");
+			alert("등록 되었습니다.");
 			location.href = "/construction/constructionList.jsp";
 		</script>
 <%
-	}else{
-%>
+	}else{	
+%>		
 		<script language=javascript>
-			alert("등록 실패했습니다."); 
+			alert("등록에 실패하였습니다.\n이미 존재하는 공고명 입니다."); 
 			location.href = "/construction/constructionList.jsp"; 
 		</script>
 <%

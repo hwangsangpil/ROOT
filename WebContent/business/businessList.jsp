@@ -30,6 +30,11 @@ dao.closeConn();
 <title>업체관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
+	function down(){
+    
+		location.href = "exportToExcel.jsp?title=businessList.xls&pageno="+<%=pageno%>+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
+	}
+
 	function pageLink(arg) {
 		document.frm.pageno.value = arg;
 		document.frm.submit();
@@ -166,6 +171,7 @@ dao.closeConn();
 													<jsp:param name="rowCount" value="10"/> 
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
+												<div class="text-right pal"><button type="button" class="btn btn-primary" onclick="javascript:down()">엑셀 다운로드</button></div>
 											</div>
 										</div>
 									</div>

@@ -28,6 +28,11 @@ dao.closeConn();
 <title>공고관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
+	function down(){
+    
+    	location.href = "exportToExcel.jsp?title=constructionList.xls&pageno="+<%=pageno%>+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
+ 	}
+
 	function pageLink(arg) {
 		document.frm.pageno.value = arg;
 		document.frm.submit();
@@ -42,8 +47,17 @@ dao.closeConn();
 		} */
 		document.frm.submit();
 	}
+	
 	function businessView(no){
 		location.href = "../business/business_view.jsp?no=" + no + "&pageno="+<%=pageno%>;
+	}
+	
+	function constructionDel(no){
+		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			location.href = "construction_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+		}else{
+			return;
+		}
 	}
 </script>
 </head>
@@ -141,7 +155,7 @@ dao.closeConn();
 																	<td><%=vo.getCrtDate()%></td>
 																	<td><%=vo.getUdtDate()%></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">삭제</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="constructionDel(<%=vo.getConstNum()%>)">삭제</button></td>
 																</tr>
 																
 																<%
@@ -159,6 +173,7 @@ dao.closeConn();
 													<jsp:param name="rowCount" value="10"/> 
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
+												<div class="text-right pal"><button type="button" class="btn btn-primary" onclick="javascript:down()">엑셀 다운로드</button></div>
 											</div>
 										</div>
 									</div>

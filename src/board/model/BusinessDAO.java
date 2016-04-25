@@ -544,7 +544,8 @@ public class BusinessDAO {
 		int result = 0;
 		sql.append("INSERT INTO TB_BUSINESS(CONSTRUCTION_NUM, BUSINESS_NAME, BUSINESS_OPENING, BUSINESS_PRICE, BUSINESS_PERCENT, BUSINESS_WAY, BUSINESS_AREA			\n");
 		sql.append("	, CRT_DATE)										\n");
-		sql.append("	   VALUES(?, ?, ?, ?, ?, ?, ?, now()) 					\n");
+		sql.append("	  SELECT ?, ?, ?, ?, ?, ?, ?, now() FROM DUAL 					\n");
+		sql.append("WHERE NOT EXISTS(SELECT CONSTRUCTION_NUM, BUSINESS_NAME FROM TB_BUSINESS WHERE CONSTRUCTION_NUM=? AND BUSINESS_NAME=?)				\n");
 		try {
 			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			
@@ -555,6 +556,8 @@ public class BusinessDAO {
 			pstmt.setString(5, busiPercent);
 			pstmt.setString(6, busiWay);
 			pstmt.setString(7, busiArea);
+			pstmt.setInt(8, constNum);
+			pstmt.setString(9, busiName);
 			
 			result = pstmt.executeUpdate();
 			

@@ -361,7 +361,8 @@ public class ConstructionDAO {
 		int result = 0;
 		sql.append("INSERT INTO TB_CONSTRUCTION(CONSTRUCTION_NAME, CONSTRUCTION_WAY, CONSTRUCTION_AREA, CONSTRUCTION_PRICE, CONSTRUCTION_LOWER, CONSTRUCTION_OPENING, CONSTRUCTION_INSTITUTION			\n");
 		sql.append("	, CONSTRUCTION_PERCENT, CRT_DATE)										\n");
-		sql.append("	   VALUES(?, ?, ?, ?, ?, ?, ?,?, now()) 					\n");
+		sql.append("	   SELECT ?, ?, ?, ?, ?, ?, ?,?, now() FROM DUAL				\n");
+		sql.append("WHERE NOT EXISTS(SELECT CONSTRUCTION_NAME FROM TB_CONSTRUCTION WHERE CONSTRUCTION_NAME=?)				\n");
 		try {
 			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			
@@ -373,6 +374,7 @@ public class ConstructionDAO {
 			pstmt.setString(6, constOpening);
 			pstmt.setString(7, constInstitution);
 			pstmt.setString(8, constPercent);
+			pstmt.setString(9, constName);
 			
 			result = pstmt.executeUpdate();
 			
@@ -392,6 +394,38 @@ public class ConstructionDAO {
 		} finally {
 			closeAll(rs, pstmt);
 
+		}
+		return result;
+	}
+	
+	/*
+	 * 공고 삭제
+	 */
+	public int deleteConstruction(int no) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_CONSTRUCTION														\n");
+		sql.append("SET 														\n");
+		sql.append("	DEL_YN = 'Y' 												\n");
+		sql.append("WHERE CONSTRUCTION_NUM = ?													\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, no);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+			/*if (rs != null){
+				rs.close();
+			}
+			if (pstmt != null){
+				pstmt.close();
+			}
+			if (conn != null){
+				conn.close();
+			}*/
 		}
 		return result;
 	}

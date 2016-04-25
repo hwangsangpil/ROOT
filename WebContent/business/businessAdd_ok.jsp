@@ -101,7 +101,7 @@
 	}else{
 %>
 		<script language=javascript>
-			alert("등록 실패했습니다."); 
+			alert("등록에 실패하였습니다.\n이미 해당 공사에 참여한 업체명 입니다"); 
 			location.href = "/business/businessList.jsp"; 
 		</script>
 <%
