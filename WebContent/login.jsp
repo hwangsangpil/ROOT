@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputName" class="col-md-3 control-label">
-                            UserId:</label>
+                            UserId:<br>(guest)</label>
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-user"></i>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" class="col-md-3 control-label">
-                            Password:</label>
+                            Password:<br>(guest)</label>
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-lock"></i>

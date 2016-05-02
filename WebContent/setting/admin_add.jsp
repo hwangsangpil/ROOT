@@ -20,7 +20,6 @@ function checkForm() {
 	var adminPhone = document.getElementById("adminPhone").value;
 	var adminEmail = document.getElementById("adminEmail").value;
 	var adminRole = document.getElementById("adminRole");
-	var selectedAdminRole = adminRole.options[adminRole.selectedIndex].value;
 	
 	if( adminId.length == 0 ) {
 		alert("아이디를 입력해주세요.");

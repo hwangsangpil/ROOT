@@ -53,13 +53,6 @@
 		String busiWay = StringUtil.nchk(mul.getParameter("busiWay"),"");
 		String busiArea = StringUtil.nchk(mul.getParameter("busiArea"),"");
 		
-		/* if(otbMenuName.equals("")){
-			otbMenuName = otbMenuBasicName;
-		}
-		if(otbMenuEName.equals("")){
-			otbMenuEName = otbMenuBasicEName;
-		} */
-		
 		String otbMenuListImg = "";
 		String otbMenuContentImg = "";
 		
@@ -77,9 +70,6 @@
 					optionResult = dao.insertOtbMenuOption(result, otbOptionMenuNamea[i],otbOptionPrice,otbOptionMenuCode[i]);
 				}
 			} */
-				
-			
-			
 		}
 		
 		

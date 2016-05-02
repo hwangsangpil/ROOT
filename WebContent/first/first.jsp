@@ -31,7 +31,7 @@ request.setCharacterEncoding("UTF-8");
 										<div class="col-lg-12">
 											<div style="text-align: center; height: 100%; vertical-align: middle; font-size: 60px;">
 												</br></br>
-												Sangpils's World!!<br/>
+												<br/>
 												<div style="font-size: 40px;">좌측 메뉴를 선택해 주세요.<div>
 												
 											</div>

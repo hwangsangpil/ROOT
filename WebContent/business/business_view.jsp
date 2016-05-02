@@ -9,25 +9,17 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
-/* int no2 = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "22"));
-int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
-System.out.println("view default pageno2:   "+pageno2);
-System.out.println("view default no2:   "+no2); */
-
-int no = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "1"));
+int ConstNum = Integer.parseInt(StringUtil.nchk(request.getParameter("ConstNum"), "1"));
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-/* 
-System.out.println("View default pageno:   "+pageno);
-System.out.println("View default searchKeyword:  "+searchKeyword);
- */
+
 BusinessDAO dao = new BusinessDAO();
 
 String[] checked=request.getParameterValues("check");
 
-int totalcnt = dao.viewCntTotalMember(searchKeyword, no, checked);
-System.out.println("View totalcnt:     "+totalcnt);
-ArrayList<BusinessDTO> list = dao.businessView(no, pageno, searchKeyword, totalcnt, checked);
+int totalcnt = dao.viewCntTotalMember(searchKeyword, ConstNum, checked);
+
+ArrayList<BusinessDTO> list = dao.businessView(ConstNum, pageno, searchKeyword, totalcnt, checked);
 dao.closeConn();
 %>
 
@@ -37,6 +29,18 @@ dao.closeConn();
 <title>OTB CMS-설정</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
+function down(){
+	location.href = "exportToExcelView.jsp?title=businessList.xlsx&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
+}
+
 function pageLink(arg) {
 	document.frm.pageno.value = arg;
 	document.frm.submit();
@@ -54,9 +58,9 @@ function fnc_search(){
 	document.frm.submit();
 }
 
-function businessDel(no){
+function businessDel(BusiNum){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		location.href = "busuness_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+		location.href = "busuness_viewDel_ok.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>;
 	}else{
 		return;
 	}
@@ -94,7 +98,7 @@ function businessDel(no){
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
 					<form name="frm" action="/business/business_view.jsp"+<%=pageno%>; method="post">
-						<input type="hidden" name="no" value="<%=no%>">
+						<input type="hidden" name="ConstNum" value="<%=ConstNum%>">
 						<input type="hidden" name="pageno" value="<%=pageno%>">
 						<div id="tab-general">
 							<div class="row mbl">
@@ -176,6 +180,7 @@ function businessDel(no){
 													<jsp:param name="rowCount" value="10"/> 
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
+												<div class="text-right pal"><button type="button" class="btn btn-primary" onclick="javascript:down()">엑셀 다운로드</button></div>
 											</div>
 										</div>
 									</div>

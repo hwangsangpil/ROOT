@@ -1,5 +1,6 @@
 package board.model;
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,7 +181,7 @@ public class ConstructionDAO {
 		ArrayList<ConstructionDTO> list = new ArrayList<ConstructionDTO>();
 		int nCnt = 1;
 		int startRow =0;
-
+		
 		if(searchKeyword.length() <= 0){
 			startRow = (pageno - 1) * 10;
 		}
@@ -325,8 +326,8 @@ public class ConstructionDAO {
 		sql.append("SELECT																								\n");
 		sql.append("		CONSTRUCTION_NAME, CONSTRUCTION_NUM									\n");
 		sql.append("FROM																								\n");
-		sql.append("		TB_CONSTRUCTION																	\n");
-		
+		sql.append("		TB_CONSTRUCTION															\n");
+		sql.append("WHERE DEL_YN <> 'Y'														\n");
 		try{
 			pstmt = conn.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
@@ -401,33 +402,182 @@ public class ConstructionDAO {
 	/*
 	 * 공고 삭제
 	 */
-	public int deleteConstruction(int no) throws SQLException {
+	public int deleteConstruction(int ConstNum) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
-		sql.append("UPDATE TB_CONSTRUCTION														\n");
-		sql.append("SET 														\n");
-		sql.append("	DEL_YN = 'Y' 												\n");
-		sql.append("WHERE CONSTRUCTION_NUM = ?													\n");
+		sql.append("UPDATE TB_CONSTRUCTION													\n");
+		sql.append("SET										\n");
+		sql.append("DEL_YN = 'Y' 												\n");
+		sql.append("WHERE TB_CONSTRUCTION.CONSTRUCTION_NUM = ?								\n");
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, no);
-
+			pstmt.setInt(1, ConstNum);
+			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			closeAll(rs, pstmt);
-			/*if (rs != null){
-				rs.close();
-			}
-			if (pstmt != null){
-				pstmt.close();
-			}
-			if (conn != null){
-				conn.close();
-			}*/
 		}
 		return result;
+	}
+	
+	public int deleteConstructionView(int ConstNum) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_CONSTRUCTION JOIN TB_BUSINESS												\n");
+		sql.append("ON TB_CONSTRUCTION.CONSTRUCTION_NUM = TB_BUSINESS.CONSTRUCTION_NUM			\n");
+		sql.append("SET TB_BUSINESS.DEL_YN = 'Y' 												\n");
+		sql.append("WHERE TB_BUSINESS.CONSTRUCTION_NUM = ?								\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, ConstNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<ConstructionDTO> selectConstructionListExcel(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
+		ArrayList<ConstructionDTO> list = new ArrayList<ConstructionDTO>();
+		int nCnt = 1;
+		int startRow =0;
+
+		if(searchKeyword.length() <= 0){
+			startRow = (pageno - 1) * 10;
+		}
+		if(searchKeyword.length() > 0 && totalcnt>10){
+			if(((pageno -1) * 10) >= totalcnt){
+				startRow = 0;
+			}else{
+				startRow = (pageno - 1) * 10;
+			}
+		}
+		int endRow = 10;
+		/*
+		if(checked != null){
+			for(int i=0; i<checked.length;i++){
+			System.out.println("checked[]:    "+checked[i]);
+			}
+		}
+		*/
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT 					\n");
+		sql.append("CONSTRUCTION_NUM , CONSTRUCTION_NAME, CONSTRUCTION_WAY, CONSTRUCTION_AREA, CONSTRUCTION_PRICE, CONSTRUCTION_LOWER, CONSTRUCTION_OPENING, CONSTRUCTION_INSTITUTION, CONSTRUCTION_PERCENT, date_format(CRT_DATE, '%Y.%m.%d') as CRT_DATE, date_format(UDT_DATE, '%Y.%m.%d') as UDT_DATE 	\n");
+		sql.append("FROM 														\n");
+		sql.append("TB_CONSTRUCTION 														\n");
+		sql.append("WHERE DEL_YN <> 'Y' 														\n");
+		if(checked != null){
+			for(int i=0; i<checked.length; i++){
+				if(checked[i].equals("1")){
+					sql.append("AND CONSTRUCTION_NAME LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("2")){
+					sql.append("AND CONSTRUCTION_WAY LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("3")){
+					sql.append("AND CONSTRUCTION_AREA LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("4")){
+					sql.append("AND CONSTRUCTION_PRICE LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("5")){
+					sql.append("AND CONSTRUCTION_LOWER LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("6")){
+					sql.append("AND CONSTRUCTION_OPENING LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("7")){
+					sql.append("AND CONSTRUCTION_INSTITUTION LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("8")){
+					sql.append("AND CONSTRUCTION_PERCENT LIKE CONCAT('%',?,'%')			\n");
+				}
+			}	
+		}else if(searchKeyword.length() > 0){
+			sql.append("AND ( CONSTRUCTION_NAME LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR CONSTRUCTION_WAY LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_AREA LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_PRICE LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_LOWER LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_OPENING LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_INSTITUTION LIKE CONCAT('%',?,'%')					\n");
+			sql.append("OR CONSTRUCTION_PERCENT LIKE CONCAT('%',?,'%'))					\n");
+		}
+		sql.append("ORDER BY CONSTRUCTION_NUM DESC												\n");
+		sql.append("LIMIT ?, ?															\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			if(checked != null){
+				for(int i=0; i<checked.length; i++){
+					if(checked[i].equals("1")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("2")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("3")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("4")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("5")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("6")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("7")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("8")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+				}	
+		}else if(searchKeyword.length() > 0){
+				
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+			}
+			pstmt.setInt(nCnt++, startRow);
+			pstmt.setInt(nCnt++, endRow);
+			//System.out.println("Con selectpstmt:   "+pstmt.toString());
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ConstructionDTO vo = new ConstructionDTO();
+				vo.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				vo.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				vo.setConstWay(rs.getString("CONSTRUCTION_WAY"));
+				vo.setConstArea(rs.getString("CONSTRUCTION_AREA"));
+				vo.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
+				vo.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
+				vo.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
+				vo.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
+				vo.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
+				vo.setCrtDate(rs.getString("CRT_DATE"));
+				vo.setUdtDate(rs.getString("UDT_DATE"));
+
+				list.add(vo);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		return list;
 	}
 	
 }

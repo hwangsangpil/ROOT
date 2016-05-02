@@ -7,20 +7,13 @@
 <%@page import="util.DateUtil"%>
 <%
 request.setCharacterEncoding("UTF-8");
-/* 
-int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
-System.out.println("Busi default pageno2:   "+pageno2); */
 
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-/* 
-System.out.println("Busi defaultpageno:   "+pageno);
-System.out.println("Busi defaultsearchKeyword:  "+searchKeyword);
- */
+
 BusinessDAO dao = new BusinessDAO();
- String[] checked=request.getParameterValues("check");
+String[] checked=request.getParameterValues("check");
 int totalcnt = dao.cntTotalMember(searchKeyword, checked);
-//System.out.println("Busi totalcnt:  "+totalcnt);
 ArrayList<BusinessDTO> list = dao.selectBusinessList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();
 %>
@@ -31,8 +24,15 @@ dao.closeConn();
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 	function down(){
-    
-		location.href = "exportToExcel.jsp?title=businessList.xls&pageno="+<%=pageno%>+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
+		location.href = "exportToExcel.jsp?title=businessList.xlsx&pageno="+<%=pageno%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}
 
 	function pageLink(arg) {
@@ -51,9 +51,9 @@ dao.closeConn();
 		document.frm.submit();
 	}
 	
-	function businessDel(no){
+	function businessDel(BusiNum){
 		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-			location.href = "busuness_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+			location.href = "busuness_del_ok.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>;
 		}else{
 			return;
 		}

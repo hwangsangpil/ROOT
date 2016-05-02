@@ -78,9 +78,6 @@
 					optionResult = dao.insertOtbMenuOption(result, otbOptionMenuNamea[i],otbOptionPrice,otbOptionMenuCode[i]);
 				}
 			} */
-				
-			
-			
 		}
 		
 		

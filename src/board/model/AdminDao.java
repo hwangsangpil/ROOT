@@ -178,15 +178,6 @@ public class AdminDao {
 			e.printStackTrace();
 		} finally {
 			closeAll(rs, pstmt);
-			/*if (rs != null){
-				rs.close();
-			}
-			if (pstmt != null){
-				pstmt.close();
-			}
-			if (conn != null){
-				conn.close();
-			}*/
 		}
 		
 		return list;
@@ -466,4 +457,109 @@ public class AdminDao {
 		return vo;
 	}
 	
+	public ArrayList<AdminVO> selectAdminListExcel(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
+		ArrayList<AdminVO> list = new ArrayList<AdminVO>();
+		
+		int nCnt = 1;
+		int startRow =0;
+		
+		if(searchKeyword.length() <= 0){
+			startRow = (pageno - 1) * 10;
+		}
+		if(searchKeyword.length() > 0 && totalcnt>10){
+			if(((pageno -1) * 10) >= totalcnt){
+				startRow = 0;
+			}else{
+				startRow = (pageno - 1) * 10;
+			}
+		}
+		int endRow = 10;
+		/*
+		if(checked != null){
+			for(int i=0; i<checked.length;i++){
+			System.out.println("checked[]:    "+checked[i]);
+			}
+		}
+		*/
+		StringBuffer sql = new StringBuffer();
+
+		sql.append("SELECT SEQ_NO, ADMIN_NAME, ADMIN_ID, ADMIN_EMAIL, ADMIN_PHONE					\n");
+		sql.append("	, date_format(CRT_DATE, '%Y.%m.%d') as CRT_DATE					\n");
+		sql.append("	, date_format(UDT_DATE, '%Y.%m.%d') as UDT_DATE					\n");
+		sql.append("FROM TB_ADMIN 														\n");
+		sql.append("WHERE DEL_YN <> 'Y' 														\n");
+		if(checked != null){
+			for(int i=0; i<checked.length; i++){
+				if(checked[i].equals("1")){
+					sql.append("AND ADMIN_NAME LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("2")){
+					sql.append("AND ADMIN_ID LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("3")){
+					sql.append("AND ADMIN_EMAIL LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("4")){
+					sql.append("AND ADMIN_PHONE LIKE CONCAT('%',?,'%')			\n");
+				}
+			}	
+		}else if(searchKeyword.length() > 0){
+			sql.append("AND (ADMIN_NAME LIKE CONCAT('%',?,'%')		\n");
+			sql.append("OR ADMIN_ID LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR ADMIN_EMAIL LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%'))				\n");
+		}
+		sql.append("ORDER BY SEQ_NO DESC												\n");
+		sql.append("LIMIT ?, ?															\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			if(checked != null){
+				for(int i=0; i<checked.length; i++){
+					if(checked[i].equals("1")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("2")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("3")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+					if(checked[i].equals("4")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
+				}	
+		}else if(searchKeyword.length() > 0){
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+				pstmt.setString(nCnt++, searchKeyword);
+			}
+			pstmt.setInt(nCnt++, startRow);
+			pstmt.setInt(nCnt, endRow);
+			
+			System.out.println("Admin selectpstmt:   "+pstmt.toString());
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				AdminVO vo = new AdminVO();
+				vo.setSeqNo(rs.getInt("SEQ_NO"));
+				vo.setAdminName(rs.getString("ADMIN_NAME"));
+				vo.setAdminId(rs.getString("ADMIN_ID"));
+				vo.setAdminEmail(rs.getString("ADMIN_EMAIL"));
+				vo.setAdminPhone(rs.getString("ADMIN_PHONE"));
+				vo.setCrtDate(rs.getString("CRT_DATE"));
+				vo.setUdtDate(rs.getString("UDT_DATE"));
+
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		
+		return list;
+	}
 }

@@ -9,20 +9,14 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
-/* int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
-System.out.println("Admin default pageno2:   "+pageno2) */;
-
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-/* 
-System.out.println("Admin defaultpageno:   "+pageno);
-System.out.println("Admin defaultsearchKeyword:  "+searchKeyword);
- */
+
 AdminDao dao = new AdminDao();
  
  String[] checked=request.getParameterValues("check");
 int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
-/* System.out.println("Admin totalcnt:  "+totalcnt); */
+
 ArrayList<AdminVO> list = dao.selectAdminList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();	
 %>
@@ -32,6 +26,15 @@ dao.closeConn();
 <title>관리자 관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
+function down(){
+	location.href = "exportToExcel.jsp?title=adminList.xlsx&pageno="+<%=pageno%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
+}
+
 	function fnc_view(no, pageno){
 		location.href = "admin_view.jsp?no=" + no + "&pageno=" + pageno;
 	}
@@ -121,6 +124,7 @@ dao.closeConn();
 																<th>폰번호<input type="checkbox" id="check" name="check" value="4" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></th>
 																<th>생성일</th>
+																<th>수정일</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -134,17 +138,18 @@ dao.closeConn();
 																	%>
 																<tr style="cursor: pointer;" onclick="javascript:fnc_view('<%=vo.getSeqNo()%>','<%=pageno%>')">
 																	<td style="text-align:center"><%=vo.getSeqNo() %></td>
-																	<td><%=StringUtil.NVL(vo.getAdminName()) %></td>
-																	<td><%=StringUtil.NVL(vo.getAdminId()) %></td>
-																	<td><%=StringUtil.NVL(vo.getAdminEmail()) %></td>
-																	<td><%=StringUtil.NVL(vo.getAdminPhone()) %></td>
-																	<td><%=vo.getCrtDate() %></td>
+																	<td><%=vo.getAdminName() %></td>
+																	<td><%=vo.getAdminId()%></td>
+																	<td><%=vo.getAdminEmail()%></td>
+																	<td><%=vo.getAdminPhone()%></td>
+																	<td><%=vo.getCrtDate()%></td>
+																	<td><%=vo.getUdtDate()%></td>
 																</tr>
 																
 																<%
 																}
 															} else {
-																out.println("<tr><td align='center' colspan='6'>조회 결과가 없습니다.</td></tr>");
+																out.println("<tr><td align='center' colspan='7'>조회 결과가 없습니다.</td></tr>");
 															}
 															%>
 														</tbody>
@@ -156,7 +161,10 @@ dao.closeConn();
 													<jsp:param name="rowCount" value="10"/> 
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
-												<div class="text-right pal"><button type="button" class="btn btn-primary" onclick="javascript:fnc_add(<%=pageno%>)">관리자 추가</button></div>
+												<div class="text-right pal">
+												<button type="button" class="btn btn-primary" onclick="javascript:fnc_add(<%=pageno%>)">관리자 추가</button>
+												<button type="button" class="btn btn-primary" onclick="javascript:down()">엑셀 다운로드</button>
+												</div>
 											</div>
 										</div>
 									</div>

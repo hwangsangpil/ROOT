@@ -1,8 +1,8 @@
 <%@ page contentType="application/vnd.ms-excel;charset=UTF-8" %>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="board.model.BusinessDAO"%>
-<%@page import="board.model.BusinessDTO"%>
+<%@page import="board.model.AdminDao"%>
+<%@page import="board.model.AdminVO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
@@ -25,7 +25,7 @@
    
    String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
    
-   /* 
+   
    System.out.println("excel pageno = "+pageno);
    System.out.println("excel searchKeyword = "+searchKeyword);
    if(checked != null){
@@ -33,13 +33,13 @@
 		System.out.println("excel checked["+i+"]:    "+checked[i]);
 		}
 	}
-    */
-   BusinessDAO dao = new BusinessDAO();
+   
+   AdminDao dao = new AdminDao();
    
    
    
-   int totalcnt = dao.cntTotalMember(searchKeyword, checked);
-   ArrayList<BusinessDTO> list = dao.selectBusinessListExcel(searchKeyword, pageno, totalcnt, checked);
+   int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
+   ArrayList<AdminVO> list = dao.selectAdminListExcel(searchKeyword, pageno, totalcnt, checked);
    dao.closeConn();
    
 %>
@@ -55,22 +55,16 @@
 <tr bgcolor="#CACACA">
 
 <th style="text-align:center;">NO</th>
-<th style="text-align:center;">공고명<input type="checkbox"  
+<th style="text-align:center;">관리자 이름<input type="checkbox"  
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">업체명<input type="checkbox" 
+<th style="text-align:center;">아이디<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">개찰일<input type="checkbox" 
+<th style="text-align:center;">이메일<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">예가변동폭<input type="checkbox" 
+<th style="text-align:center;">폰번호<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">사정률<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">계약방법<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">지역제한<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">입력날짜</th>
-<th style="text-align:center;">수정날짜</th>
+<th style="text-align:center;">생성일</th>
+<th style="text-align:center;">수정일</th>
 															
 </tr>
 <%if(list.size() == 1)
@@ -83,33 +77,27 @@
 <td>null</td>
 <td>null</td>
 <td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
 </tr>
 <%}%>
 <%
 if (list.size() > 0) {
 	for (int i=0; i<list.size(); i++) {
-		BusinessDTO vo = list.get(i);
+		AdminVO vo = list.get(i);
       %>
 
 <tr>
-<td><%=vo.getBusiNum()%></td>
-<td><%=vo.getConstName()%></td>
-<td><%=vo.getBusiName()%></td>
-<td><%=vo.getBusiOpening()%></td>
-<td><%=vo.getBusiPrice()%></td>
-<td><%=vo.getBusiPercent()%></td>
-<td><%=vo.getBusiWay()%></td>
-<td><%=vo.getBusiArea()%></td>
-<td><%=vo.getCrtDate()%></td>
-<td><%=vo.getUdtDate()%></td>
+<td><%=vo.getSeqNo() %></td>
+<td><%=vo.getAdminName()%></td>
+<td><%=vo.getAdminId()%></td>
+<td><%=vo.getAdminEmail()%></td>
+<td><%=vo.getAdminPhone()%></td>
+<td><%=vo.getCrtDate() %></td>
+<td><%=vo.getUdtDate() %></td>
 </tr>
 <%
    }
 }else{
-   System.out.println("<tr><td align='center' colspan='9'>조회 결과가 없습니다.</td></tr>");
+   System.out.println("<tr><td align='center' colspan='7'>조회 결과가 없습니다.</td></tr>");
 }
 %>
 </table>

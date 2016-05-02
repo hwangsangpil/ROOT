@@ -6,19 +6,16 @@
 <%@page import="util.DateUtil"%>
 <%
 request.setCharacterEncoding("UTF-8");
-/* 
-int pageno2 = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "22"));
-System.out.println("Con default pageno2:   "+pageno2);
- */
+
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
-/* System.out.println("Con defaultpageno:   "+pageno);
-System.out.println("Con defaultsearchKeyword:  "+searchKeyword); */
+
 ConstructionDAO dao = new ConstructionDAO();
 
 String[] checked=request.getParameterValues("check");
+
 int totalcnt = dao.cntTotalMember(searchKeyword, checked);
-/* System.out.println("Con totalcnt:  "+totalcnt); */
+
 ArrayList<ConstructionDTO> list = dao.selectConstructionList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();
 %>
@@ -30,7 +27,16 @@ dao.closeConn();
 <script type="text/javascript">
 	function down(){
     
-    	location.href = "exportToExcel.jsp?title=constructionList.xls&pageno="+<%=pageno%>+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
+    	location.href = "exportToExcel.jsp?title=constructionList.xlsx&pageno="+<%=pageno%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
  	}
 
 	function pageLink(arg) {
@@ -48,13 +54,13 @@ dao.closeConn();
 		document.frm.submit();
 	}
 	
-	function businessView(no){
-		location.href = "../business/business_view.jsp?no=" + no + "&pageno="+<%=pageno%>;
+	function businessView(ConstNum){
+		location.href = "../business/business_view.jsp?ConstNum=" + ConstNum;
 	}
 	
-	function constructionDel(no){
+	function constructionDel(ConstNum){
 		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-			location.href = "construction_del_ok.jsp?no=" + no + "&pageno="+<%=pageno%>;
+			location.href = "construction_del_ok.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>;
 		}else{
 			return;
 		}
@@ -90,6 +96,7 @@ dao.closeConn();
 				<div class="page-content">
 					<form name="frm" action="/construction/constructionList.jsp" method="post">
 						<input type="hidden" name="pageno" value="<%=pageno%>">
+						
 						<div id="tab-general">
 							<div class="row mbl">
 								<div class="col-lg-12">
@@ -113,9 +120,9 @@ dao.closeConn();
 													<table class="table table-hover">
 														<thead>
 															<tr>
-																<th style="text-align:center; width: 5%">NO</th>
+																<td style="text-align:center; width: 5%">NO</td>
 																<td style="text-align:center; width: 5%">공고명<input type="checkbox" id="check" name="check" value="1" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></td>
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%>/></td>
 																<td style="text-align:center; width: 5%">계약방법<input type="checkbox" id="check" name="check" value="2"
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%>/></td>
 																<td style="text-align:center; width: 5%">지역제한<input type="checkbox" id="check" name="check" value="3"
@@ -144,7 +151,7 @@ dao.closeConn();
 																	%>
 																<tr onclick="javascript:businessView(<%=vo.getConstNum() %>);" style="cursor: pointer;">
 																	<td style="text-align:center"><%=vo.getConstNum() %></td>
-																	<td><%=vo.getConstName() %></td>
+																	<td><%=vo.getConstName()%></td>
 																	<td><%=vo.getConstWay()%></td>
 																	<td><%=vo.getConstArea()%></td>
 																	<td><%=vo.getConstPrice()%></td>
