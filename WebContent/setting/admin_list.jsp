@@ -26,12 +26,16 @@ dao.closeConn();
 <title>관리자 관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#searchKeyword").focus();
+});
+
 function down(){
 	location.href = "exportToExcel.jsp?title=adminList.xls&pageno="+<%=pageno%>
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+<%=checked[i]%><%}}}%>
 			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 }
 
@@ -57,12 +61,12 @@ function down(){
 	}
 	
 	function fnc_add(arg){
-		location.href = "/setting/admin_add.jsp?pageno=" + arg;
+		location.href = "/setting/admin_add.jsp?pageno="+arg;
 	}
 </script>
 </head>
 <body>
-	<div style="min-width: 350px">
+	<div style="min-width: 1000px">
 		<!--BEGIN TOPBAR-->
 		<%@ include file="../include/inc_top.jsp"%>
 		<!--END TOPBAR-->
@@ -110,21 +114,21 @@ function down(){
 												</div>
 												<div class="col-lg-12">&nbsp;</div>
 												<div class="col-lg-12">&nbsp;</div>
-												<div class="panel-body">
+												<div class="panel-body" style="overflow:auto;">
 													<table class="table table-hover">
 														<thead>
 															<tr>
-																<th style="text-align:center">NO</th>
-																<th>관리자 이름<input type="checkbox" id="check" name="check" value="1" 
+																<th style="text-align:center; width: 50px;">NO</th>
+																<th style="text-align:center; width: 200px;">관리자 이름<input type="checkbox" id="check" name="check" value="1" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></th>
-																<th>아이디<input type="checkbox" id="check" name="check" value="2" 
+																<th style="text-align:center; width: 150px;">아이디<input type="checkbox" id="check" name="check" value="2" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></th>
-																<th>이메일<input type="checkbox" id="check" name="check" value="3" 
+																<th style="text-align:center; width: 200px;">이메일<input type="checkbox" id="check" name="check" value="3" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></th>
-																<th>폰번호<input type="checkbox" id="check" name="check" value="4" 
+																<th style="text-align:center; width: 200px;">폰번호<input type="checkbox" id="check" name="check" value="4" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></th>
-																<th>생성일</th>
-																<th>수정일</th>
+																<th style="text-align:center; width: 100px;">생성일</th>
+																<th style="text-align:center; width: 100px;">수정일</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -137,13 +141,13 @@ function down(){
 																	}
 																	%>
 																<tr style="cursor: pointer;" onclick="javascript:fnc_view('<%=vo.getSeqNo()%>','<%=pageno%>')">
-																	<td style="text-align:center"><%=vo.getSeqNo() %></td>
-																	<td><%=vo.getAdminName() %></td>
-																	<td><%=vo.getAdminId()%></td>
-																	<td><%=vo.getAdminEmail()%></td>
-																	<td><%=vo.getAdminPhone()%></td>
-																	<td><%=vo.getCrtDate()%></td>
-																	<td><%=vo.getUdtDate()%></td>
+																	<td style="text-align:center;"><%=vo.getSeqNo() %></td>
+																	<td style="text-align:center;"><%=vo.getAdminName() %></td>
+																	<td style="text-align:center;"><%=vo.getAdminId()%></td>
+																	<td style="text-align:center;"><%=vo.getAdminEmail()%></td>
+																	<td style="text-align:center;"><%=vo.getAdminPhone()%></td>
+																	<td style="text-align:center;"><%=vo.getCrtDate()%></td>
+																	<td style="text-align:center;"><%=vo.getUdtDate()%></td>
 																</tr>
 																
 																<%

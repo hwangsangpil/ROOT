@@ -26,75 +26,7 @@ list = dao.selectConstructionList();
 $(document).ready(function() {
 	$("#constNum").focus();
 });
-var count = 1;
-var addCount;
-var addedFormDiv;
-$(function() {
-	// 요소 삭제
-	 $(document).on("click", "#remove", function() {
-	  $(this).parent().parent().parent().remove();
-	 });
-	});
-function addInputBoxa(arg1, arg2, arg3){
-	/* var content = document.frm.otbOptionMenuName.value;
-	 var price = document.frm.otbOptionMenuPrice.value;
-	 var code = document.frm.optionMenuCode.value; */
-	  var addedFormDiv = document.getElementById("addedFormDiv");
-     
-     var str = "";
-     /* str+="<div class='row'><div class='col-md-6'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuNamea'name='otbOptionMenuNamea' type='text' value='"+arg1+"' placeholder='옵션명'class='form-control' /></div></div></div><div class='col-md-6'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuPricea'name='otbOptionMenuPricea' value='"+arg3+"' type='text' placeholder='옵션가격(숫자만 입력)' class='form-control' /></div></div></div><div class='col-md-6'><div class='form-group'><input id='otbOptionMenuCode'name='otbOptionMenuCode' type='hidden' value='"+arg2+"' placeholder='코드'/></div></div></div>"; */
-     str+="<div class='row' id='addRorw' name='addRow'><div class='col-md-4'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuNamea'name='otbOptionMenuNamea' type='text' value='"+arg1+"' placeholder='옵션명'class='form-control' /></div></div></div><div class='col-md-4'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuPricea'name='otbOptionMenuPricea' value='"+arg3+"' type='text' placeholder='옵션가격(숫자만 입력)' class='form-control' /></div></div></div><div class='col-md-4'><div class='form-group'><button href='#' id='remove' name='remove' class='btn btn-primary'>삭제</button></div></div><div class='col-md-6'><div class='form-group'><input id='otbOptionMenuCode'name='otbOptionMenuCode' type='hidden' value='"+arg2+"' placeholder='코드'/></div></div></div>";
 
-     // 추가할 폼(에 들어갈 HTML)
-    
-     var addedDiv = document.createElement("div"); // 폼 생성
-     addedDiv.id = "added"; // 폼 Div에 ID 부여 (삭제를 위해)
-     addedDiv.innerHTML  = str; // 폼 Div안에 HTML삽입
-     addedFormDiv.appendChild(addedDiv); // 삽입할 DIV에 생성한 폼 삽입
-	
-document.frm.otbOptionMenuName.value ="";
-document.frm.otbOptionMenuPrice.value="";
-document.frm.optionMenuCode.value="0";
-}
-
-//행추가
-function addInputBox() {
-	var content = document.frm.otbOptionMenuName.value;
-	 var price = document.frm.otbOptionMenuPrice.value;
-	 var code = "0";
-	  var addedFormDiv = document.getElementById("addedFormDiv");
-      
-      var str = "";
-     /*  str+="<a href='#' class='remove'>삭제</a><div class='row'><div class='col-md-6'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuNamea'name='otbOptionMenuNamea' type='text' value='"+content+"' placeholder='옵션명'class='form-control' /></div></div></div><div class='col-md-6'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuPricea'name='otbOptionMenuPricea' value='"+price+"' type='text' placeholder='옵션가격(숫자만 입력)' class='form-control' /></div></div></div><div class='col-md-6'><div class='form-group'><input id='otbOptionMenuCode'name='otbOptionMenuCode' type='hidden' value='"+code+"' placeholder='코드'/></div></div></div>"; */
-	str+="<div class='row' id='addRorw' name='addRow'><div class='col-md-4'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuNamea'name='otbOptionMenuNamea' type='text' value='"+content+"' placeholder='옵션명'class='form-control' /></div></div></div><div class='col-md-4'><div class='form-group'><div class='input-icon right'><i class='fa fa-tag'></i> <input id='otbOptionMenuPricea'name='otbOptionMenuPricea' value='"+price+"' type='text' placeholder='옵션가격(숫자만 입력)' class='form-control' /></div></div></div><div class='col-md-4'><div class='form-group'><button href='#' id='remove' name='remove' class='btn btn-primary'>삭제</button></div></div><div class='col-md-6'><div class='form-group'><input id='otbOptionMenuCode'name='otbOptionMenuCode' type='hidden' value='"+code+"' placeholder='코드'/></div></div></div>";
-      // 추가할 폼(에 들어갈 HTML)
-     
-      var addedDiv = document.createElement("div"); // 폼 생성
-      addedDiv.id = "added"; // 폼 Div에 ID 부여 (삭제를 위해)
-      addedDiv.innerHTML  = str; // 폼 Div안에 HTML삽입
-      addedFormDiv.appendChild(addedDiv); // 삽입할 DIV에 생성한 폼 삽입
-	
-document.frm.otbOptionMenuName.value ="";
-document.frm.otbOptionMenuPrice.value="";
-}
-
-$(document).ready(function() {
-	gfnc_Ajax({
-	    type: "post",
-	    url: "/setting/category_list_selectbox_ajax.jsp",
-	    data: {
-	    	
-	    },
-	    dataType: "html",
-	    success: function(data){
-	    	//alert(data);
-	        $('#otbCateBig').append(data);
-	    },
-	    error: function(err) {
-	    	//alert(err.responseText);
-	    }
-	});
-});
 function checkForm() {
 var busiName = document.getElementById("busiName").value;
 	

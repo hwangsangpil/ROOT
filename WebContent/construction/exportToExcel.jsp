@@ -1,4 +1,4 @@
-<%@ page contentType="application/vnd.ms-excel;charset=UTF-8" %>
+<%@ page contentType="application/vnd.ms-excel;charset=EUC-KR" %>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="board.model.ConstructionDAO"%>
@@ -7,14 +7,14 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
 <%
-   request.setCharacterEncoding("UTF-8");
+   //request.setCharacterEncoding("UTF-8");
 
-   String file_name = request.getParameter("title");
-   response.setHeader("Content-Disposition", "attachment; filename="+file_name+";");
+   String filename = request.getParameter("title");
+   response.setHeader("Content-Disposition", "attachment; filename="+filename+";");
    response.setHeader("Content-Description", "JSP Generated Data");
    
    
-   String title = request.getParameter("title");
+   //String title = request.getParameter("title");
    
    int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
   
@@ -46,48 +46,34 @@
 
 
 
-<html>
-<head>
-<title>ì—‘ì…€íŒŒì¼ë³€í™˜</title>
-</head>
-<body bgcolor=white>
+<h3>¿¢¼¿ÆÄÀÏº¯È¯</h3>
 <table border=1>
+<thead>
 <tr bgcolor="#CACACA">
 
 <th style="text-align:center;">NO</th>
-<th style="text-align:center;">ê³µê³ ëª…<input type="checkbox"  
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°ø°í¸í<input type="checkbox"  
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ê³„ì•½ë°©ë²•<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°è¾à¹æ¹ı<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì§€ì—­ì œí•œ<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Áö¿ªÁ¦ÇÑ<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì˜ˆê°€ë³€ë™í­<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¿¹°¡º¯µ¿Æø<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">íˆ¬ì°°í•˜í•œìœ¨<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÅõÂûÇÏÇÑÀ²<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ê°œì°°ì¼<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°³ÂûÀÏ<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ê³µê³ ê¸°ê´€<input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°ø°í±â°ü<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì‚¬ì •ë¥ <input type="checkbox" 
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;»çÁ¤·ü<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì…ë ¥ë‚ ì§œ</th>
-<th style="text-align:center;">ìˆ˜ì •ë‚ ì§œ</th>
+<th style="text-align:center;">ÀÔ·Â³¯Â¥</th>
+<th style="text-align:center;">¼öÁ¤³¯Â¥</th>
 															
 </tr>
-<tr>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-<td>null</td>
-</tr>
+<thead>
+<tbody>
 <%
 if (list.size() > 0) {
    for (int i=0; i<list.size(); i++) {
@@ -95,24 +81,21 @@ if (list.size() > 0) {
       %>
 
 <tr>
-<td><%=vo.getConstNum()%></td>
-<td><%=vo.getConstName()%></td>
-<td><%=vo.getConstWay()%></td>
-<td><%=vo.getConstArea()%></td>
-<td><%=vo.getConstPrice()%></td>
-<td><%=vo.getConstLower()%></td>
-<td><%=vo.getConstOpening()%></td>
-<td><%=vo.getConstInstitution()%></td>
-<td><%=vo.getConstPercent()%></td>
-<td><%=vo.getCrtDate()%></td>
-<td><%=vo.getUdtDate()%></td>
+<td style="text-align:center;"><%=vo.getConstNum()%></td>
+<td style="text-align:center;"><%=vo.getConstName()%></td>
+<td style="text-align:center;"><%=vo.getConstWay()%></td>
+<td style="text-align:center;"><%=vo.getConstArea()%></td>
+<td style="text-align:center;"><%=vo.getConstPrice()%></td>
+<td style="text-align:center;"><%=vo.getConstLower()%></td>
+<td style="text-align:center;"><%=vo.getConstOpening()%></td>
+<td style="text-align:center;"><%=vo.getConstInstitution()%></td>
+<td style="text-align:center;"><%=vo.getConstPercent()%></td>
+<td style="text-align:center;"><%=vo.getCrtDate()%></td>
+<td style="text-align:center;"><%=vo.getUdtDate()%></td>
 </tr>
 <%
    }
-}else{
-   System.out.println("<tr><td align='center' colspan='9'>ì¡°íšŒ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>");
 }
 %>
+</tbody>
 </table>
-</body>
-</html>

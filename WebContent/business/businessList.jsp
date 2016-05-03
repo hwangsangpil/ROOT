@@ -5,6 +5,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 request.setCharacterEncoding("UTF-8");
 
@@ -23,18 +25,21 @@ dao.closeConn();
 <title>업체관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
-	function down(){
-		location.href = "exportToExcel.jsp?title=businessList.xls&pageno="+<%=pageno%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
-    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
-	}
+$(document).ready(function() {
+	$("#searchKeyword").focus();
+});
 
+	function down(){
+		location.href ="exportToExcel.jsp?title=businessList.xls"+"&pageno="+<%=pageno%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"))	
+	}
 	function pageLink(arg) {
 		document.frm.pageno.value = arg;
 		document.frm.submit();
@@ -71,7 +76,7 @@ dao.closeConn();
 </script>
 </head>
 <body>
-	<div style="min-width: 350px">
+	<div style="min-width: 1500px">
 		<!--BEGIN TOPBAR-->
 		<%@ include file="../include/inc_top.jsp"%>
 		<!--END TOPBAR-->
@@ -98,14 +103,14 @@ dao.closeConn();
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
 					<form name="frm" action="/business/businessList.jsp" method="post">
-						<input type="hidden" name="pageno" value="<%=pageno%>">
+						<input type="hidden" name="pageno" value="<%=pageno%>"/>
 						<div id="tab-general">
 							<div class="row mbl">
 								<div class="col-lg-12">
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="panel panel-yellow">
-												<div class="panel-heading">업체관리</div>
+												<div class="panel-heading">업체목록</div>
 												<div class="mbl"></div>
 												<div class="col-lg-8">&nbsp;</div>
 												<div class="col-lg-4">
@@ -122,25 +127,25 @@ dao.closeConn();
 													<table class="table table-hover">
 														<thead>
 															<tr>
-																<th style="text-align:center; width: 5%">NO</th>
-																<td style="text-align:center; width: 5%">공고명<input type="checkbox" id="check" name="check" value="1" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">업체명<input type="checkbox" id="check" name="check" value="2" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">개찰일<input type="checkbox" id="check" name="check" value="3" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">예가변동폭<input type="checkbox" id="check" name="check" value="4" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">사정률<input type="checkbox" id="check" name="check" value="5" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">계약방법<input type="checkbox" id="check" name="check" value="6" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">지역제한<input type="checkbox" id="check" name="check" value="7" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%> /></td>
-																<td style="text-align:center; width: 5%">입력날짜</td>
-																<td style="text-align:center; width: 5%">수정날짜</td>
-																<td style="text-align:center; width: 5%">수정</td>
-																<td style="text-align:center; width: 5%">삭제</td>
+																<th style="text-align:center; width: 50px;">NO</th>
+																<th style="text-align:center; width: 200px;">공고명<input type="checkbox" id="check" name="check" value="1" tabindex="1"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 200px;">업체명<input type="checkbox" id="check" name="check" value="2" tabindex="2"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 150px;">개찰일<input type="checkbox" id="check" name="check" value="3" tabindex="3"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 200px;">예가변동폭<input type="checkbox" id="check" name="check" value="4" tabindex="4"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 200px;">사정률<input type="checkbox" id="check" name="check" value="5" tabindex="5"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 150px;">계약방법<input type="checkbox" id="check" name="check" value="6" tabindex="6"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 150px;">지역제한<input type="checkbox" id="check" name="check" value="7" tabindex="7"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 100px;">입력날짜</th>
+																<th style="text-align:center; width: 100px;">수정날짜</th>
+																<th style="text-align:center; ">수정</th>
+																<th style="text-align:center; ">삭제</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -150,16 +155,16 @@ dao.closeConn();
 																	BusinessDTO vo = list.get(i);
 																	%>
 																<tr style="cursor: pointer;">
-																	<td style="text-align:center"><%=vo.getBusiNum()%></td>
-																	<td><%=vo.getConstName()%></td>
-																	<td><%=vo.getBusiName()%></td>
-																	<td><%=vo.getBusiOpening()%></td>
-																	<td><%=vo.getBusiPrice()%></td>
-																	<td><%=vo.getBusiPercent()%></td>
-																	<td><%=vo.getBusiWay()%></td>
-																	<td><%=vo.getBusiArea()%></td>
-																	<td><%=vo.getCrtDate()%></td>
-																	<td><%=vo.getUdtDate()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiNum()%></td>
+																	<td style="text-align:center;"><%=vo.getConstName()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiName()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiOpening()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiPrice()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiPercent()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiWay()%></td>
+																	<td style="text-align:center;"><%=vo.getBusiArea()%></td>
+																	<td style="text-align:center;"><%=vo.getCrtDate()%></td>
+																	<td style="text-align:center;"><%=vo.getUdtDate()%></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessMod(<%=vo.getBusiNum()%>)">수정</button></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
 																</tr>

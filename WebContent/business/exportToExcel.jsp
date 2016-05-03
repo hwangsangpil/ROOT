@@ -1,31 +1,31 @@
-<%@ page contentType="application/vnd.ms-excel;charset=UTF-8" %>
+<%@ page contentType="application/vnd.ms-excel;charset=EUC-KR" %>
+<%@page import="util.*"%>
+<%@page import="java.io.*"%>
+<%@page import="java.sql.*"%>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="board.model.BusinessDAO"%>
 <%@page import="board.model.BusinessDTO"%>
-<%@page import="util.StringUtil"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
 <%
-   request.setCharacterEncoding("UTF-8");
+   //request.setCharacterEncoding("UTF-8");		post¹æ½ÄÀÏ¶§
 
-   String file_name = request.getParameter("title");
-   response.setHeader("Content-Disposition", "attachment; filename="+file_name+";");
+   String filename = request.getParameter("title");
+   response.setHeader("Content-Disposition", "attachment; filename="+filename+";");
    response.setHeader("Content-Description", "JSP Generated Data");
    
-   
+   /* 
    String title = request.getParameter("title");
-   
+    */
    int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
   
    
    String[] checked=request.getParameterValues("checked");
    
-   
-   
    String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
    
-   /* 
+    
    System.out.println("excel pageno = "+pageno);
    System.out.println("excel searchKeyword = "+searchKeyword);
    if(checked != null){
@@ -33,10 +33,8 @@
 		System.out.println("excel checked["+i+"]:    "+checked[i]);
 		}
 	}
-    */
+   
    BusinessDAO dao = new BusinessDAO();
-   
-   
    
    int totalcnt = dao.cntTotalMember(searchKeyword, checked);
    ArrayList<BusinessDTO> list = dao.selectBusinessListExcel(searchKeyword, pageno, totalcnt, checked);
@@ -45,35 +43,33 @@
 %>
 
 
-
-<html>
-<head>
-<title>ì—‘ì…€íŒŒì¼ë³€í™˜</title>
-</head>
-<body bgcolor=white>
+<h3>¿¢¼¿ÆÄÀÏº¯È¯</h3>
 <table border=1>
+<thead>
 <tr bgcolor="#CACACA">
 
 <th style="text-align:center;">NO</th>
-<th style="text-align:center;">ê³µê³ ëª…<input type="checkbox"  
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì—…ì²´ëª…<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ê°œì°°ì¼<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì˜ˆê°€ë³€ë™í­<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì‚¬ì •ë¥ <input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ê³„ì•½ë°©ë²•<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì§€ì—­ì œí•œ<input type="checkbox" 
-	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked="checked"<%}}}%>></th>
-<th style="text-align:center;">ì…ë ¥ë‚ ì§œ</th>
-<th style="text-align:center;">ìˆ˜ì •ë‚ ì§œ</th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°ø°í¸í<input type="checkbox"  
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¾÷Ã¼¸í<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°³ÂûÀÏ<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¿¹°¡º¯µ¿Æø<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;»çÁ¤·ü<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;°è¾à¹æ¹ı<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Áö¿ªÁ¦ÇÑ<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked="checked"<%}}}%>/></th>
+<th style="text-align:center;">ÀÔ·Â³¯Â¥</th>
+<th style="text-align:center;">¼öÁ¤³¯Â¥</th>
 															
 </tr>
-
+<thead>
+<%/*
+<tr><td align='center' colspan='10'>Á¶È¸ °á°ú</td></tr>
 <tr>
 <td>null</td>
 <td>null</td>
@@ -86,30 +82,30 @@
 <td>null</td>
 <td>null</td>
 </tr>
+*/%>
+
+<tbody>
 <%
 if (list.size() > 0) {
 	for (int i=0; i<list.size(); i++) {
 		BusinessDTO vo = list.get(i);
-      %>
+%>
 
 <tr>
-<td><%=vo.getBusiNum()%></td>
-<td><%=vo.getConstName()%></td>
-<td><%=vo.getBusiName()%></td>
-<td><%=vo.getBusiOpening()%></td>
-<td><%=vo.getBusiPrice()%></td>
-<td><%=vo.getBusiPercent()%></td>
-<td><%=vo.getBusiWay()%></td>
-<td><%=vo.getBusiArea()%></td>
-<td><%=vo.getCrtDate()%></td>
-<td><%=vo.getUdtDate()%></td>
+<td style="text-align:center;"><%=vo.getBusiNum()%></td>
+<td style="text-align:center;"><%=vo.getConstName()%></td>
+<td style="text-align:center;"><%=vo.getBusiName()%></td>
+<td style="text-align:center;"><%=vo.getBusiOpening()%></td>
+<td style="text-align:center;"><%=vo.getBusiPrice()%></td>
+<td style="text-align:center;"><%=vo.getBusiPercent()%></td>
+<td style="text-align:center;"><%=vo.getBusiWay()%></td>
+<td style="text-align:center;"><%=vo.getBusiArea()%></td>
+<td style="text-align:center;"><%=vo.getCrtDate()%></td>
+<td style="text-align:center;"><%=vo.getUdtDate()%></td>
 </tr>
 <%
    }
-}else{
-   System.out.println("<tr><td align='center' colspan='9'>ì¡°íšŒ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>");
 }
 %>
+</tbody>
 </table>
-</body>
-</html>

@@ -538,7 +538,7 @@ public class AdminDao {
 			pstmt.setInt(nCnt++, startRow);
 			pstmt.setInt(nCnt, endRow);
 			
-			System.out.println("Admin selectpstmt:   "+pstmt.toString());
+			//System.out.println("Admin selectpstmt:   "+pstmt.toString());
 			
 			rs = pstmt.executeQuery();
 

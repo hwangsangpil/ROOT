@@ -19,7 +19,7 @@ dao.closeConn();
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>OTB CMS-설정</title>
+<title>관리자 상세관리</title>
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 function checkForm() {
@@ -137,14 +137,14 @@ $(document).ready(function() {
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">권한 관리</div>
+						<div class="page-title">관리자 상세관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
 						<li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">설정</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-						<li class="active">권한 관리</li>
+						<li class="active">관리자 상세관리</li>
 					</ol>
 					<div class="clearfix"></div>
 				</div>
