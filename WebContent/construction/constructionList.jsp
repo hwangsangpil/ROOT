@@ -80,7 +80,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div style="min-width: 1500px">
+	<div style="min-width: 300px">
 		<!--BEGIN TOPBAR-->
 		<%@ include file="../include/inc_top.jsp"%>
 		<!--END TOPBAR-->

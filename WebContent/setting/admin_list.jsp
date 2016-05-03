@@ -66,7 +66,7 @@ function down(){
 </script>
 </head>
 <body>
-	<div style="min-width: 1000px">
+	<div style="min-width: 300px">
 		<!--BEGIN TOPBAR-->
 		<%@ include file="../include/inc_top.jsp"%>
 		<!--END TOPBAR-->
