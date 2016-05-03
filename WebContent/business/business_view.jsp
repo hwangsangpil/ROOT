@@ -30,7 +30,7 @@ dao.closeConn();
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 function down(){
-	location.href = "exportToExcelView.jsp?title=businessList.xlsx&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	location.href = "exportToExcelView.jsp?title=businessViewList.xls&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
@@ -61,6 +61,14 @@ function fnc_search(){
 function businessDel(BusiNum){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 		location.href = "busuness_viewDel_ok.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>;
+	}else{
+		return;
+	}
+}
+
+function businessMod(BusiNum){
+	if (confirm("정말 수정하시겠습니까??") == true){    //확인
+		location.href = "businessViewMod.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>;
 	}else{
 		return;
 	}
@@ -113,7 +121,7 @@ function businessDel(BusiNum){
 													<div class="input-group">
 													<span class="input-group-addon">
 													<i class="fa fa-search"></i></span>
-													<input type="text" id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력하세요" class="form-control" value="<%=searchKeyword%>"/>
+													<input type="text" id="searchKeyword" name="searchKeyword" tabindex="1" placeholder="검색어를 입력하세요" class="form-control" value="<%=searchKeyword%>" />
 													<span class="input-group-btn"><button type="button" class="btn btn-default" onclick="javascript:fnc_search()">검색</button>
 													</span></div>
 												</div>
@@ -161,7 +169,7 @@ function businessDel(BusiNum){
 																	<td><%=vo.getBusiArea()%></td>
 																	<td><%=vo.getCrtDate()%></td>
 																	<td><%=vo.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessMod(<%=vo.getBusiNum()%>)">수정</button></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
 																</tr>
 																

@@ -580,4 +580,70 @@ public class ConstructionDAO {
 		return list;
 	}
 	
+	public ConstructionDTO selectConstructionInfo(int ConstNum) throws SQLException {
+		ConstructionDTO dto = new ConstructionDTO();
+
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("SELECT 					\n");
+		sql.append("CONSTRUCTION_NUM , CONSTRUCTION_NAME, CONSTRUCTION_WAY, CONSTRUCTION_AREA, CONSTRUCTION_PRICE, CONSTRUCTION_LOWER, CONSTRUCTION_OPENING, CONSTRUCTION_INSTITUTION, CONSTRUCTION_PERCENT, date_format(CRT_DATE, '%Y.%m.%d') as CRT_DATE, date_format(UDT_DATE, '%Y.%m.%d') as UDT_DATE 	\n");
+		sql.append("FROM 														\n");
+		sql.append("TB_CONSTRUCTION 														\n");
+		sql.append("WHERE CONSTRUCTION_NUM = ?													\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, ConstNum);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				dto.setConstWay(rs.getString("CONSTRUCTION_WAY"));
+				dto.setConstArea(rs.getString("CONSTRUCTION_AREA"));
+				dto.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
+				dto.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
+				dto.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
+				dto.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
+				dto.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return dto;
+	}
+	
+	public int updateConstruction(int ConstNum, String constWay, String constArea, String constPrice, String constLower, String constOpening, String constInstitution, String constPercent) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_CONSTRUCTION															  \n");
+		sql.append("SET CONSTRUCTION_WAY = ?, CONSTRUCTION_AREA = ?,			  \n");
+		sql.append("CONSTRUCTION_PRICE = ?, CONSTRUCTION_LOWER = ?, CONSTRUCTION_OPENING = ?, 		  \n");
+		sql.append("CONSTRUCTION_INSTITUTION = ?, CONSTRUCTION_PERCENT = ?,	UDT_DATE = now()		  \n");
+		sql.append("WHERE CONSTRUCTION_NUM = ?												  	      \n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, constWay);
+			pstmt.setString(2, constArea);
+			pstmt.setString(3, constPrice);
+			pstmt.setString(4, constLower);
+			pstmt.setString(5, constOpening);
+			pstmt.setString(6, constInstitution);
+			pstmt.setString(7, constPercent);
+			pstmt.setInt(8, ConstNum);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return result;
+	}
 }

@@ -92,7 +92,7 @@ function fnc_delete(){
 }
 
 function fnc_list(){
-	location.href = "/setting/admin_list.jsp?pageno=<%=pageno%>";
+	location.href = "/setting/admin_list.jsp?pageno="+<%=pageno%>;
 }
 function changeView(a){
 	if(a==4){
@@ -164,12 +164,14 @@ $(document).ready(function() {
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-user"></i>
-		                                            <input id="adminName" name="adminName" type="text" placeholder="이름" class="form-control" value="<%=StringUtil.NVL(vo.getAdminName()) %>"/></div>
+		                                            <input id="adminName" name="adminName" type="text" placeholder="이름" class="form-control" value="<%=StringUtil.NVL(vo.getAdminName()) %>"
+		                                            onMouseOver="javascript: this.value='이름';" onmouseout="javascript: this.value='<%=vo.getAdminName()%>';" onclick="javascript: this.value='<%=vo.getAdminName()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminId" name="adminId" type="text" placeholder="아이디" class="form-control" value="<%=StringUtil.NVL(vo.getAdminId()) %>"/></div>
+		                                            <input id="adminId" name="adminId" type="text" placeholder="아이디" class="form-control" value="<%=StringUtil.NVL(vo.getAdminId()) %>"
+		                                            onMouseOver="javascript: this.value='아이디';" onmouseout="javascript: this.value='<%=vo.getAdminId()%>';" onclick="javascript: this.value='<%=vo.getAdminId()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
@@ -184,12 +186,14 @@ $(document).ready(function() {
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminEmail" name="adminEmail" type="text" placeholder="이메일" class="form-control" value="<%=StringUtil.NVL(vo.getAdminEmail()) %>" /></div>
+		                                            <input id="adminEmail" name="adminEmail" type="text" placeholder="이메일" class="form-control" value="<%=StringUtil.NVL(vo.getAdminEmail()) %>" 
+		                                            onMouseOver="javascript: this.value='이메일';" onmouseout="javascript: this.value='<%=vo.getAdminEmail()%>';" onclick="javascript: this.value='<%=vo.getAdminEmail()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminPhone" name="adminPhone" type="text" placeholder="핸드폰 번호" class="form-control" value="<%=StringUtil.NVL(vo.getAdminPhone()) %>" /></div>
+		                                            <input id="adminPhone" name="adminPhone" type="text" placeholder="핸드폰 번호" class="form-control" value="<%=StringUtil.NVL(vo.getAdminPhone()) %>" 
+		                                            onMouseOver="javascript: this.value='핸드폰 번호';" onmouseout="javascript: this.value='<%=vo.getAdminPhone()%>';" onclick="javascript: this.value='<%=vo.getAdminPhone()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <select id="adminRole" name="adminRole" class="form-control" onChange="javascript:changeView(this.value)">
@@ -209,7 +213,9 @@ $(document).ready(function() {
 											<%} %>
 		                                </div>
 		                                <div class="form-actions text-right pal">
-		                                    <button type="button" onclick="checkForm();" class="btn btn-primary">수정</button>&nbsp;<button type="button" onclick="fnc_delete();" class="btn btn-primary">삭제</button>&nbsp;<button type="button" onclick="fnc_list();" class="btn btn-primary">목록</button>
+		                                    <button type="button" onclick="checkForm();" class="btn btn-primary">수정</button>&nbsp;
+		                                    <button type="button" onclick="fnc_delete();" class="btn btn-primary">삭제</button>&nbsp;
+		                                    <button type="button" onclick="fnc_list();" class="btn btn-primary">목록</button>
 		                                </div>
 		                                 <div>
                                                         <h5>&nbsp;&nbsp;&nbsp;전체 관리자 : 모든 메뉴 관리자 및 관>리자 관리</h5>

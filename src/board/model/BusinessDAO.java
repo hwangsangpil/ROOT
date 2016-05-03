@@ -931,4 +931,140 @@ public class BusinessDAO {
 		}
 		return list;
 	}
+	
+	public BusinessDTO selectBusinessInfo(int BusiNum) throws SQLException {
+		BusinessDTO dto = new BusinessDTO();
+
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("SELECT 					\n");
+		sql.append("TB_BUSINESS.BUSINESS_NUM,TB_BUSINESS.CONSTRUCTION_NUM , TB_CONSTRUCTION.CONSTRUCTION_NAME, TB_BUSINESS.BUSINESS_NAME,			\n");
+		sql.append("TB_BUSINESS.BUSINESS_OPENING, TB_BUSINESS.BUSINESS_PRICE, TB_BUSINESS.BUSINESS_PERCENT, TB_BUSINESS.BUSINESS_WAY, TB_BUSINESS.BUSINESS_AREA, date_format(TB_BUSINESS.CRT_DATE, '%Y.%m.%d') as CRT_DATE, date_format(TB_BUSINESS.UDT_DATE, '%Y.%m.%d') as UDT_DATE	\n");
+		sql.append("FROM 														\n");
+		sql.append("TB_CONSTRUCTION JOIN TB_BUSINESS														\n");
+		sql.append("WHERE TB_CONSTRUCTION.CONSTRUCTION_NUM=TB_BUSINESS.CONSTRUCTION_NUM AND TB_BUSINESS.BUSINESS_NUM=?										\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, BusiNum);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto.setBusiNum(rs.getInt("BUSINESS_NUM"));
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("TB_CONSTRUCTION.CONSTRUCTION_NAME"));
+				dto.setBusiName(rs.getString("BUSINESS_NAME"));
+				dto.setBusiOpening(rs.getString("BUSINESS_OPENING"));
+				dto.setBusiPrice(rs.getString("BUSINESS_PRICE"));
+				dto.setBusiPercent(rs.getString("BUSINESS_PERCENT"));
+				dto.setBusiWay(rs.getString("BUSINESS_WAY"));
+				dto.setBusiArea(rs.getString("BUSINESS_AREA"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return dto;
+	}
+	
+	public int updateBusiness(int BusiNum, String busiName, String busiOpening, String busiPrice, String busiPercent, String busiWay, String busiArea) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_BUSINESS															  \n");
+		sql.append("SET BUSINESS_OPENING = ?, BUSINESS_PRICE = ?,			  \n");
+		sql.append("BUSINESS_PERCENT = ?, BUSINESS_WAY = ?, BUSINESS_AREA = ?, 		  \n");
+		sql.append("UDT_DATE = now()		  \n");
+		sql.append("WHERE BUSINESS_NUM = ?												  	      \n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, busiOpening);
+			pstmt.setString(2, busiPrice);
+			pstmt.setString(3, busiPercent);
+			pstmt.setString(4, busiWay);
+			pstmt.setString(5, busiArea);
+			pstmt.setInt(6, BusiNum);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return result;
+	}
+	
+	public BusinessDTO selectBusinessViewInfo(int BusiNum, int ConstNum) throws SQLException {
+		BusinessDTO dto = new BusinessDTO();
+
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("SELECT 					\n");
+		sql.append("TB_BUSINESS.BUSINESS_NUM,TB_BUSINESS.CONSTRUCTION_NUM , TB_CONSTRUCTION.CONSTRUCTION_NAME, TB_BUSINESS.BUSINESS_NAME,			\n");
+		sql.append("TB_BUSINESS.BUSINESS_OPENING, TB_BUSINESS.BUSINESS_PRICE, TB_BUSINESS.BUSINESS_PERCENT, TB_BUSINESS.BUSINESS_WAY, TB_BUSINESS.BUSINESS_AREA, date_format(TB_BUSINESS.CRT_DATE, '%Y.%m.%d') as CRT_DATE, date_format(TB_BUSINESS.UDT_DATE, '%Y.%m.%d') as UDT_DATE	\n");
+		sql.append("FROM 														\n");
+		sql.append("TB_CONSTRUCTION JOIN TB_BUSINESS														\n");
+		sql.append("WHERE TB_CONSTRUCTION.CONSTRUCTION_NUM=TB_BUSINESS.CONSTRUCTION_NUM AND TB_BUSINESS.BUSINESS_NUM=? AND TB_BUSINESS.CONSTRUCTION_NUM=?										\n");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, BusiNum);
+			pstmt.setInt(2, ConstNum);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto.setBusiNum(rs.getInt("BUSINESS_NUM"));
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("TB_CONSTRUCTION.CONSTRUCTION_NAME"));
+				dto.setBusiName(rs.getString("BUSINESS_NAME"));
+				dto.setBusiOpening(rs.getString("BUSINESS_OPENING"));
+				dto.setBusiPrice(rs.getString("BUSINESS_PRICE"));
+				dto.setBusiPercent(rs.getString("BUSINESS_PERCENT"));
+				dto.setBusiWay(rs.getString("BUSINESS_WAY"));
+				dto.setBusiArea(rs.getString("BUSINESS_AREA"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return dto;
+	}
+	
+	public int updateBusinessView(int BusiNum, String busiName, String busiOpening, String busiPrice, String busiPercent, String busiWay, String busiArea) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_BUSINESS															  \n");
+		sql.append("SET BUSINESS_OPENING = ?, BUSINESS_PRICE = ?,			  \n");
+		sql.append("BUSINESS_PERCENT = ?, BUSINESS_WAY = ?, BUSINESS_AREA = ?, 		  \n");
+		sql.append("UDT_DATE = now()		  \n");
+		sql.append("WHERE BUSINESS_NUM = ?												  	      \n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, busiOpening);
+			pstmt.setString(2, busiPrice);
+			pstmt.setString(3, busiPercent);
+			pstmt.setString(4, busiWay);
+			pstmt.setString(5, busiArea);
+			pstmt.setInt(6, BusiNum);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+
+		return result;
+	}
+	
 }

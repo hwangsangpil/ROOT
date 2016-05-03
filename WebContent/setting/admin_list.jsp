@@ -27,7 +27,7 @@ dao.closeConn();
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 function down(){
-	location.href = "exportToExcel.jsp?title=adminList.xlsx&pageno="+<%=pageno%>
+	location.href = "exportToExcel.jsp?title=adminList.xls&pageno="+<%=pageno%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
@@ -62,7 +62,7 @@ function down(){
 </script>
 </head>
 <body>
-	<div>
+	<div style="min-width: 350px">
 		<!--BEGIN TOPBAR-->
 		<%@ include file="../include/inc_top.jsp"%>
 		<!--END TOPBAR-->

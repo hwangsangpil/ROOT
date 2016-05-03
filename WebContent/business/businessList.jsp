@@ -24,7 +24,7 @@ dao.closeConn();
 <%@ include file="../include/inc_header.jsp"%>
 <script type="text/javascript">
 	function down(){
-		location.href = "exportToExcel.jsp?title=businessList.xlsx&pageno="+<%=pageno%>
+		location.href = "exportToExcel.jsp?title=businessList.xls&pageno="+<%=pageno%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+encodeURI(encodeURIComponent("<%=checked[i]%>"))<%}}}%>
@@ -54,6 +54,14 @@ dao.closeConn();
 	function businessDel(BusiNum){
 		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 			location.href = "busuness_del_ok.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>;
+		}else{
+			return;
+		}
+	}
+	
+	function businessMod(BusiNum){
+		if (confirm("정말 수정하시겠습니까??") == true){    //확인
+			location.href = "businessMod.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>;
 		}else{
 			return;
 		}
@@ -152,7 +160,7 @@ dao.closeConn();
 																	<td><%=vo.getBusiArea()%></td>
 																	<td><%=vo.getCrtDate()%></td>
 																	<td><%=vo.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="">수정</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessMod(<%=vo.getBusiNum()%>)">수정</button></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
 																</tr>
 																

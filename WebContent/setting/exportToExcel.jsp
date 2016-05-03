@@ -67,8 +67,6 @@
 <th style="text-align:center;">수정일</th>
 															
 </tr>
-<%if(list.size() == 1)
-{%>
 <tr>
 <td>null</td>
 <td>null</td>
@@ -78,7 +76,6 @@
 <td>null</td>
 <td>null</td>
 </tr>
-<%}%>
 <%
 if (list.size() > 0) {
 	for (int i=0; i<list.size(); i++) {
