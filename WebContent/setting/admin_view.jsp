@@ -6,10 +6,14 @@
 <%@page import="board.model.AdminVO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 
 int no = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "1"));
-int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));	
+int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
+String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
+String[] checked=request.getParameterValues("check");
 
 AdminDao dao = new AdminDao();
 AdminVO vo = dao.selectAdminInfo(no);
@@ -79,20 +83,35 @@ function checkForm() {
 		return;
 	}
 	
-	registForm.action = "admin_modify_ok.jsp";
+	registForm.action = "admin_modify_ok.jsp?pageno="+<%=pageno%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+		+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	registForm.submit();
 }
 
 function fnc_delete(){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		location.href = "/setting/admin_delete_ok.jsp?no=<%=no%>";
+		location.href = "/setting/admin_delete_ok.jsp?no="+<%=no%>+"&pageno="+<%=pageno%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}else{
 		return;
 	}
 }
 
 function fnc_list(){
-	location.href = "/setting/admin_list.jsp?pageno="+<%=pageno%>;
+	location.href = "/setting/admin_list.jsp?pageno="+<%=pageno%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+		+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 }
 function changeView(a){
 	if(a==4){
@@ -171,7 +190,7 @@ $(document).ready(function() {
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
 		                                            <input id="adminId" name="adminId" type="text" placeholder="아이디" class="form-control" value="<%=StringUtil.NVL(vo.getAdminId()) %>"
-		                                            onMouseOver="javascript: this.value='아이디';" onmouseout="javascript: this.value='<%=vo.getAdminId()%>';" onclick="javascript: this.value='<%=vo.getAdminId()%>';"/></div>
+		                                            onMouseOver="javascript: this.value='아이디';" onmouseout="javascript: this.value='<%=vo.getAdminId()%>';" onclick="javascript: this.value='<%=vo.getAdminId()%>';" readonly/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">

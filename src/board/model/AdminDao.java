@@ -293,9 +293,12 @@ public class AdminDao {
 			int adminRole, String branchCode) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
+
 		sql.append("INSERT INTO TB_ADMIN(ADMIN_ID, ADMIN_PW, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ROLE, ADMIN_BRANCH			\n");
-		sql.append("	, CRT_DATE, UDT_DATE)										\n");
-		sql.append("	   VALUES(?, ?, ?, ?, ?, ?, ?, now(), now()) 					\n");
+		sql.append("	, CRT_DATE)														\n");
+		sql.append("	   SELECT ?, ?, ?, ?, ?, ?, ?, now() FROM DUAL					\n");
+		sql.append("WHERE NOT EXISTS(SELECT ADMIN_ID FROM TB_ADMIN WHERE ADMIN_ID=?)	\n");
+		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, adminId);
@@ -305,6 +308,7 @@ public class AdminDao {
 			pstmt.setString(5, adminEmail);
 			pstmt.setInt(6, adminRole);
 			pstmt.setString(7, branchCode);
+			pstmt.setString(8, adminId);
 
 			result = pstmt.executeUpdate();
 			

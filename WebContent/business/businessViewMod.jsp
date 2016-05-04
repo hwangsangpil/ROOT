@@ -8,11 +8,17 @@
 <%@page import="board.model.ConstructionDAO"%>
 <%@page import="board.model.BusinessDTO"%>
 <%@page import="board.model.BusinessDAO"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 
 int BusiNum = Integer.parseInt(StringUtil.nchk(request.getParameter("BusiNum"), "1"));
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 int ConstNum = Integer.parseInt(StringUtil.nchk(request.getParameter("ConstNum"), "1"));
+
+
+String[] checked=request.getParameterValues("check");
+String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 
 request.setCharacterEncoding("UTF-8");
 BusinessDAO dao = new BusinessDAO();
@@ -105,7 +111,15 @@ $(document).ready(function() {
 });
 
 function fnc_list(){
-	location.href = "/business/business_view.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>;
+	location.href = "/business/business_view.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&check="+<%=checked[i]%><%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 }
 
 function checkForm() {
@@ -131,7 +145,15 @@ function checkForm() {
 		return;
 	}
 	 */
-	registForm.action="businessViewMod_ok.jsp?BusiNum="+<%=BusiNum%>+"&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>;
+	registForm.action="businessViewMod_ok.jsp?BusiNum="+<%=BusiNum%>+"&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&check="+<%=checked[i]%><%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	registForm.submit();
 }
 

@@ -19,7 +19,7 @@
    int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
   
    
-   String[] checked=request.getParameterValues("checked");
+   String[] checked=request.getParameterValues("check");
    
    
    

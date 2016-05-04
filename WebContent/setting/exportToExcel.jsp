@@ -17,22 +17,9 @@
    //String title = request.getParameter("title");
    
    int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
-  
    
-   String[] checked=request.getParameterValues("checked");
-   
-   
-   
+   String[] checked=request.getParameterValues("check");
    String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
-   
-   
-   System.out.println("excel pageno = "+pageno);
-   System.out.println("excel searchKeyword = "+searchKeyword);
-   if(checked != null){
-		for(int i=0; i<checked.length;i++){
-		System.out.println("excel checked["+i+"]:    "+checked[i]);
-		}
-	}
    
    AdminDao dao = new AdminDao();
    

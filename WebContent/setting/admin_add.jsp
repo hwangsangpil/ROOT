@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
     <%
-    	int selectGubun = 0;
+    String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
+    String[] checked=request.getParameterValues("check");
+    int selectGubun = 0;
+    int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
     %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -61,6 +66,12 @@ function checkForm() {
 		alert("메뉴 권한을 선택해주세요.");
 		return;
 	}
+	registForm.action="admin_add_ok.jsp?pageno="+<%=pageno%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+		+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	registForm.submit();
 }
 function changeView(a){
@@ -133,7 +144,8 @@ $(document).ready(function() {
 								<div class="panel panel-orange">
 		                            <div class="panel-heading">관리자 등록</div>
 		                            <div class="panel-body pan">
-		                                <form action="admin_add_ok.jsp" id="registForm" method="post">
+		                                <form id="registForm" method="post">
+		                                <input type="hidden" name="pageno" value="<%=pageno %>";/>
 		                                <div class="form-body pal">
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">

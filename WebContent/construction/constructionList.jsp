@@ -4,15 +4,17 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 request.setCharacterEncoding("UTF-8");
 
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
-String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
+String[] checked=request.getParameterValues("check");
+String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 
 ConstructionDAO dao = new ConstructionDAO();
 
-String[] checked=request.getParameterValues("check");
 
 int totalcnt = dao.cntTotalMember(searchKeyword, checked);
 
@@ -32,14 +34,14 @@ $(document).ready(function() {
 	function down(){
     
     	location.href = "exportToExcel.jsp?title=constructionList.xls&pageno="+<%=pageno%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){%>+"&checked="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){%>+"&check="+<%=checked[i]%><%}}}%>
     			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
  	}
 
@@ -64,7 +66,16 @@ $(document).ready(function() {
 	
 	function constructionDel(ConstNum){
 		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-			location.href = "construction_del_ok.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>;
+			location.href = "construction_del_ok.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
 		}else{
 			return;
 		}
@@ -72,7 +83,16 @@ $(document).ready(function() {
 	
 	function constructionMod(ConstNum){
 		if (confirm("정말 수정하시겠습니까??") == true){    //확인
-			location.href = "constructionMod.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>;
+			location.href = "constructionMod.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){%>+"&check="+<%=checked[i]%><%}}}%>
+	    			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));                                                   
 		}else{
 			return;
 		}
@@ -132,27 +152,27 @@ $(document).ready(function() {
 													<table class="table table-hover">
 														<thead>
 															<tr>
-																<td style="text-align:center; width: 50px;">NO</td>
-																<td style="text-align:center; width: 200px;">공고명<input type="checkbox" id="check" name="check" value="1" 
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">계약방법<input type="checkbox" id="check" name="check" value="2"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">지역제한<input type="checkbox" id="check" name="check" value="3"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">예가변동폭<input type="checkbox" id="check" name="check" value="4"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">투찰하한율<input type="checkbox" id="check" name="check" value="5"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">개찰일<input type="checkbox" id="check" name="check" value="6"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">공고기관<input type="checkbox" id="check" name="check" value="7"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 150px;">사정률<input type="checkbox" id="check" name="check" value="8"
-																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){ %>checked<%}}}%>/></td>
-																<td style="text-align:center; width: 100px;">입력날짜</td>
-																<td style="text-align:center; width: 100px;">수정날짜</td>
-																<td style="text-align:center;">수정</td>
-																<td style="text-align:center;">삭제</td>
+																<th style="text-align:center; width: 50px;">NO</th>
+																<th style="text-align:center; width: 200px;">공고명<input type="checkbox" id="check" name="check" value="1" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">계약방법<input type="checkbox" id="check" name="check" value="2"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">지역제한<input type="checkbox" id="check" name="check" value="3"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">예가변동폭<input type="checkbox" id="check" name="check" value="4"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">투찰하한율<input type="checkbox" id="check" name="check" value="5"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">개찰일<input type="checkbox" id="check" name="check" value="6"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("6")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">공고기관<input type="checkbox" id="check" name="check" value="7"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("7")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 150px;">사정률<input type="checkbox" id="check" name="check" value="8"
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){ %>checked<%}}}%>/></th>
+																<th style="text-align:center; width: 100px;">입력날짜</th>
+																<th style="text-align:center; width: 100px;">수정날짜</th>
+																<th style="text-align:center;">수정</th>
+																<th style="text-align:center;">삭제</th>
 															</tr>
 														</thead>
 														<tbody>

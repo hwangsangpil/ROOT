@@ -40,7 +40,7 @@
 	}else{
 %>
 		<script language=javascript>
-			alert("등록 실패했습니다."); 
+			alert("등록 실패했습니다.\n이미존재하는 아이디입니다."); 
 			location.href = "/login.jsp"; 
 		</script>
 <%

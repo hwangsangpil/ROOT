@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="board.model.AdminDao"%>
 <%@page import="board.model.AdminVO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 request.setCharacterEncoding("UTF-8");
 
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
-String searchKeyword = StringUtil.nchk(request.getParameter("searchKeyword"),"");
+String[] checked=request.getParameterValues("check");
+String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 
 AdminDao dao = new AdminDao();
  
- String[] checked=request.getParameterValues("check");
 int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
 
 ArrayList<AdminVO> list = dao.selectAdminList(searchKeyword, pageno, totalcnt, checked);
@@ -32,15 +33,20 @@ $(document).ready(function() {
 
 function down(){
 	location.href = "exportToExcel.jsp?title=adminList.xls&pageno="+<%=pageno%>
-		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&checked="+<%=checked[i]%><%}}}%>
-    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&checked="+<%=checked[i]%><%}}}%>
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
 			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 }
 
 	function fnc_view(no, pageno){
-		location.href = "admin_view.jsp?no=" + no + "&pageno=" + pageno;
+		location.href = "admin_view.jsp?no=" + no + "&pageno=" + pageno
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}
 	
 	function pageLink(arg) {
@@ -61,7 +67,12 @@ function down(){
 	}
 	
 	function fnc_add(arg){
-		location.href = "/setting/admin_add.jsp?pageno="+arg;
+		location.href = "/setting/admin_add.jsp?pageno="+arg
+		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}
 </script>
 </head>

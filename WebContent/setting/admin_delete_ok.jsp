@@ -4,10 +4,15 @@
 <%@ page import="board.model.AdminDao"%>
 <%@ page import="util.StringUtil"%>
 <%@ page import="util.HashUtil" %>
-<%@page import="java.net.URLDecoder"%> 
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	
+	int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
+	String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
+	String[] checked=request.getParameterValues("check");
+
 	int no = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "1"));
 				
 	AdminDao dao = new AdminDao();
@@ -20,7 +25,12 @@
 %>
 		<script language=javascript>
 			alert("삭제 되었습니다.");
-			location.href = "/setting/admin_list.jsp";
+			location.href = "/setting/admin_list.jsp?pageno="+<%=pageno%>
+			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
+			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
+			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
+			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+				+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 		</script>
 <%
 	}else{
