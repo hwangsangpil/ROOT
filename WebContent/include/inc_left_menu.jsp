@@ -34,35 +34,41 @@
 			<li id="menu_member"><a href="/setting/admin_list.jsp"><i
 					class="fa fa-list-ul">
 				</i><span class="menu-title">관리자관리</span></a></li>
-				
-			<!-- 여기서 부터 UI 참조할수 있는 URL (추후 삭제예정) -->
-			<!-- 실제 메뉴와 구분하기 위한 공란 -->
-			<!-- <li><a href="#"><i>
-				</i><span class="menu-title">&nbsp;</span></a></li>
-			<li><a href="#"><i>
-				</i><span class="menu-title">&nbsp;</span></a></li>
-			<li><a href="#"><i>
-				</i><span class="menu-title">&nbsp;</span></a></li>
 			
-			<li><a href="../Layout.html" target="_blank"><i class="fa fa-desktop fa-fw">
-				</i><span class="menu-title">Layouts</span></a></li>
-			<li><a href="../UIElements.html" target="_blank"><i class="fa fa-send-o fa-fw">
-				</i><span class="menu-title">UI Elements</span></a></li>
-			<li><a href="../Forms.html" target="_blank"><i class="fa fa-edit fa-fw">
-				</i><span class="menu-title">Forms</span></a></li>
-			<li><a href="../Tables.html" target="_blank"><i
-					class="fa fa-th-list fa-fw">
-				</i><span class="menu-title">Tables</span></a></li>
-			<li><a href="../DataGrid.html" target="_blank"><i class="fa fa-database fa-fw">
-				</i><span class="menu-title">Data Grids</span></a></li>
-			<li><a href="../Pages.html" target="_blank"><i class="fa fa-file-o fa-fw">
-				</i><span class="menu-title">Pages</span></a></li>
-			<li><a href="../Extras.html" target="_blank"><i class="fa fa-gift fa-fw">
-				</i><span class="menu-title">Extras</span></a></li>
-			<li><a href="../Dropdown.html" target="_blank"><i class="fa fa-sitemap fa-fw">
-				</i><span class="menu-title">Multi-Level Dropdown</span></a></li>
-			<li><a href="../Email.html" target="_blank"><i class="fa fa-envelope-o">
-				</i><span class="menu-title">Email</span></a></li> -->
+			<li id="menu_member"><a href="/setting/admin_list.jsp"><i
+					class="fa fa-list-ul">
+				</i><span class="menu-title">전체등록</span></a></li>
+				
+				<li id="menu_member"><a href="/trashcan/trashCan.jsp"><i
+					class="fa fa-list-ul">
+				</i><span class="menu-title">휴지통</span></a></li>
+			
+			
+function func_menu_ext(menuId, subMenuCnt){
+	if(document.getElementById(menuId + "_sub1").style.display == "none"){
+		for ( var cnt = 1; cnt <= subMenuCnt; cnt++) {
+			document.getElementById(menuId + "_sub" + cnt).style.display = "block";
+		}
+	}else{
+		for ( var cnt = 1; cnt <= subMenuCnt; cnt++) {
+			document.getElementById(menuId + "_sub" + cnt).style.display = "none";
+		}
+	}
+}
+
+
+			<!-- 1차메뉴 -->
+			<li id="menu_notice_faq"><a href="#"
+				onclick="javascript:func_menu_ext('menu_notice_faq',2);"><i
+					class="fa fa-sitemap fa-fw">
+				</i><span class="menu-title">공지사항/FAQ</span></a></li>		
+				<!-- 2차메뉴 -->
+			<li id="menu_notice_faq_sub1" style="display: none;"><a href="/notice/notice_list.jsp"><i>
+				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;공지사항</span></a></li>
+			<li id="menu_notice_faq_sub2" style="display: none;"><a href="/faq/faq_list.jsp"><i>
+				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;FAQ</span></a></li>
+				
+					
 		</ul>
 	</div>
 </nav>
