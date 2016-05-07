@@ -39,35 +39,18 @@
 					class="fa fa-list-ul">
 				</i><span class="menu-title">전체등록</span></a></li>
 				
-				<li id="menu_member"><a href="/trashcan/trashCan.jsp"><i
-					class="fa fa-list-ul">
-				</i><span class="menu-title">휴지통</span></a></li>
-			
-			
-function func_menu_ext(menuId, subMenuCnt){
-	if(document.getElementById(menuId + "_sub1").style.display == "none"){
-		for ( var cnt = 1; cnt <= subMenuCnt; cnt++) {
-			document.getElementById(menuId + "_sub" + cnt).style.display = "block";
-		}
-	}else{
-		for ( var cnt = 1; cnt <= subMenuCnt; cnt++) {
-			document.getElementById(menuId + "_sub" + cnt).style.display = "none";
-		}
-	}
-}
-
-
 			<!-- 1차메뉴 -->
-			<li id="menu_notice_faq"><a href="#"
-				onclick="javascript:func_menu_ext('menu_notice_faq',2);"><i
+			<li id="menu_trashcan"><a href="#"
+				onclick="javascript:func_menu_ext('menu_trashcan',3);"><i
 					class="fa fa-sitemap fa-fw">
-				</i><span class="menu-title">공지사항/FAQ</span></a></li>		
+				</i><span class="menu-title">휴지통</span></a></li>		
 				<!-- 2차메뉴 -->
-			<li id="menu_notice_faq_sub1" style="display: none;"><a href="/notice/notice_list.jsp"><i>
-				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;공지사항</span></a></li>
-			<li id="menu_notice_faq_sub2" style="display: none;"><a href="/faq/faq_list.jsp"><i>
-				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;FAQ</span></a></li>
-				
+			<li id="menu_trashcan_sub1" style="display: none;"><a href="/trashcan/constructionDelList.jsp"><i>
+				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;공고관리</span></a></li>
+			<li id="menu_trashcan_sub2" style="display: none;"><a href="/trashcan/businessDelList.jsp"><i>
+				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;업체관리</span></a></li>
+			<li id="menu_trashcan_sub3" style="display: none;"><a href="/trashcan/adminDelList.jsp"><i>
+				</i><span class="menu-title">&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;관리자 관리</span></a></li>
 					
 		</ul>
 	</div>

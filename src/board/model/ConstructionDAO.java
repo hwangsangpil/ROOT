@@ -174,6 +174,102 @@ public class ConstructionDAO {
 		return result;
 	}
 	
+	public int cntTotalDelConstruction(String searchKeyword, String[] checked) throws SQLException {
+		int result = 0;
+		int cnt=0;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*)	cnt										\n");
+		sql.append("FROM TB_CONSTRUCTION 											\n");
+		sql.append("WHERE DEL_YN = 'Y' 														\n");
+		if(checked != null){
+			for(int i=0; i<checked.length; i++){
+				if(checked[i].equals("1")){
+					sql.append("AND CONSTRUCTION_NAME LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("2")){
+					sql.append("AND CONSTRUCTION_WAY LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("3")){
+					sql.append("AND CONSTRUCTION_AREA LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("4")){
+					sql.append("AND CONSTRUCTION_PRICE LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("5")){
+					sql.append("AND CONSTRUCTION_LOWER LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("6")){
+					sql.append("AND CONSTRUCTION_OPENING LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("7")){
+					sql.append("AND CONSTRUCTION_INSTITUTION LIKE CONCAT('%',?,'%')			\n");
+				}
+				if(checked[i].equals("8")){
+					sql.append("AND CONSTRUCTION_PERCENT LIKE CONCAT('%',?,'%')			\n");
+				}
+			}	
+		}else if(searchKeyword.length() > 0){
+			sql.append("AND ( CONSTRUCTION_NAME LIKE CONCAT('%',?,'%')  OR CONSTRUCTION_WAY LIKE CONCAT('%',?,'%')	\n");
+			sql.append("OR CONSTRUCTION_AREA LIKE CONCAT('%',?,'%')  OR CONSTRUCTION_PRICE LIKE CONCAT('%',?,'%')  OR CONSTRUCTION_LOWER LIKE CONCAT('%',?,'%')	\n");
+			sql.append("OR CONSTRUCTION_OPENING LIKE CONCAT('%',?,'%')  OR CONSTRUCTION_INSTITUTION LIKE CONCAT('%',?,'%')  OR CONSTRUCTION_PERCENT LIKE CONCAT('%',?,'%'))	\n");
+		}
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			if(checked != null){
+				for(int i=0; i<checked.length; i++){
+					if(checked[i].equals("1")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("2")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("3")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("4")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("5")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("6")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("7")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+					if(checked[i].equals("8")){
+						pstmt.setString(++cnt, searchKeyword);
+					}
+				}	
+		}else if(searchKeyword.length() > 0){
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+				pstmt.setString(++cnt, searchKeyword);
+			}
+			//System.out.println("Con Cnt selectpstmt:   "+pstmt.toString());
+			
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+			//System.out.println("con result:  "+result);
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		return result;
+	}
+	
+	
 	/*
 	 * 占쏙옙占� 占쏙옙占쏙옙트 占쏙옙占쏙옙 占쌀뤄옙占쏙옙占쏙옙
 	 */
@@ -568,6 +664,49 @@ public class ConstructionDAO {
 		sql.append("ON TB_CONSTRUCTION.CONSTRUCTION_NUM = TB_BUSINESS.CONSTRUCTION_NUM			\n");
 		sql.append("SET TB_BUSINESS.DEL_YN = 'Y' 												\n");
 		sql.append("WHERE TB_BUSINESS.CONSTRUCTION_NUM = ?								\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, ConstNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		return result;
+	}
+	
+	/*
+	 * 공고 영구 삭제
+	 */
+	public int deleteConstruction2(int ConstNum) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("DELETE FROM													\n");
+		sql.append("TB_CONSTRUCTION										\n");
+		sql.append("WHERE DEL_YN = 'Y' 												\n");
+		sql.append("AND CONSTRUCTION_NUM = ?								\n");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, ConstNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+		}
+		return result;
+	}
+	
+	public int restoreConstruction(int ConstNum) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		int result = 0;
+		sql.append("UPDATE TB_CONSTRUCTION													\n");
+		sql.append("SET										\n");
+		sql.append("DEL_YN = 'N' 												\n");
+		sql.append("WHERE TB_CONSTRUCTION.CONSTRUCTION_NUM = ?								\n");
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, ConstNum);

@@ -16,9 +16,9 @@ String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("s
 ConstructionDAO dao = new ConstructionDAO();
 
 
-int totalcnt = dao.cntTotalMember(searchKeyword, checked);
+int totalcnt = dao.cntTotalDelConstruction(searchKeyword, checked);
 
-ArrayList<ConstructionDTO> list = dao.selectConstructionList(searchKeyword, pageno, totalcnt, checked);
+ArrayList<ConstructionDTO> list = dao.selectConstructionDelList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();
 %>
 <!DOCTYPE html>
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	function down(){
     
-    	location.href = "exportToExcel.jsp?title=constructionList.xls&pageno="+<%=pageno%>
+    	location.href = "exportToExcel.jsp?title=constructionDelList.xls&pageno="+<%=pageno%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -60,12 +60,8 @@ $(document).ready(function() {
 		document.frm.submit();
 	}
 	
-	function businessView(ConstNum){
-		location.href = "../business/business_view.jsp?ConstNum=" + ConstNum;
-	}
-	
 	function constructionDel(ConstNum){
-		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		if (confirm("정말 영구삭제하시겠습니까??") == true){    //확인
 			location.href = "construction_del_ok.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -81,9 +77,9 @@ $(document).ready(function() {
 		}
 	}
 	
-	function constructionMod(ConstNum){
-		if (confirm("정말 수정하시겠습니까??") == true){    //확인
-			location.href = "constructionMod.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
+	function constructionRes(ConstNum){
+		if (confirm("정말 복구하시겠습니까??") == true){    //확인
+			location.href = "construction_Res_ok.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -171,8 +167,8 @@ $(document).ready(function() {
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("8")){ %>checked<%}}}%>/></th>
 																<th style="text-align:center; width: 100px;">입력날짜</th>
 																<th style="text-align:center; width: 100px;">수정날짜</th>
-																<th style="text-align:center;">수정</th>
 																<th style="text-align:center;">삭제</th>
+																<th style="text-align:center;">복구</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -181,7 +177,7 @@ $(document).ready(function() {
 																for (int i=0; i<list.size(); i++) {
 																	ConstructionDTO vo = list.get(i);
 																	%>
-																<tr onclick="javascript:businessView(<%=vo.getConstNum() %>);" style="cursor: pointer;">
+																<tr>
 																	<td style="text-align:center;"><%=vo.getConstNum() %></td>
 																	<td style="text-align:center;"><%=vo.getConstName()%></td>
 																	<td style="text-align:center;"><%=vo.getConstWay()%></td>
@@ -193,8 +189,8 @@ $(document).ready(function() {
 																	<td style="text-align:center;"><%=vo.getConstPercent()%></td>
 																	<td style="text-align:center;"><%=vo.getCrtDate()%></td>
 																	<td style="text-align:center;"><%=vo.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="constructionMod(<%=vo.getConstNum()%>)">수정</button></td>
 																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="constructionDel(<%=vo.getConstNum()%>)">삭제</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="constructionRes(<%=vo.getConstNum()%>)">복구</button></td>
 																</tr>
 																
 																<%
