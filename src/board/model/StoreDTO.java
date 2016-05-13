@@ -1,6 +1,6 @@
 package board.model;
 
-public class StoreVO {
+public class StoreDTO {
 	int seqNo;
 	int branchOpenTimeH;
 	int branchOpenTimeM;

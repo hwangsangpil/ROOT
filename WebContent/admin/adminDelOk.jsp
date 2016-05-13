@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="board.model.AdminVO"%>
-<%@ page import="board.model.AdminDao"%>
+<%@ page import="board.model.AdminDTO"%>
+<%@ page import="board.model.AdminDAO"%>
 <%@ page import="util.StringUtil"%>
 <%@ page import="util.HashUtil" %>
 <%@page import="java.net.URLEncoder"%>
@@ -13,19 +13,19 @@
 	String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 	String[] checked=request.getParameterValues("check");
 
-	int adminNum = Integer.parseInt(StringUtil.nchk(request.getParameter("adminNum"), "1"));
+	int no = Integer.parseInt(StringUtil.nchk(request.getParameter("no"), "1"));
 				
-	AdminDao dao = new AdminDao();
+	AdminDAO dao = new AdminDAO();
 	
 	int result = 0;
 	
-	result = dao.restoreAdmin(adminNum);
+	result = dao.deleteAdmin(no);
 	dao.closeConn();
 	if(result > 0){ 
 %>
 		<script language=javascript>
-			alert("복구 되었습니다.");
-			location.href = "/trashcan/adminDelList.jsp?pageno="+<%=pageno%>
+			alert("삭제 되었습니다.");
+			location.href = "/admin/adminList.jsp?pageno="+<%=pageno%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -36,8 +36,8 @@
 	}else{
 %>
 		<script language=javascript>
-			alert("복구 실패했습니다."); 
-			location.href = "/trashcan/adminDelList.jsp"; 
+			alert("삭제 실패했습니다."); 
+			location.href = "/admin/adminList.jsp"; 
 		</script>
 <%
 	}

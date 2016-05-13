@@ -388,20 +388,20 @@ public class ConstructionDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ConstructionDTO vo = new ConstructionDTO();
-				vo.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
-				vo.setConstName(rs.getString("CONSTRUCTION_NAME"));
-				vo.setConstWay(rs.getString("CONSTRUCTION_WAY"));
-				vo.setConstArea(rs.getString("CONSTRUCTION_AREA"));
-				vo.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
-				vo.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
-				vo.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
-				vo.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
-				vo.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				ConstructionDTO dto = new ConstructionDTO();
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				dto.setConstWay(rs.getString("CONSTRUCTION_WAY"));
+				dto.setConstArea(rs.getString("CONSTRUCTION_AREA"));
+				dto.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
+				dto.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
+				dto.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
+				dto.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
+				dto.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -527,20 +527,20 @@ public class ConstructionDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ConstructionDTO vo = new ConstructionDTO();
-				vo.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
-				vo.setConstName(rs.getString("CONSTRUCTION_NAME"));
-				vo.setConstWay(rs.getString("CONSTRUCTION_WAY"));
-				vo.setConstArea(rs.getString("CONSTRUCTION_AREA"));
-				vo.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
-				vo.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
-				vo.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
-				vo.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
-				vo.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				ConstructionDTO dto = new ConstructionDTO();
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				dto.setConstWay(rs.getString("CONSTRUCTION_WAY"));
+				dto.setConstArea(rs.getString("CONSTRUCTION_AREA"));
+				dto.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
+				dto.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
+				dto.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
+				dto.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
+				dto.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -567,10 +567,10 @@ public class ConstructionDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				ConstructionDTO vo = new ConstructionDTO();
-				vo.setConstName(rs.getString("CONSTRUCTION_NAME"));
-				vo.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
-				list.add(vo);
+				ConstructionDTO dto = new ConstructionDTO();
+				dto.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				list.add(dto);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -611,6 +611,38 @@ public class ConstructionDAO {
 			pstmt.setString(7, constInstitution);
 			pstmt.setString(8, constPercent);
 			pstmt.setString(9, constName);
+			
+			result = pstmt.executeUpdate();
+			
+			if (result > 0) {
+				result = -1;
+				try {
+					rs = pstmt.getGeneratedKeys();
+					if (rs.next())
+						result = rs.getInt(1);
+				} catch (SQLException e) {
+					result = -1;
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt);
+
+		}
+		return result;
+	}
+	
+	public int totalInsert(String sql) throws SQLException {
+		
+		//StringBuffer sql = new StringBuffer();
+		int result = 0;
+
+		System.out.println("sql:   "+sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			
 			result = pstmt.executeUpdate();
 			
@@ -683,10 +715,17 @@ public class ConstructionDAO {
 	public int deleteConstruction2(int ConstNum) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
+		/*	두개 이상 삭제 할 때
+		sql.append("DELETE TB_CONSTRUCTION, TB_BUSINESS FROM													\n");
+		sql.append("TB_CONSTRUCTION	JOIN TB_BUSINESS								\n");
+		sql.append("ON TB_CONSTRUCTION.DEL_YN = TB_BUSINESS.DEL_YN 												\n");
+		sql.append("WHERE TB_CONSTRUCTION.DEL_YN='Y' AND (TB_CONSTRUCTION.CONSTRUCTION_NUM = ?) OR (TB_CONSTRUCTION.CONSTRUCTION_NUM = ? AND TB_BUSINESS.CONSTRUCTION_NUM = ?)					\n");
+		*/
+		
 		sql.append("DELETE FROM													\n");
-		sql.append("TB_CONSTRUCTION										\n");
-		sql.append("WHERE DEL_YN = 'Y' 												\n");
-		sql.append("AND CONSTRUCTION_NUM = ?								\n");
+		sql.append("TB_CONSTRUCTION								\n");
+		sql.append("WHERE DEL_YN='Y' AND CONSTRUCTION_NUM = ?				\n");
+		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, ConstNum);
@@ -835,20 +874,20 @@ public class ConstructionDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ConstructionDTO vo = new ConstructionDTO();
-				vo.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
-				vo.setConstName(rs.getString("CONSTRUCTION_NAME"));
-				vo.setConstWay(rs.getString("CONSTRUCTION_WAY"));
-				vo.setConstArea(rs.getString("CONSTRUCTION_AREA"));
-				vo.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
-				vo.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
-				vo.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
-				vo.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
-				vo.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				ConstructionDTO dto = new ConstructionDTO();
+				dto.setConstNum(rs.getInt("CONSTRUCTION_NUM"));
+				dto.setConstName(rs.getString("CONSTRUCTION_NAME"));
+				dto.setConstWay(rs.getString("CONSTRUCTION_WAY"));
+				dto.setConstArea(rs.getString("CONSTRUCTION_AREA"));
+				dto.setConstPrice(rs.getString("CONSTRUCTION_PRICE"));
+				dto.setConstLower(rs.getString("CONSTRUCTION_LOWER"));
+				dto.setConstOpening(rs.getString("CONSTRUCTION_OPENING"));
+				dto.setConstInstitution(rs.getString("CONSTRUCTION_INSTITUTION"));
+				dto.setConstPercent(rs.getString("CONSTRUCTION_PERCENT"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

@@ -1,8 +1,8 @@
 <%@ page contentType="application/vnd.ms-excel;charset=EUC-KR" %>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="board.model.AdminDao"%>
-<%@page import="board.model.AdminVO"%>
+<%@page import="board.model.AdminDAO"%>
+<%@page import="board.model.AdminDTO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
@@ -21,12 +21,12 @@
    String[] checked=request.getParameterValues("check");
    String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
    
-   AdminDao dao = new AdminDao();
+   AdminDAO dao = new AdminDAO();
    
    
    
-   int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
-   ArrayList<AdminVO> list = dao.selectAdminListExcel(searchKeyword, pageno, totalcnt, checked);
+   int totalcnt = dao.cntTotalDelAdmin(searchKeyword, checked);
+   ArrayList<AdminDTO> list = dao.selectAdminDelList(searchKeyword, pageno, totalcnt, checked);
    dao.closeConn();
    
 %>
@@ -47,6 +47,8 @@
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked="checked"<%}}}%>></th>
 <th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;폰번호<input type="checkbox" 
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked="checked"<%}}}%>></th>
+<th style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;권한<input type="checkbox" 
+	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked="checked"<%}}}%>></th>
 <th style="text-align:center;">생성일</th>
 <th style="text-align:center;">수정일</th>
 															
@@ -56,17 +58,18 @@
 <%
 if (list.size() > 0) {
 	for (int i=0; i<list.size(); i++) {
-		AdminVO vo = list.get(i);
+		AdminDTO dto = list.get(i);
       %>
 
 <tr>
-<td style="text-align:center;"><%=vo.getSeqNo() %></td>
-<td style="text-align:center;"><%=vo.getAdminName()%></td>
-<td style="text-align:center;"><%=vo.getAdminId()%></td>
-<td style="text-align:center;"><%=vo.getAdminEmail()%></td>
-<td style="text-align:center;"><%=vo.getAdminPhone()%></td>
-<td style="text-align:center;"><%=vo.getCrtDate() %></td>
-<td style="text-align:center;"><%=vo.getUdtDate() %></td>
+<td style="text-align:center;"><%=dto.getSeqNo() %></td>
+<td style="text-align:center;"><%=dto.getAdminName()%></td>
+<td style="text-align:center;"><%=dto.getAdminId()%></td>
+<td style="text-align:center;"><%=dto.getAdminEmail()%></td>
+<td style="text-align:center;"><%=dto.getAdminPhone()%></td>
+<td style="text-align:center;"><%if(dto.getAdminRole()==0){%>전체관리자<%}%><%if(dto.getAdminRole()==1){%>일반관리자<%}%></td>
+<td style="text-align:center;"><%=dto.getCrtDate() %></td>
+<td style="text-align:center;"><%=dto.getUdtDate() %></td>
 </tr>
 <%
    }

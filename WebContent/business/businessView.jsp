@@ -66,7 +66,7 @@ function fnc_search(){
 
 function businessDel(BusiNum){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		location.href = "busuness_viewDel_ok.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+		location.href = "busunessViewDelOk.jsp?BusiNum=" + BusiNum + "&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -116,7 +116,7 @@ function businessMod(BusiNum){
 						<div class="page-title">참여 업체관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">업체</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -127,7 +127,7 @@ function businessMod(BusiNum){
 				<!--END TITLE & BREADCRUMB PAGE-->
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
-					<form name="frm" action="/business/business_view.jsp"+<%=pageno%>; method="post">
+					<form name="frm" action="/business/businessView.jsp"+<%=pageno%>; method="post">
 						<input type="hidden" name="ConstNum" value="<%=ConstNum%>">
 						<input type="hidden" name="pageno" value="<%=pageno%>">
 						<div id="tab-general">
@@ -178,21 +178,21 @@ function businessMod(BusiNum){
 															<%
 															if (list.size() > 0) {
 																for (int i=0; i<list.size(); i++) {
-																	BusinessDTO vo = list.get(i);
+																	BusinessDTO dto = list.get(i);
 																	%>
 																<tr style="cursor: pointer;">
-																	<td style="text-align:center;"><%=vo.getBusiNum()%></td>
-																	<td style="text-align:center;"><%=vo.getConstName()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiName()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiOpening()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiPercent()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiPrice()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiWay()%></td>
-																	<td style="text-align:center;"><%=vo.getBusiArea()%></td>
-																	<td style="text-align:center;"><%=vo.getCrtDate()%></td>
-																	<td style="text-align:center;"><%=vo.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessMod(<%=vo.getBusiNum()%>)">수정</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=vo.getBusiNum()%>)">삭제</button></td>
+																	<td style="text-align:center;"><%=dto.getBusiNum()%></td>
+																	<td style="text-align:center;"><%=dto.getConstName()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiName()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiOpening()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiPercent()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiPrice()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiWay()%></td>
+																	<td style="text-align:center;"><%=dto.getBusiArea()%></td>
+																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
+																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessMod(<%=dto.getBusiNum()%>)">수정</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=dto.getBusiNum()%>)">삭제</button></td>
 																</tr>
 																
 																<%

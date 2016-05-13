@@ -56,7 +56,9 @@
 		String otbMenuListImg = "";
 		String otbMenuContentImg = "";
 		
-		result = dao.insertBusinessAdd(constNum, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
+		String constName = dao.selectConstructionName(constNum);
+		System.out.println("out constName=    "+constName);	
+		result = dao.insertBusinessAdd(constNum, constName, busiName, busiOpening, busiPrice, busiPercent, busiWay, busiArea);
 		if(result>0){
 			 /* if(otbOptionMenuNamea!=null){
 				for(int i=0; i<otbOptionMenuNamea.length;i++){

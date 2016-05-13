@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="board.model.AdminDao"%>
-<%@page import="board.model.AdminVO"%>
+<%@page import="board.model.AdminDAO"%>
+<%@page import="board.model.AdminDTO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
 <%@page import="java.net.URLEncoder"%>
@@ -15,8 +15,8 @@ int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1
 String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 String[] checked=request.getParameterValues("check");
 
-AdminDao dao = new AdminDao();
-AdminVO vo = dao.selectAdminInfo(no);
+AdminDAO dao = new AdminDAO();
+AdminDTO dto = dao.selectAdminInfo(no);
 dao.closeConn();	
 %>
 
@@ -83,7 +83,7 @@ function checkForm() {
 		return;
 	}
 	
-	registForm.action = "admin_modify_ok.jsp?pageno="+<%=pageno%>
+	registForm.action = "adminModifyOk.jsp?pageno="+<%=pageno%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -94,7 +94,7 @@ function checkForm() {
 
 function fnc_delete(){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		location.href = "/setting/admin_delete_ok.jsp?no="+<%=no%>+"&pageno="+<%=pageno%>
+		location.href = "/admin/adminDelOk.jsp?no="+<%=no%>+"&pageno="+<%=pageno%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -106,7 +106,7 @@ function fnc_delete(){
 }
 
 function fnc_list(){
-	location.href = "/setting/admin_list.jsp?pageno="+<%=pageno%>
+	location.href = "/admin/adminList.jsp?pageno="+<%=pageno%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -132,7 +132,7 @@ $(document).ready(function() {
 	    success: function(data){
 	    	//alert(data);
 	        $('#branchCode').append(data);
-	        $("#branchCode").val("<%=vo.getAdminBranch()%>").attr("selected", "selected");
+	        $("#branchCode").val("<%=dto.getAdminBranch()%>").attr("selected", "selected");
 	    },
 	    error: function(err) {
 	    	//alert(err.responseText);
@@ -159,7 +159,7 @@ $(document).ready(function() {
 						<div class="page-title">관리자 상세관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">설정</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -183,14 +183,14 @@ $(document).ready(function() {
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-user"></i>
-		                                            <input id="adminName" name="adminName" type="text" placeholder="이름" class="form-control" value="<%=StringUtil.NVL(vo.getAdminName()) %>"
-		                                            onMouseOver="javascript: this.value='이름';" onmouseout="javascript: this.value='<%=vo.getAdminName()%>';" onclick="javascript: this.value='<%=vo.getAdminName()%>';"/></div>
+		                                            <input id="adminName" name="adminName" type="text" placeholder="이름" class="form-control" value="<%=StringUtil.NVL(dto.getAdminName()) %>"
+		                                            onMouseOver="javascript: this.value='이름';" onmouseout="javascript: this.value='<%=dto.getAdminName()%>';" onclick="javascript: this.value='<%=dto.getAdminName()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminId" name="adminId" type="text" placeholder="아이디" class="form-control" value="<%=StringUtil.NVL(vo.getAdminId()) %>"
-		                                            onMouseOver="javascript: this.value='아이디';" onmouseout="javascript: this.value='<%=vo.getAdminId()%>';" onclick="javascript: this.value='<%=vo.getAdminId()%>';" readonly/></div>
+		                                            <input id="adminId" name="adminId" type="text" placeholder="아이디" class="form-control" value="<%=StringUtil.NVL(dto.getAdminId()) %>"
+		                                            onMouseOver="javascript: this.value='아이디';" onmouseout="javascript: this.value='<%=dto.getAdminId()%>';" onclick="javascript: this.value='<%=dto.getAdminId()%>';" readonly/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
@@ -205,31 +205,23 @@ $(document).ready(function() {
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminEmail" name="adminEmail" type="text" placeholder="이메일" class="form-control" value="<%=StringUtil.NVL(vo.getAdminEmail()) %>" 
-		                                            onMouseOver="javascript: this.value='이메일';" onmouseout="javascript: this.value='<%=vo.getAdminEmail()%>';" onclick="javascript: this.value='<%=vo.getAdminEmail()%>';"/></div>
+		                                            <input id="adminEmail" name="adminEmail" type="text" placeholder="이메일" class="form-control" value="<%=StringUtil.NVL(dto.getAdminEmail()) %>" 
+		                                            onMouseOver="javascript: this.value='이메일';" onmouseout="javascript: this.value='<%=dto.getAdminEmail()%>';" onclick="javascript: this.value='<%=dto.getAdminEmail()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="input-icon right">
 		                                            <i class="fa fa-envelope"></i>
-		                                            <input id="adminPhone" name="adminPhone" type="text" placeholder="핸드폰 번호" class="form-control" value="<%=StringUtil.NVL(vo.getAdminPhone()) %>" 
-		                                            onMouseOver="javascript: this.value='핸드폰 번호';" onmouseout="javascript: this.value='<%=vo.getAdminPhone()%>';" onclick="javascript: this.value='<%=vo.getAdminPhone()%>';"/></div>
+		                                            <input id="adminPhone" name="adminPhone" type="text" placeholder="핸드폰 번호" class="form-control" value="<%=StringUtil.NVL(dto.getAdminPhone()) %>" 
+		                                            onMouseOver="javascript: this.value='핸드폰 번호';" onmouseout="javascript: this.value='<%=dto.getAdminPhone()%>';" onclick="javascript: this.value='<%=dto.getAdminPhone()%>';"/></div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <select id="adminRole" name="adminRole" class="form-control" onChange="javascript:changeView(this.value)">
-		                                            <option value="-1" <%if(vo.getAdminRole() == -1){%>selected<%}%>>메뉴 권한</option>
-		                                            <option value="0" <%if(vo.getAdminRole() == 0){%>selected<%}%>>전체 관리자</option>
-		                                            <option value="1" <%if(vo.getAdminRole() == 1){%>selected<%}%>>OTB메뉴 관리자</option>
-		                                            <option value="2" <%if(vo.getAdminRole() == 2){%>selected<%}%>>일반 컨텐츠 관리자</option>
-		                                            <option value="3" <%if(vo.getAdminRole() == 3){%>selected<%}%>>이벤트 관리자</option>
-		                                            <option value="4" <%if(vo.getAdminRole() == 4){%>selected<%}%>>매장용 CMS 관리자</option>
+		                                            <option value="-1" <%if(dto.getAdminRole() == -1){%>selected<%}%>>메뉴 권한</option>
+		                                            <option value="0" <%if(dto.getAdminRole() == 0){%>selected<%}%>>전체 관리자</option>
+		                                            <option value="1" <%if(dto.getAdminRole() == 1){%>selected<%}%>>일반 관리자</option>
 		                                        </select>
 		                                    </div>
-		                                   <%if(vo.getAdminRole() == 4){ %>
-		                                    <div class="form-group" id="branchGubun" name = "branchGubun">
-		                                        <select name="branchCode" id="branchCode" class="form-control">
-													</select>
-											</div>
-											<%} %>
+		                                   
 		                                </div>
 		                                <div class="form-actions text-right pal">
 		                                    <button type="button" onclick="checkForm();" class="btn btn-primary">수정</button>&nbsp;
@@ -238,12 +230,7 @@ $(document).ready(function() {
 		                                </div>
 		                                 <div>
                                                         <h5>&nbsp;&nbsp;&nbsp;전체 관리자 : 모든 메뉴 관리자 및 관>리자 관리</h5>
-                                                        <h5>&nbsp;&nbsp;&nbsp;OTB메뉴 관리자 : OTB메뉴, 포장메뉴, >설정(메뉴 카테고리), 리포트 관리</h5>
-                                                        <h5>&nbsp;&nbsp;&nbsp;일반 컨텐츠 관리자 : 공지사항/FAQ, 매
-장안내, 고객의 소리, 리포트 관리</h5>
-                                                        <h5>&nbsp;&nbsp;&nbsp;이벤트 관리자 : 프로모션, 리포트 관리
-</h5>
-                                                        <h5>&nbsp;&nbsp;&nbsp;매장용 CMS 관리자 : 해당 매장 CMS 관>리</h5>
+                                                        <h5>&nbsp;&nbsp;&nbsp;일반 관리자 : 공지사항/FAQ, 매장안내, 고객의 소리, 리포트 관리</h5>
                                                 </div>
 		                                
 		                                </form>

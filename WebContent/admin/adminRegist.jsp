@@ -46,22 +46,22 @@
 		
 	</script>
 </head>
-<body style="background: url('images/bg/bg.png') 100% 100% fixed;">
+<body style="background: url('/images/bg/bg.png') 100% 100% fixed;">
     <div class="page-form">
         <div class="panel panel-blue">
             <div class="panel-body pan">
-                <form action="member_regist_ok.jsp" id="registForm" method="post" class="form-horizontal">
+                <form action="adminRegistOk.jsp" id="registForm" method="post" class="form-horizontal">
 				<input type="hidden" name="returnUrl" value="L2FkbWluL21haW4vbWFpbi5kbw"/>
 				<br/><br/>
                 <div class="form-body pal" style="margin-top: -135px;">
                     <div class="col-md-12 text-center">
                         <h1 style="font-size: 30px;">
-                          <a href="/login.jsp">INFO SYSTEM</a></h1>
+                          <a href="/index.jsp">INFO SYSTEM</a></h1>
                         <br/>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            <img src="images/avatar/profile-pic.png" class="img-responsive" style="margin-top: -30px;" />
+                            <img src="/images/avatar/profile-pic.png" class="img-responsive" style="margin-top: -30px;" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -116,10 +116,7 @@
 		                                        <select id="role" name="role" class="form-control" onChange="javascript:changeView(this.value)" tabindex="6" onKeypress="hitEnterKey(event)">
 		                                            <option value="-1">메뉴 권한</option>
 		                                            <option value="0">전체 관리자</option>
-		                                            <option value="1">OTB메뉴 관리자</option>
-		                                            <option value="2">일반 컨텐츠 관리자</option>
-		                                            <option value="3">이벤트 관리자</option>
-		                                            <option value="4">매장용 CMS 관리자</option>
+		                                            <option value="1">일반 관리자</option>
 		                                        </select>
 		                                    </div>
 		                                 </div>

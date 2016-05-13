@@ -1,6 +1,7 @@
 package board.model;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +11,12 @@ import java.util.concurrent.locks.Lock;
 
 import com.mysql.jdbc.Statement;
 
-public class AdminDao {
+public class AdminDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public AdminDao() throws SQLException {
+	public AdminDAO() throws SQLException {
 		//conn = ConnectionUtil.getConnection(); //2015-12-07 ksy 湲곗〈
 		super();
 		//conn = ConnectionUtil.getConnection();
@@ -75,8 +76,8 @@ public class AdminDao {
 	        }
 	    }
 	}
-	public ArrayList<AdminVO> selectAdminList(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
-		ArrayList<AdminVO> list = new ArrayList<AdminVO>();
+	public ArrayList<AdminDTO> selectAdminList(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
+		ArrayList<AdminDTO> list = new ArrayList<AdminDTO>();
 		
 		int nCnt = 1;
 		int startRow =0;
@@ -120,12 +121,16 @@ public class AdminDao {
 				if(checked[i].equals("4")){
 					sql.append("AND ADMIN_PHONE LIKE CONCAT('%',?,'%')			\n");
 				}
+				if(checked[i].equals("5")){
+					sql.append("AND ADMIN_ROLE LIKE CONCAT('%',?,'%')			\n");
+				}
 			}	
 		}else if(searchKeyword.length() > 0){
 			sql.append("AND (ADMIN_NAME LIKE CONCAT('%',?,'%')		\n");
 			sql.append("OR ADMIN_ID LIKE CONCAT('%',?,'%')				\n");
 			sql.append("OR ADMIN_EMAIL LIKE CONCAT('%',?,'%')				\n");
-			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%'))				\n");
+			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR ADMIN_ROLE LIKE CONCAT('%',?,'%'))				\n");
 		}
 		sql.append("ORDER BY SEQ_NO DESC												\n");
 		sql.append("LIMIT ?, ?															\n");
@@ -146,8 +151,12 @@ public class AdminDao {
 					if(checked[i].equals("4")){
 						pstmt.setString(nCnt++, searchKeyword);
 					}
+					if(checked[i].equals("5")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
 				}	
 		}else if(searchKeyword.length() > 0){
+				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
@@ -161,18 +170,18 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				AdminVO vo = new AdminVO();
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminId(rs.getString("ADMIN_ID"));
-				vo.setAdminPw(rs.getString("ADMIN_PW"));
-				vo.setAdminName(rs.getString("ADMIN_NAME"));
-				vo.setAdminPhone(rs.getString("ADMIN_PHONE"));
-				vo.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				AdminDTO dto = new AdminDTO();
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminId(rs.getString("ADMIN_ID"));
+				dto.setAdminPw(rs.getString("ADMIN_PW"));
+				dto.setAdminName(rs.getString("ADMIN_NAME"));
+				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
+				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -183,8 +192,8 @@ public class AdminDao {
 		return list;
 	}
 	
-	public ArrayList<AdminVO> selectAdminDelList(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
-		ArrayList<AdminVO> list = new ArrayList<AdminVO>();
+	public ArrayList<AdminDTO> selectAdminDelList(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
+		ArrayList<AdminDTO> list = new ArrayList<AdminDTO>();
 		
 		int nCnt = 1;
 		int startRow =0;
@@ -228,12 +237,16 @@ public class AdminDao {
 				if(checked[i].equals("4")){
 					sql.append("AND ADMIN_PHONE LIKE CONCAT('%',?,'%')			\n");
 				}
+				if(checked[i].equals("5")){
+					sql.append("AND ADMIN_ROLE LIKE CONCAT('%',?,'%')			\n");
+				}
 			}	
 		}else if(searchKeyword.length() > 0){
 			sql.append("AND (ADMIN_NAME LIKE CONCAT('%',?,'%')		\n");
 			sql.append("OR ADMIN_ID LIKE CONCAT('%',?,'%')				\n");
 			sql.append("OR ADMIN_EMAIL LIKE CONCAT('%',?,'%')				\n");
-			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%'))				\n");
+			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR ADMIN_ROLE LIKE CONCAT('%',?,'%'))				\n");
 		}
 		sql.append("ORDER BY SEQ_NO DESC												\n");
 		sql.append("LIMIT ?, ?															\n");
@@ -254,8 +267,12 @@ public class AdminDao {
 					if(checked[i].equals("4")){
 						pstmt.setString(nCnt++, searchKeyword);
 					}
+					if(checked[i].equals("5")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
 				}	
 		}else if(searchKeyword.length() > 0){
+				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
@@ -269,18 +286,18 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				AdminVO vo = new AdminVO();
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminId(rs.getString("ADMIN_ID"));
-				vo.setAdminPw(rs.getString("ADMIN_PW"));
-				vo.setAdminName(rs.getString("ADMIN_NAME"));
-				vo.setAdminPhone(rs.getString("ADMIN_PHONE"));
-				vo.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				AdminDTO dto = new AdminDTO();
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminId(rs.getString("ADMIN_ID"));
+				dto.setAdminPw(rs.getString("ADMIN_PW"));
+				dto.setAdminName(rs.getString("ADMIN_NAME"));
+				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
+				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -428,14 +445,13 @@ public class AdminDao {
 		return result;
 	}
 	
-	public AdminVO selectAdminInfo(int no) throws SQLException {
-		AdminVO vo = new AdminVO();
+	public AdminDTO selectAdminInfo(int no) throws SQLException {
+		AdminDTO dto = new AdminDTO();
 
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT SEQ_NO, ADMIN_ID, ADMIN_PW, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ROLE					\n");
 		sql.append("	, date_format(CRT_DATE, '%Y.%m.%d') as CRT_DATE					\n");
 		sql.append("	, date_format(UDT_DATE, '%Y.%m.%d') as UDT_DATE					\n");
-		sql.append("	, ADMIN_BRANCH					\n");
 		sql.append("FROM TB_ADMIN													\n");
 		sql.append("WHERE SEQ_NO = ?														\n");
 		
@@ -445,16 +461,15 @@ public class AdminDao {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminId(rs.getString("ADMIN_ID"));
-				vo.setAdminPw(rs.getString("ADMIN_PW"));
-				vo.setAdminName(rs.getString("ADMIN_NAME"));
-				vo.setAdminPhone(rs.getString("ADMIN_PHONE"));
-				vo.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
-				vo.setAdminBranch(rs.getString("ADMIN_BRANCH"));
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminId(rs.getString("ADMIN_ID"));
+				dto.setAdminPw(rs.getString("ADMIN_PW"));
+				dto.setAdminName(rs.getString("ADMIN_NAME"));
+				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
+				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -462,18 +477,18 @@ public class AdminDao {
 			closeAll(rs, pstmt);
 		}
 
-		return vo;
+		return dto;
 	}
 
 	public int insertAdmin(String adminId, String adminPw,
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole, String branchCode) throws SQLException {
+			int adminRole) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 
-		sql.append("INSERT INTO TB_ADMIN(ADMIN_ID, ADMIN_PW, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ROLE, ADMIN_BRANCH			\n");
+		sql.append("INSERT INTO TB_ADMIN(ADMIN_ID, ADMIN_PW, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ROLE			\n");
 		sql.append("	, CRT_DATE)														\n");
-		sql.append("	   SELECT ?, ?, ?, ?, ?, ?, ?, now() FROM DUAL					\n");
+		sql.append("	   SELECT ?, ?, ?, ?, ?, ?, now() FROM DUAL					\n");
 		sql.append("WHERE NOT EXISTS(SELECT ADMIN_ID FROM TB_ADMIN WHERE ADMIN_ID=?)	\n");
 		
 		try {
@@ -484,8 +499,7 @@ public class AdminDao {
 			pstmt.setString(4, adminPhone);
 			pstmt.setString(5, adminEmail);
 			pstmt.setInt(6, adminRole);
-			pstmt.setString(7, branchCode);
-			pstmt.setString(8, adminId);
+			pstmt.setString(7, adminId);
 
 			result = pstmt.executeUpdate();
 			
@@ -500,11 +514,11 @@ public class AdminDao {
 
 	public int updateAdmin(String adminId, String adminPw,
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole, int no, String branchCode) throws SQLException {
+			int adminRole, int no) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 		sql.append("UPDATE TB_ADMIN														\n");
-		sql.append("SET ADMIN_ID = ?, ADMIN_PW = ?, ADMIN_NAME = ?, ADMIN_PHONE = ?, ADMIN_EMAIL = ?, ADMIN_ROLE = ?, ADMIN_BRANCH = ? 		\n");
+		sql.append("SET ADMIN_ID = ?, ADMIN_PW = ?, ADMIN_NAME = ?, ADMIN_PHONE = ?, ADMIN_EMAIL = ?, ADMIN_ROLE = ? 		\n");
 		sql.append("	, UDT_DATE = now() 												\n");
 		sql.append("WHERE SEQ_NO = ?													\n");
 		try {
@@ -515,8 +529,7 @@ public class AdminDao {
 			pstmt.setString(4, adminPhone);
 			pstmt.setString(5, adminEmail);
 			pstmt.setInt(6, adminRole);
-			pstmt.setString(7, branchCode);
-			pstmt.setInt(8, no);
+			pstmt.setInt(7, no);
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -530,11 +543,11 @@ public class AdminDao {
 
 	public int updateAdmin(String adminId, 
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole, int no, String branchCode) throws SQLException {
+			int adminRole, int no) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 		sql.append("UPDATE TB_ADMIN														\n");
-		sql.append("SET ADMIN_ID = ?, ADMIN_NAME = ?, ADMIN_PHONE = ?, ADMIN_EMAIL = ?, ADMIN_ROLE = ?, ADMIN_BRANCH = ? 		\n");
+		sql.append("SET ADMIN_ID = ?, ADMIN_NAME = ?, ADMIN_PHONE = ?, ADMIN_EMAIL = ?, ADMIN_ROLE = ? 		\n");
 		sql.append("	, UDT_DATE = now() 												\n");
 		sql.append("WHERE SEQ_NO = ?													\n");
 		try {
@@ -544,8 +557,7 @@ public class AdminDao {
 			pstmt.setString(3, adminPhone);
 			pstmt.setString(4, adminEmail);
 			pstmt.setInt(5, adminRole);
-			pstmt.setString(6, branchCode);
-			pstmt.setInt(7, no);
+			pstmt.setInt(6, no);
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -620,8 +632,8 @@ public class AdminDao {
 		return result;
 	}
 	
-	public AdminVO loginAdmin(String adminId, String adminPw) throws SQLException {
-		AdminVO vo = new AdminVO();
+	public AdminDTO loginAdmin(String adminId, String adminPw) throws SQLException {
+		AdminDTO dto = new AdminDTO();
 
 		StringBuffer sql = new StringBuffer();
 		//System.out.println("id:"+adminId+"pw:"+adminPw);
@@ -635,8 +647,8 @@ public class AdminDao {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
 			}
 		
 		} catch (Exception e) {
@@ -645,14 +657,14 @@ public class AdminDao {
 			closeAll(rs, pstmt);
 		}
 
-		return vo;
+		return dto;
 	}
 	/*
 	 * 2015-07-16 ksy 留ㅼ옣�슜 cms 濡쒓렇�씤
 	 */
 
-	public AdminVO loginBranchCmsAdmin(String adminId, String adminPw) throws SQLException {
-		AdminVO vo = new AdminVO();
+	public AdminDTO loginBranchCmsAdmin(String adminId, String adminPw) throws SQLException {
+		AdminDTO dto = new AdminDTO();
 
 		StringBuffer sql = new StringBuffer();
 		
@@ -666,9 +678,9 @@ public class AdminDao {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminRole(rs.getInt("ADMIN_ROLE"));
-				vo.setAdminBranch(rs.getString("ADMIN_BRANCH"));
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminBranch(rs.getString("ADMIN_BRANCH"));
 			}
 		
 		} catch (Exception e) {
@@ -677,11 +689,11 @@ public class AdminDao {
 			closeAll(rs, pstmt);
 		}
 
-		return vo;
+		return dto;
 	}
 	
-	public ArrayList<AdminVO> selectAdminListExcel(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
-		ArrayList<AdminVO> list = new ArrayList<AdminVO>();
+	public ArrayList<AdminDTO> selectAdminListExcel(String searchKeyword, int pageno, int totalcnt, String[] checked) throws SQLException {
+		ArrayList<AdminDTO> list = new ArrayList<AdminDTO>();
 		
 		int nCnt = 1;
 		int startRow =0;
@@ -706,7 +718,7 @@ public class AdminDao {
 		*/
 		StringBuffer sql = new StringBuffer();
 
-		sql.append("SELECT SEQ_NO, ADMIN_NAME, ADMIN_ID, ADMIN_EMAIL, ADMIN_PHONE					\n");
+		sql.append("SELECT SEQ_NO, ADMIN_NAME, ADMIN_ID, ADMIN_EMAIL, ADMIN_PHONE, ADMIN_ROLE					\n");
 		sql.append("	, date_format(CRT_DATE, '%Y.%m.%d') as CRT_DATE					\n");
 		sql.append("	, date_format(UDT_DATE, '%Y.%m.%d') as UDT_DATE					\n");
 		sql.append("FROM TB_ADMIN 														\n");
@@ -725,12 +737,16 @@ public class AdminDao {
 				if(checked[i].equals("4")){
 					sql.append("AND ADMIN_PHONE LIKE CONCAT('%',?,'%')			\n");
 				}
+				if(checked[i].equals("5")){
+					sql.append("AND ADMIN_ROLE LIKE CONCAT('%',?,'%')			\n");
+				}
 			}	
 		}else if(searchKeyword.length() > 0){
 			sql.append("AND (ADMIN_NAME LIKE CONCAT('%',?,'%')		\n");
 			sql.append("OR ADMIN_ID LIKE CONCAT('%',?,'%')				\n");
 			sql.append("OR ADMIN_EMAIL LIKE CONCAT('%',?,'%')				\n");
-			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%'))				\n");
+			sql.append("OR ADMIN_PHONE LIKE CONCAT('%',?,'%')				\n");
+			sql.append("OR ADMIN_ROLE LIKE CONCAT('%',?,'%'))				\n");
 		}
 		sql.append("ORDER BY SEQ_NO DESC												\n");
 		sql.append("LIMIT ?, ?															\n");
@@ -751,8 +767,12 @@ public class AdminDao {
 					if(checked[i].equals("4")){
 						pstmt.setString(nCnt++, searchKeyword);
 					}
+					if(checked[i].equals("5")){
+						pstmt.setString(nCnt++, searchKeyword);
+					}
 				}	
 		}else if(searchKeyword.length() > 0){
+				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
 				pstmt.setString(nCnt++, searchKeyword);
@@ -766,16 +786,17 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				AdminVO vo = new AdminVO();
-				vo.setSeqNo(rs.getInt("SEQ_NO"));
-				vo.setAdminName(rs.getString("ADMIN_NAME"));
-				vo.setAdminId(rs.getString("ADMIN_ID"));
-				vo.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				vo.setAdminPhone(rs.getString("ADMIN_PHONE"));
-				vo.setCrtDate(rs.getString("CRT_DATE"));
-				vo.setUdtDate(rs.getString("UDT_DATE"));
+				AdminDTO dto = new AdminDTO();
+				dto.setSeqNo(rs.getInt("SEQ_NO"));
+				dto.setAdminName(rs.getString("ADMIN_NAME"));
+				dto.setAdminId(rs.getString("ADMIN_ID"));
+				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
+				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
+				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setCrtDate(rs.getString("CRT_DATE"));
+				dto.setUdtDate(rs.getString("UDT_DATE"));
 
-				list.add(vo);
+				list.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

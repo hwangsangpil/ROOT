@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="board.model.AdminDao"%>
-<%@page import="board.model.AdminVO"%>
+<%@page import="board.model.AdminDAO"%>
+<%@page import="board.model.AdminDTO"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
 <%@page import="java.net.URLEncoder"%>
@@ -14,11 +14,11 @@ int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1
 String[] checked=request.getParameterValues("check");
 String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
 
-AdminDao dao = new AdminDao();
+AdminDAO dao = new AdminDAO();
  
 int totalcnt = dao.cntTotalAdmin(searchKeyword, checked);
 
-ArrayList<AdminVO> list = dao.selectAdminList(searchKeyword, pageno, totalcnt, checked);
+ArrayList<AdminDTO> list = dao.selectAdminList(searchKeyword, pageno, totalcnt, checked);
 dao.closeConn();	
 %>
 <!DOCTYPE html>
@@ -37,15 +37,17 @@ function down(){
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
 			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 }
 
 	function fnc_view(no, pageno){
-		location.href = "admin_view.jsp?no=" + no + "&pageno=" + pageno
+		location.href = "adminView.jsp?no=" + no + "&pageno=" + pageno
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
 			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}
 	
@@ -67,11 +69,12 @@ function down(){
 	}
 	
 	function fnc_add(arg){
-		location.href = "/setting/admin_add.jsp?pageno="+arg
+		location.href = "/admin/adminAdd.jsp?pageno="+arg
 		<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
     	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){%>+"&check="+<%=checked[i]%><%}}}%>
+    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){%>+"&check="+<%=checked[i]%><%}}}%>
 			+"&searchKeyword="+encodeURI(encodeURIComponent("<%=searchKeyword%>"));
 	}
 </script>
@@ -94,7 +97,7 @@ function down(){
 						<div class="page-title">관리자 관리</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">설정</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -105,7 +108,7 @@ function down(){
 				<!--END TITLE & BREADCRUMB PAGE-->
 				<!--BEGIN CONTENT-->
 				<div class="page-content">
-					<form name="frm" action="/setting/admin_list.jsp" method="post">
+					<form name="frm" action="/admin/adminList.jsp" method="post">
 						<input type="hidden" name="pageno" value="<%=pageno%>">
 						<div id="tab-general">
 							<div class="row mbl">
@@ -120,8 +123,8 @@ function down(){
 													<div class="input-group">
 													<span class="input-group-addon">
 													<i class="fa fa-search"></i></span>
-													<input type="text" id="searchKeyword" name="searchKeyword" placeholder="이름/아이디/이메일/폰번호" class="form-control" value="<%=searchKeyword%>"/>
-													<span class="input-group-btn"><button type="button" class="btn btn-default" onclick="javascript:fnc_search()">검색</button></span></div>
+													<input type="text" id="searchKeyword" name="searchKeyword" placeholder="이름/아이디/이메일/폰번호" class="form-control" value="<%=searchKeyword%>" tabindex="1"/>
+													<span class="input-group-btn"><button type="button" class="btn btn-default" onclick="javascript:fnc_search()" tabindex="2">검색</button></span></div>
 												</div>
 												<div class="col-lg-12">&nbsp;</div>
 												<div class="col-lg-12">&nbsp;</div>
@@ -130,14 +133,16 @@ function down(){
 														<thead>
 															<tr>
 																<th style="text-align:center; width: 50px;">NO</th>
-																<th style="text-align:center; width: 200px;">관리자 이름<input type="checkbox" id="check" name="check" value="1" 
+																<th style="text-align:center; width: 200px;">관리자 이름<input type="checkbox" tabindex="3" id="check" name="check" value="1" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){ %>checked<%}}}%> /></th>
-																<th style="text-align:center; width: 150px;">아이디<input type="checkbox" id="check" name="check" value="2" 
+																<th style="text-align:center; width: 150px;">아이디<input type="checkbox" tabindex="4" id="check" name="check" value="2" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){ %>checked<%}}}%> /></th>
-																<th style="text-align:center; width: 200px;">이메일<input type="checkbox" id="check" name="check" value="3" 
+																<th style="text-align:center; width: 200px;">이메일<input type="checkbox" tabindex="5" id="check" name="check" value="3" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){ %>checked<%}}}%> /></th>
-																<th style="text-align:center; width: 200px;">폰번호<input type="checkbox" id="check" name="check" value="4" 
+																<th style="text-align:center; width: 200px;">폰번호<input type="checkbox" tabindex="6" id="check" name="check" value="4" 
 																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("4")){ %>checked<%}}}%> /></th>
+																<th style="text-align:center; width: 200px;">권한<input type="checkbox" tabindex="7" id="check" name="check" value="5" 
+																<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("5")){ %>checked<%}}}%> /></th>
 																<th style="text-align:center; width: 100px;">생성일</th>
 																<th style="text-align:center; width: 100px;">수정일</th>
 															</tr>
@@ -146,19 +151,20 @@ function down(){
 															<%
 															if (list.size() > 0) {
 																for (int i=0; i<list.size(); i++) {
-																	AdminVO vo = list.get(i);
-																	if(vo.getAdminId().equals("admin")){
+																	AdminDTO dto = list.get(i);
+																	if(dto.getAdminId().equals("admin")){
 																		continue;
 																	}
 																	%>
-																<tr style="cursor: pointer;" onclick="javascript:fnc_view('<%=vo.getSeqNo()%>','<%=pageno%>')">
-																	<td style="text-align:center;"><%=vo.getSeqNo() %></td>
-																	<td style="text-align:center;"><%=vo.getAdminName() %></td>
-																	<td style="text-align:center;"><%=vo.getAdminId()%></td>
-																	<td style="text-align:center;"><%=vo.getAdminEmail()%></td>
-																	<td style="text-align:center;"><%=vo.getAdminPhone()%></td>
-																	<td style="text-align:center;"><%=vo.getCrtDate()%></td>
-																	<td style="text-align:center;"><%=vo.getUdtDate()%></td>
+																<tr style="cursor: pointer;" onclick="javascript:fnc_view('<%=dto.getSeqNo()%>','<%=pageno%>')">
+																	<td style="text-align:center;"><%=dto.getSeqNo() %></td>
+																	<td style="text-align:center;"><%=dto.getAdminName() %></td>
+																	<td style="text-align:center;"><%=dto.getAdminId()%></td>
+																	<td style="text-align:center;"><%=dto.getAdminEmail()%></td>
+																	<td style="text-align:center;"><%=dto.getAdminPhone()%></td>
+																	<td style="text-align:center;"><%if(dto.getAdminRole()==0){%>전체관리자<%}%><%if(dto.getAdminRole()==1){%>일반관리자<%}%></td>
+																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
+																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
 																</tr>
 																
 																<%
@@ -177,8 +183,8 @@ function down(){
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
 												<div class="text-right pal">
-												<button type="button" class="btn btn-primary" onclick="javascript:fnc_add(<%=pageno%>)">관리자 추가</button>
-												<button type="button" class="btn btn-primary" onclick="javascript:down()">엑셀 다운로드</button>
+												<button type="button" class="btn btn-primary" onclick="javascript:fnc_add(<%=pageno%>)" tabindex="8">관리자 추가</button>
+												<button type="button" class="btn btn-primary" onclick="javascript:down()" tabindex="9">엑셀 다운로드</button>
 												</div>
 											</div>
 										</div>

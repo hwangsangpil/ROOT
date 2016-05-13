@@ -31,11 +31,11 @@
 					class="fa fa-pencil-square-o">
 				</i><span class="menu-title">업체등록</span></a></li>	
 				
-			<li id="menu_member"><a href="/setting/admin_list.jsp"><i
+			<li id="menu_member"><a href="/admin/adminList.jsp"><i
 					class="fa fa-list-ul">
 				</i><span class="menu-title">관리자관리</span></a></li>
 			
-			<li id="menu_member"><a href="/setting/admin_list.jsp"><i
+			<li id="menu_member"><a href="/totalInsert/totalInsert.jsp"><i
 					class="fa fa-list-ul">
 				</i><span class="menu-title">전체등록</span></a></li>
 				

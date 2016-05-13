@@ -88,20 +88,20 @@
 <%
 if (list.size() > 0) {
 	for (int i=0; i<list.size(); i++) {
-		BusinessDTO vo = list.get(i);
+		BusinessDTO dto = list.get(i);
 %>
 
 <tr>
-<td style="text-align:center;"><%=vo.getBusiNum()%></td>
-<td style="text-align:center;"><%=vo.getConstName()%></td>
-<td style="text-align:center;"><%=vo.getBusiName()%></td>
-<td style="text-align:center;"><%=vo.getBusiOpening()%></td>
-<td style="text-align:center;"><%=vo.getBusiPrice()%></td>
-<td style="text-align:center;"><%=vo.getBusiPercent()%></td>
-<td style="text-align:center;"><%=vo.getBusiWay()%></td>
-<td style="text-align:center;"><%=vo.getBusiArea()%></td>
-<td style="text-align:center;"><%=vo.getCrtDate()%></td>
-<td style="text-align:center;"><%=vo.getUdtDate()%></td>
+<td style="text-align:center;"><%=dto.getBusiNum()%></td>
+<td style="text-align:center;"><%=dto.getConstName()%></td>
+<td style="text-align:center;"><%=dto.getBusiName()%></td>
+<td style="text-align:center;"><%=dto.getBusiOpening()%></td>
+<td style="text-align:center;"><%=dto.getBusiPrice()%></td>
+<td style="text-align:center;"><%=dto.getBusiPercent()%></td>
+<td style="text-align:center;"><%=dto.getBusiWay()%></td>
+<td style="text-align:center;"><%=dto.getBusiArea()%></td>
+<td style="text-align:center;"><%=dto.getCrtDate()%></td>
+<td style="text-align:center;"><%=dto.getUdtDate()%></td>
 </tr>
 <%
    }

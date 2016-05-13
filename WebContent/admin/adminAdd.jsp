@@ -66,7 +66,7 @@ function checkForm() {
 		alert("메뉴 권한을 선택해주세요.");
 		return;
 	}
-	registForm.action="admin_add_ok.jsp?pageno="+<%=pageno%>
+	registForm.action="adminAddOk.jsp?pageno="+<%=pageno%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -126,7 +126,7 @@ $(document).ready(function() {
 						<div class="page-title">관리자 등록</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">설정</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -181,17 +181,11 @@ $(document).ready(function() {
 		                                        <select id="adminRole" name="adminRole" class="form-control" onChange="javascript:changeView(this.value)" onKeypress="hitEnterKey(event)" tabindex="7">
 		                                            <option value="-1">메뉴 권한</option>
 		                                            <option value="0">전체 관리자</option>
-		                                            <option value="1">OTB메뉴 관리자</option>
-		                                            <option value="2">일반 컨텐츠 관리자</option>
-		                                            <option value="3">이벤트 관리자</option>
-		                                            <option value="4">매장용 CMS 관리자</option>
+		                                            <option value="1">일반 관리자</option>
 		                                        </select>
 		                                    </div>
 	
-		                                     <div class="form-group" id="branchGubun" name = "branchGubun" style="display:none">
-		                                        <select name="branchCode" id="branchCode" class="form-control">
-													</select>
-											</div>
+		                                     
 	
 		                                </div>
 		                                <div class="form-actions text-right pal">

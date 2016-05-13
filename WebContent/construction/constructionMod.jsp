@@ -142,7 +142,7 @@ function checkForm() {
 		return;
 	}
 	 */
-	registForm.action="constructionMod_ok.jsp?ConstNum="+<%=ConstNum%>+"&pageno="+<%=pageno%>
+	registForm.action="constructionModOk.jsp?ConstNum="+<%=ConstNum%>+"&pageno="+<%=pageno%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -187,7 +187,7 @@ function hitEnterKey(e){
 						<div class="page-title">공고수정</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>

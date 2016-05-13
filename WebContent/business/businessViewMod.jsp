@@ -111,7 +111,7 @@ $(document).ready(function() {
 });
 
 function fnc_list(){
-	location.href = "/business/business_view.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	location.href = "/business/businessView.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -145,7 +145,7 @@ function checkForm() {
 		return;
 	}
 	 */
-	registForm.action="businessViewMod_ok.jsp?BusiNum="+<%=BusiNum%>+"&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+	registForm.action="businessViewModOk.jsp?BusiNum="+<%=BusiNum%>+"&pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -193,7 +193,7 @@ function hitEnterKey(e){
 						<div class="page-title">업체수정</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">업체</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>

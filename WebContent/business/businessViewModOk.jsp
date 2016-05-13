@@ -46,7 +46,7 @@
 %>
 		<script language=javascript>
 			alert("수정 되었습니다.");
-			location.href = "/business/business_view.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
+			location.href = "/business/businessView.jsp?pageno="+<%=pageno%>+"&ConstNum="+<%=ConstNum%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -61,7 +61,7 @@
 %>		
 		<script language=javascript>
 			alert("수정에 실패하였습니다.\n이미 해당 공사에 참여한 업체명 입니다."); 
-			location.href = "//business/business_view.jsp"; 
+			location.href = "//business/businessView.jsp"; 
 		</script>
 <%
 	}

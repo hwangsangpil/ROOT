@@ -75,21 +75,21 @@
 <%
 if (list.size() > 0) {
    for (int i=0; i<list.size(); i++) {
-      ConstructionDTO vo = list.get(i);
+      ConstructionDTO dto = list.get(i);
       %>
 
 <tr>
-<td style="text-align:center;"><%=vo.getConstNum()%></td>
-<td style="text-align:center;"><%=vo.getConstName()%></td>
-<td style="text-align:center;"><%=vo.getConstWay()%></td>
-<td style="text-align:center;"><%=vo.getConstArea()%></td>
-<td style="text-align:center;"><%=vo.getConstPrice()%></td>
-<td style="text-align:center;"><%=vo.getConstLower()%></td>
-<td style="text-align:center;"><%=vo.getConstOpening()%></td>
-<td style="text-align:center;"><%=vo.getConstInstitution()%></td>
-<td style="text-align:center;"><%=vo.getConstPercent()%></td>
-<td style="text-align:center;"><%=vo.getCrtDate()%></td>
-<td style="text-align:center;"><%=vo.getUdtDate()%></td>
+<td style="text-align:center;"><%=dto.getConstNum()%></td>
+<td style="text-align:center;"><%=dto.getConstName()%></td>
+<td style="text-align:center;"><%=dto.getConstWay()%></td>
+<td style="text-align:center;"><%=dto.getConstArea()%></td>
+<td style="text-align:center;"><%=dto.getConstPrice()%></td>
+<td style="text-align:center;"><%=dto.getConstLower()%></td>
+<td style="text-align:center;"><%=dto.getConstOpening()%></td>
+<td style="text-align:center;"><%=dto.getConstInstitution()%></td>
+<td style="text-align:center;"><%=dto.getConstPercent()%></td>
+<td style="text-align:center;"><%=dto.getCrtDate()%></td>
+<td style="text-align:center;"><%=dto.getUdtDate()%></td>
 </tr>
 <%
    }

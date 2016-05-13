@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="board.model.AdminVO"%>
-<%@ page import="board.model.AdminDao"%>
+<%@ page import="board.model.AdminDTO"%>
+<%@ page import="board.model.AdminDAO"%>
 <%@ page import="util.StringUtil"%>
 <%@ page import="util.HashUtil" %>
 <%@page import="java.net.URLEncoder"%>
@@ -15,7 +15,7 @@
 
 	int adminNum = Integer.parseInt(StringUtil.nchk(request.getParameter("adminNum"), "1"));
 				
-	AdminDao dao = new AdminDao();
+	AdminDAO dao = new AdminDAO();
 	
 	int result = 0;
 	

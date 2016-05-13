@@ -2,22 +2,23 @@ package board.model;
 
 import java.io.BufferedInputStream;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-public class AdminVO {
+public class AdminDTO {
 	int seqNo;
 	String adminId, adminPw, adminName, adminEmail, adminPhone, crtDate, udtDate, adminBranch;
 	int adminRole;
-	StoreVO storeVo;
+	StoreDTO storeDto;
 	
 	
 
-	public AdminVO(){
-		storeVo = new StoreVO();
+	public AdminDTO(){
+		storeDto = new StoreDTO();
 	}
 	
 	public String getAdminBranch() {
@@ -28,12 +29,12 @@ public class AdminVO {
 		this.adminBranch = adminBranch;
 	}
 
-	public StoreVO getStoreVo() {
-		return storeVo;
+	public StoreDTO getStoreDto() {
+		return storeDto;
 	}
 
-	public void setStoreVo(StoreVO storeVo) {
-		this.storeVo = storeVo;
+	public void setStoreDto(StoreDTO storeDto) {
+		this.storeDto = storeDto;
 	}
 
 	public int getSeqNo() {

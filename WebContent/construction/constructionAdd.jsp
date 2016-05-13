@@ -130,7 +130,7 @@ function hitEnterKey(e){
 						<div class="page-title">공고등록</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-right">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="/first/first.jsp">Home</a>&nbsp;&nbsp;<i
+						<li><i class="fa fa-home"></i>&nbsp;<a href="/home/home.jsp">Home</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
 						<li class="active"><a href="#">공고</a>&nbsp;&nbsp;<i
 							class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -148,7 +148,7 @@ function hitEnterKey(e){
 								<div class="panel panel-green">
 	                                <div class="panel-heading">공고등록</div>
 	                                <div class="panel-body pan">
-	                                    <form action="/construction/constructionAdd_ok.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
+	                                    <form action="/construction/constructionAddOk.jsp" id="registForm" name="frm" method="post" enctype="multipart/form-data">
 	                                    	<div class="form-body pal">
 													<div class="form-group">
 														<div class="input-icon right">

@@ -29,7 +29,7 @@
 %>
 		<script language=javascript>
 			alert("삭제 되었습니다.");
-			location.href = "/business/business_view.jsp?ConstNum=" + <%=ConstNum%> + "&pageno="+<%=pageno%>
+			location.href = "/business/businessView.jsp?ConstNum=" + <%=ConstNum%> + "&pageno="+<%=pageno%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("2")){%>+"&check="+<%=checked[i]%><%}}}%>
 			<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("3")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -44,7 +44,7 @@
 %>
 		<script language=javascript>
 			alert("삭제 실패했습니다."); 
-			location.href = "/business/business_view.jsp"; 
+			location.href = "/business/businessView.jsp"; 
 		</script>
 <%
 	}
