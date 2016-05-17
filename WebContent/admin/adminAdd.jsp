@@ -13,6 +13,12 @@
 <head>
 <title>관리자 등록</title>
 <%@ include file="../include/inc_header.jsp"%>
+<%if("일반관리자".equals(role)){ %>
+<script type="text/javascript">
+		alert("<%=role%>는 권한이없습니다.");
+		history.back();
+<%}%>
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#adminId").focus();

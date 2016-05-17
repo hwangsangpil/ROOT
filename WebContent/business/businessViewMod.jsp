@@ -34,6 +34,12 @@ list = conDao.selectConstructionList();
 <head>
 <title>업체수정</title>
 <%@ include file="/include/inc_header.jsp"%>
+<%if("일반관리자".equals(role)){ %>
+<script type="text/javascript">
+		alert("<%=role%>는 권한이없습니다.");
+		history.back();
+<%}%>
+</script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="text/javascript">
