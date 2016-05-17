@@ -152,9 +152,9 @@ function down(){
 															if (list.size() > 0) {
 																for (int i=0; i<list.size(); i++) {
 																	AdminDTO dto = list.get(i);
-																	if(dto.getAdminId().equals("admin")){
+																	/* if(dto.getAdminId().equals("admin")){
 																		continue;
-																	}
+																	} */
 																	%>
 																<tr style="cursor: pointer;" onclick="javascript:fnc_view('<%=dto.getSeqNo()%>','<%=pageno%>')">
 																	<td style="text-align:center;"><%=dto.getSeqNo() %></td>
