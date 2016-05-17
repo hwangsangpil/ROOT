@@ -162,7 +162,7 @@ function down(){
 																	<td style="text-align:center;"><%=dto.getAdminId()%></td>
 																	<td style="text-align:center;"><%=dto.getAdminEmail()%></td>
 																	<td style="text-align:center;"><%=dto.getAdminPhone()%></td>
-																	<td style="text-align:center;"><%if(dto.getAdminRole()==0){%>전체관리자<%}%><%if(dto.getAdminRole()==1){%>일반관리자<%}%></td>
+																	<td style="text-align:center;"><%=dto.getAdminRole()%></td>
 																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
 																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
 																</tr>
@@ -183,8 +183,8 @@ function down(){
 													<jsp:param name="pageGroup" value="10"/>
 												</jsp:include>
 												<div class="text-right pal">
-												<button type="button" class="btn btn-primary" onclick="javascript:fnc_add(<%=pageno%>)" tabindex="8">관리자 추가</button>
-												<button type="button" class="btn btn-primary" onclick="javascript:down()" tabindex="9">엑셀 다운로드</button>
+												<button type="button" class="btn btn-primary" <%if("전체관리자".equals(role)){%>onclick="fnc_add(<%=pageno%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%> tabindex="8">관리자 추가</button>
+												<button type="button" class="btn btn-primary" onclick="down()" tabindex="9">엑셀 다운로드</button>
 												</div>
 											</div>
 										</div>

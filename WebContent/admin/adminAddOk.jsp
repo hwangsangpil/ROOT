@@ -16,7 +16,7 @@
 	String adminPhone = URLDecoder.decode(StringUtil.nchk(request.getParameter("adminPhone"), ""),"UTF-8");
 	String adminEmail = URLDecoder.decode(StringUtil.nchk(request.getParameter("adminEmail"), ""),"UTF-8");
 	//String branchCode = URLDecoder.decode(StringUtil.nchk(request.getParameter("branchCode"), "000"),"UTF-8");
-	int adminRole = Integer.parseInt(StringUtil.nchk(request.getParameter("adminRole"), "0"));
+	String adminRole = URLDecoder.decode(StringUtil.nchk(request.getParameter("adminRole"), "-1"),"UTF-8");
 
 	int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 	String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");

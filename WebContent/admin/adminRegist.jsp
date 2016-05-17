@@ -115,8 +115,8 @@
                         <div class="col-md-9">
 		                                        <select id="role" name="role" class="form-control" onChange="javascript:changeView(this.value)" tabindex="6" onKeypress="hitEnterKey(event)">
 		                                            <option value="-1">메뉴 권한</option>
-		                                            <option value="0">전체 관리자</option>
-		                                            <option value="1">일반 관리자</option>
+		                                            <option value="전체관리자">전체관리자</option>
+		                                            <option value="일반관리자">일반관리자</option>
 		                                        </select>
 		                                    </div>
 		                                 </div>

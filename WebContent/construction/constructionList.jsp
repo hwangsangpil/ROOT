@@ -59,12 +59,13 @@ $(document).ready(function() {
 		} */
 		document.frm.submit();
 	}
-	
-	function businessView(ConstNum){
-		location.href = "/business/businessView.jsp?ConstNum=" + ConstNum;
-	}
-	
 	function constructionDel(ConstNum){
+		if(<%="일반관리자".equals(role)%>){
+			alert('<%=role%>는 권한이없습니다.');
+			document.frm.submit();
+			return;
+		}
+		
 		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 			location.href = "constructionDelOk.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -82,6 +83,12 @@ $(document).ready(function() {
 	}
 	
 	function constructionMod(ConstNum){
+		if(<%="일반관리자".equals(role)%>){
+			alert('<%=role%>는 권한이없습니다.');
+			document.frm.submit();
+			return;
+		}
+		
 		if (confirm("정말 수정하시겠습니까??") == true){    //확인
 			location.href = "constructionMod.jsp?ConstNum=" + ConstNum + "&pageno="+<%=pageno%>
 	    	<%if(checked!=null){for(int i=0;i<checked.length;i++){if(checked[i].equals("1")){%>+"&check="+<%=checked[i]%><%}}}%>
@@ -97,6 +104,12 @@ $(document).ready(function() {
 			return;
 		}
 	}
+	
+	function businessView(ConstNum){
+		location.href = "/business/businessView.jsp?ConstNum=" + ConstNum;
+	}
+	
+	
 </script>
 </head>
 <body>
@@ -181,20 +194,20 @@ $(document).ready(function() {
 																for (int i=0; i<list.size(); i++) {
 																	ConstructionDTO dto = list.get(i);
 																	%>
-																<tr onclick="javascript:businessView(<%=dto.getConstNum() %>);" style="cursor: pointer;">
-																	<td style="text-align:center;"><%=dto.getConstNum() %></td>
-																	<td style="text-align:center;"><%=dto.getConstName()%></td>
-																	<td style="text-align:center;"><%=dto.getConstWay()%></td>
-																	<td style="text-align:center;"><%=dto.getConstArea()%></td>
-																	<td style="text-align:center;"><%=dto.getConstPrice()%></td>
-																	<td style="text-align:center;"><%=dto.getConstLower()%></td>
-																	<td style="text-align:center;"><%=dto.getConstOpening()%></td>
-																	<td style="text-align:center;"><%=dto.getConstInstitution()%></td>
-																	<td style="text-align:center;"><%=dto.getConstPercent()%></td>
-																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
-																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" tabindex="11" onclick="constructionMod(<%=dto.getConstNum()%>)">수정</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" tabindex="12" onclick="constructionDel(<%=dto.getConstNum()%>)">삭제</button></td>
+																<tr  style="cursor: pointer;">
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstNum() %></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstName()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstWay()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstArea()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstPrice()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstLower()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstOpening()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstInstitution()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getConstPercent()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getCrtDate()%></td>
+																	<td onclick="businessView(<%=dto.getConstNum() %>);" style="text-align:center;"><%=dto.getUdtDate()%></td>
+																	<td > <button type="button" class="btn btn-primary" tabindex="11" onclick="constructionMod(<%=dto.getConstNum()%>)">수정</button></td>
+																	<td <%if("전체관리자".equals(role)){%>onclick="constructionDel(<%=dto.getConstNum()%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')" <%}%>  onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" tabindex="12" >삭제</button></td>
 																</tr>
 																
 																<%

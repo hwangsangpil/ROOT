@@ -180,8 +180,8 @@ $(document).ready(function() {
 		                                    <div class="form-group">
 		                                        <select id="adminRole" name="adminRole" class="form-control" onChange="javascript:changeView(this.value)" onKeypress="hitEnterKey(event)" tabindex="7">
 		                                            <option value="-1">메뉴 권한</option>
-		                                            <option value="0">전체 관리자</option>
-		                                            <option value="1">일반 관리자</option>
+		                                            <option value="전체관리자">전체관리자</option>
+		                                            <option value="일반관리자">일반관리자</option>
 		                                        </select>
 		                                    </div>
 	

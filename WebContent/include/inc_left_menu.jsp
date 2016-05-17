@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="util.StringUtil"%>
+<%@ page import="util.CookieBox"%>	
 <%
 	String menuId = StringUtil.nchk(request.getParameter("menuId"),"aa");
-	//System.out.println("menuId : " +menuId);
+//System.out.println("menuId : " +menuId);
 %>
+
 <nav id="sidebar" role="navigation" data-step="2"
 	data-intro="Template has &lt;b&gt;many navigation styles&lt;/b&gt;"
 	data-position="right" class="navbar-default navbar-static-side">
@@ -35,7 +37,7 @@
 					class="fa fa-list-ul">
 				</i><span class="menu-title">관리자관리</span></a></li>
 			
-			<li id="menu_member"><a href="/totalInsert/totalInsert.jsp"><i
+			<li id="menu_member"  ><a href="/totalInsert/totalInsert.jsp" ><i
 					class="fa fa-list-ul">
 				</i><span class="menu-title">전체등록</span></a></li>
 				

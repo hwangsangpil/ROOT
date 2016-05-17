@@ -67,7 +67,7 @@ if (list.size() > 0) {
 <td style="text-align:center;"><%=dto.getAdminId()%></td>
 <td style="text-align:center;"><%=dto.getAdminEmail()%></td>
 <td style="text-align:center;"><%=dto.getAdminPhone()%></td>
-<td style="text-align:center;"><%if(dto.getAdminRole()==0){%>傈眉包府磊<%}%><%if(dto.getAdminRole()==1){%>老馆包府磊<%}%></td>
+<td style="text-align:center;"><%=dto.getAdminRole()%></td>
 <td style="text-align:center;"><%=dto.getCrtDate() %></td>
 <td style="text-align:center;"><%=dto.getUdtDate() %></td>
 </tr>

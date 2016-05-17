@@ -10,6 +10,9 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
+
+
+
 int pageno = Integer.parseInt(StringUtil.nchk(request.getParameter("pageno"), "1"));
 String[] checked=request.getParameterValues("check");
 String searchKeyword = URLDecoder.decode(StringUtil.nchk(request.getParameter("searchKeyword"),""),"UTF-8");
@@ -173,11 +176,11 @@ function down(){
 																	<td style="text-align:center;"><%=dto.getAdminId()%></td>
 																	<td style="text-align:center;"><%=dto.getAdminEmail()%></td>
 																	<td style="text-align:center;"><%=dto.getAdminPhone()%></td>
-																	<td style="text-align:center;"><%if(dto.getAdminRole()==0){%>전체관리자<%}%><%if(dto.getAdminRole()==1){%>일반관리자<%}%></td>
+																	<td style="text-align:center;"><%=dto.getAdminRole()%></td>
 																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
 																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="adminDel(<%=dto.getSeqNo()%>)" tabindex="8">삭제</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="adminRes(<%=dto.getSeqNo()%>)" tabindex="9">복구</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" <%if("전체관리자".equals(role)){%>onclick="adminDel(<%=dto.getSeqNo()%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%>  tabindex="8">삭제</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" <%if("전체관리자".equals(role)){%>onclick="adminRes(<%=dto.getSeqNo()%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%>  tabindex="9">복구</button></td>
 																</tr>
 																
 																<%

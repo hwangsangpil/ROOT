@@ -10,13 +10,13 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String memberId = StringUtil.nchk(request.getParameter("id"),"");
-	String memberPwd = StringUtil.nchk(request.getParameter("password"),"");
-	String memberName = StringUtil.nchk(request.getParameter("name"),"");
-	String memberPhone = StringUtil.nchk(request.getParameter("phone"),"");
-	String memberEmail = StringUtil.nchk(request.getParameter("email"),"");
+	String memberId = URLDecoder.decode(StringUtil.nchk(request.getParameter("id"), ""),"UTF-8");
+	String memberPwd = URLDecoder.decode(StringUtil.nchk(request.getParameter("password"), ""),"UTF-8");
+	String memberName = URLDecoder.decode(StringUtil.nchk(request.getParameter("name"), ""),"UTF-8");
+	String memberPhone = URLDecoder.decode(StringUtil.nchk(request.getParameter("phone"), ""),"UTF-8");
+	String memberEmail = URLDecoder.decode(StringUtil.nchk(request.getParameter("email"), ""),"UTF-8");
 	//String branchCode = URLDecoder.decode(StringUtil.nchk(request.getParameter("branchCode"), "000"),"UTF-8");
-	int memberRole = Integer.parseInt(StringUtil.nchk(request.getParameter("role"),"0"));
+	String memberRole = URLDecoder.decode(StringUtil.nchk(request.getParameter("role"), "-1"),"UTF-8");
 	/* 
 	System.out.println("memberId = "+ memberId);
 	System.out.println("memberPwd = "+ memberPwd);

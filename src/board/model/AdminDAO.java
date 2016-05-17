@@ -177,7 +177,7 @@ public class AdminDAO {
 				dto.setAdminName(rs.getString("ADMIN_NAME"));
 				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
 				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 				dto.setCrtDate(rs.getString("CRT_DATE"));
 				dto.setUdtDate(rs.getString("UDT_DATE"));
 
@@ -293,7 +293,7 @@ public class AdminDAO {
 				dto.setAdminName(rs.getString("ADMIN_NAME"));
 				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
 				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 				dto.setCrtDate(rs.getString("CRT_DATE"));
 				dto.setUdtDate(rs.getString("UDT_DATE"));
 
@@ -467,7 +467,7 @@ public class AdminDAO {
 				dto.setAdminName(rs.getString("ADMIN_NAME"));
 				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
 				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 				dto.setCrtDate(rs.getString("CRT_DATE"));
 				dto.setUdtDate(rs.getString("UDT_DATE"));
 			}
@@ -482,7 +482,7 @@ public class AdminDAO {
 
 	public int insertAdmin(String adminId, String adminPw,
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole) throws SQLException {
+			String adminRole) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 
@@ -498,7 +498,7 @@ public class AdminDAO {
 			pstmt.setString(3, adminName);
 			pstmt.setString(4, adminPhone);
 			pstmt.setString(5, adminEmail);
-			pstmt.setInt(6, adminRole);
+			pstmt.setString(6, adminRole);
 			pstmt.setString(7, adminId);
 
 			result = pstmt.executeUpdate();
@@ -514,7 +514,7 @@ public class AdminDAO {
 
 	public int updateAdmin(String adminId, String adminPw,
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole, int no) throws SQLException {
+			String adminRole, int no) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 		sql.append("UPDATE TB_ADMIN														\n");
@@ -528,7 +528,7 @@ public class AdminDAO {
 			pstmt.setString(3, adminName);
 			pstmt.setString(4, adminPhone);
 			pstmt.setString(5, adminEmail);
-			pstmt.setInt(6, adminRole);
+			pstmt.setString(6, adminRole);
 			pstmt.setInt(7, no);
 
 			result = pstmt.executeUpdate();
@@ -543,7 +543,7 @@ public class AdminDAO {
 
 	public int updateAdmin(String adminId, 
 			String adminName, String adminPhone, String adminEmail,
-			int adminRole, int no) throws SQLException {
+			String adminRole, int no) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 		sql.append("UPDATE TB_ADMIN														\n");
@@ -556,7 +556,7 @@ public class AdminDAO {
 			pstmt.setString(2, adminName);
 			pstmt.setString(3, adminPhone);
 			pstmt.setString(4, adminEmail);
-			pstmt.setInt(5, adminRole);
+			pstmt.setString(5, adminRole);
 			pstmt.setInt(6, no);
 
 			result = pstmt.executeUpdate();
@@ -648,7 +648,7 @@ public class AdminDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				dto.setSeqNo(rs.getInt("SEQ_NO"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 			}
 		
 		} catch (Exception e) {
@@ -679,7 +679,7 @@ public class AdminDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				dto.setSeqNo(rs.getInt("SEQ_NO"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 				dto.setAdminBranch(rs.getString("ADMIN_BRANCH"));
 			}
 		
@@ -792,7 +792,7 @@ public class AdminDAO {
 				dto.setAdminId(rs.getString("ADMIN_ID"));
 				dto.setAdminEmail(rs.getString("ADMIN_EMAIL"));
 				dto.setAdminPhone(rs.getString("ADMIN_PHONE"));
-				dto.setAdminRole(rs.getInt("ADMIN_ROLE"));
+				dto.setAdminRole(rs.getString("ADMIN_ROLE"));
 				dto.setCrtDate(rs.getString("CRT_DATE"));
 				dto.setUdtDate(rs.getString("UDT_DATE"));
 

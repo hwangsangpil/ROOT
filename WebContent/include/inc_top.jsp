@@ -6,6 +6,9 @@
 CookieBox cookieBox = new CookieBox(request);
 boolean login = cookieBox.exists("LOGIN")&& cookieBox.getValue("LOGIN").equals("SUCCESS");
 
+
+
+
 if(!login){
 %>
 <script language="javascript">

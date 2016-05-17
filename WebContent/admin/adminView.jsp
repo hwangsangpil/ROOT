@@ -216,21 +216,21 @@ $(document).ready(function() {
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <select id="adminRole" name="adminRole" class="form-control" onChange="javascript:changeView(this.value)">
-		                                            <option value="-1" <%if(dto.getAdminRole() == -1){%>selected<%}%>>메뉴 권한</option>
-		                                            <option value="0" <%if(dto.getAdminRole() == 0){%>selected<%}%>>전체 관리자</option>
-		                                            <option value="1" <%if(dto.getAdminRole() == 1){%>selected<%}%>>일반 관리자</option>
+		                                            <option value="-1" <%if("-1".equals(dto.getAdminRole())){%>selected<%}%>>메뉴 권한</option>
+		                                            <option value="전체관리자" <%if("전체관리자".equals(dto.getAdminRole())){%>selected<%}%>>전체 관리자</option>
+		                                            <option value="일반관리자" <%if("일반관리자".equals(dto.getAdminRole())){%>selected<%}%>>일반 관리자</option>
 		                                        </select>
 		                                    </div>
 		                                   
 		                                </div>
 		                                <div class="form-actions text-right pal">
-		                                    <button type="button" onclick="checkForm();" class="btn btn-primary">수정</button>&nbsp;
-		                                    <button type="button" onclick="fnc_delete();" class="btn btn-primary">삭제</button>&nbsp;
+		                                    <button type="button" <%if("전체관리자".equals(role)){%>onclick="checkForm();"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%> class="btn btn-primary">수정</button>&nbsp;
+		                                    <button type="button" <%if("전체관리자".equals(role)){%>onclick="fnc_delete();"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%> class="btn btn-primary">삭제</button>&nbsp;
 		                                    <button type="button" onclick="fnc_list();" class="btn btn-primary">목록</button>
 		                                </div>
 		                                 <div>
-                                                        <h5>&nbsp;&nbsp;&nbsp;전체 관리자 : 모든 메뉴 관리자 및 관>리자 관리</h5>
-                                                        <h5>&nbsp;&nbsp;&nbsp;일반 관리자 : 공지사항/FAQ, 매장안내, 고객의 소리, 리포트 관리</h5>
+                                                        <h5>&nbsp;&nbsp;&nbsp;전체 관리자 : 모든 메뉴 및 관리자 관리</h5>
+                                                        <h5>&nbsp;&nbsp;&nbsp;일반 관리자 : 데이터 수정, 삭제, 복구 권한 미부여</h5>
                                                 </div>
 		                                
 		                                </form>

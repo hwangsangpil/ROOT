@@ -11,8 +11,7 @@ import javax.sound.sampled.AudioSystem;
 
 public class AdminDTO {
 	int seqNo;
-	String adminId, adminPw, adminName, adminEmail, adminPhone, crtDate, udtDate, adminBranch;
-	int adminRole;
+	String adminId, adminPw, adminName, adminEmail, adminPhone, crtDate, udtDate, adminBranch, adminRole;
 	StoreDTO storeDto;
 	
 	
@@ -73,10 +72,10 @@ public class AdminDTO {
 	public void setAdminPhone(String adminPhone) {
 		this.adminPhone = adminPhone;
 	}
-	public int getAdminRole() {
+	public String getAdminRole() {
 		return adminRole;
 	}
-	public void setAdminRole(int adminRole) {
+	public void setAdminRole(String adminRole) {
 		this.adminRole = adminRole;
 	}
 	public String getCrtDate() {

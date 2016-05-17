@@ -29,7 +29,7 @@
 		response.addCookie(CookieBox.createCookie("LOGIN", "SUCCESS", "/", -1));
 		response.addCookie(CookieBox.createCookie("ID", id, "/", -1));
 		response.addCookie(CookieBox.createCookie("MEM_SEQ", memseq, "/", -1));
-		response.addCookie(CookieBox.createCookie("ROLE", Integer.toString(dto.getAdminRole()), "/", -1));
+		response.addCookie(CookieBox.createCookie("ROLE", dto.getAdminRole(), "/", -1));
 		
 		response.sendRedirect("/home/home.jsp");
 	}

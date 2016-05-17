@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
-
+<%@ page import="util.CookieBox"%> 
+<%
+CookieBox cookieBox_header = new CookieBox(request);
+String role = cookieBox_header.getValue("ROLE");
+%>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

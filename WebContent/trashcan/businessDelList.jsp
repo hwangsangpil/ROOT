@@ -182,8 +182,8 @@ $(document).ready(function() {
 																	<td style="text-align:center;"><%=dto.getBusiArea()%></td>
 																	<td style="text-align:center;"><%=dto.getCrtDate()%></td>
 																	<td style="text-align:center;"><%=dto.getUdtDate()%></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessDel(<%=dto.getBusiNum()%>)" tabindex="10">삭제</button></td>
-																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" onclick="businessRes(<%=dto.getBusiNum()%>)" tabindex="11">복구</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" <%if("전체관리자".equals(role)){%>onclick="businessDel(<%=dto.getBusiNum()%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%> tabindex="10">삭제</button></td>
+																	<td onclick="event.cancelBubble = true;"><button type="button" class="btn btn-primary" <%if("전체관리자".equals(role)){%>onclick="businessRes(<%=dto.getBusiNum()%>)"<%}else{%>onclick="alert('<%=role%>는 권한이없습니다')"<%}%> tabindex="11">복구</button></td>
 																</tr>
 																
 																<%
